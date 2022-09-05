@@ -5,7 +5,7 @@
    id="svg3032"
    version="1.1"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="EM_Reference_CHART_A_EM1.3.svg"
+   sodipodi:docname="EM_Reference_CHART_A.svg"
    viewBox="0 0 793.70081 1122.5197"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -258,17 +258,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.9960468"
-     inkscape:cx="396.78428"
-     inkscape:cy="234.96443"
+     inkscape:zoom="3.9920936"
+     inkscape:cx="138.7743"
+     inkscape:cy="278.55058"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1513"
-     inkscape:window-height="1208"
-     inkscape:window-x="4690"
-     inkscape:window-y="114"
-     inkscape:window-maximized="0"
+     inkscape:window-width="3840"
+     inkscape:window-height="2066"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:document-rotation="0"
@@ -1228,156 +1228,6 @@
          style="stroke-width:0.240703"
          x="112.05329"
          y="345.57611">USD 09</tspan></text>
-    <g
-       id="g38"
-       transform="matrix(0.64812695,0,0,0.64812695,88.458689,214.81867)">
-      <defs
-         id="defs1">
-        <clipPath
-           clipPathUnits="userSpaceOnUse"
-           id="clipPath1134">
-          <path
-             d="M 0,0 H 121 V 60 H 0 Z"
-             id="path1132" />
-        </clipPath>
-        <clipPath
-           clipPathUnits="userSpaceOnUse"
-           id="clipPath1138">
-          <path
-             d="M 0,0 V 18 H 121 V 0 Z"
-             id="path1136" />
-        </clipPath>
-        <script
-           type="text/ecmascript"
-           id="script1140"><![CDATA[      var SVGDocument = null;
-      var SVGRoot = null;
-      var TrueCoords = null;
-      var lastElement = null;
-      var initialized = null;
-      var tipGroup;
-      function Init(evt)
-      {
-         SVGDocument = evt.target.ownerDocument;
-         SVGRoot = SVGDocument.documentElement;
-         TrueCoords = SVGRoot.createSVGPoint();
-         initialized = evt;
-      };
-      function GetTrueCoords(evt)
-      {
-         var newScale = SVGRoot.currentScale;
-         var translation = SVGRoot.currentTranslate;
-         TrueCoords.x = (evt.clientX - translation.x)/newScale;
-         TrueCoords.y = (evt.clientY - translation.y)/newScale;
-      };
-      function HideTooltip( evt )
-      {
-         if(initialized == null) {
-           Init(evt);
-         }
-         if(tipGroup != null) {
-           tipGroup.setAttributeNS(null, 'visibility', 'hidden');
-         }
-      };
-      function ShowTooltip( evt )
-      {
-         if(initialized == null) {
-           Init(evt);
-         }
-         GetTrueCoords( evt );
-         var tipScale = 1/SVGRoot.currentScale;
-         var targetElement = evt.currentTarget;
-         if ( lastElement != targetElement )
-         {
-            var targetId = targetElement.getAttributeNS(null, 'id');
-            var tipId = 'tooltip.' + targetId;
-            tipGroup = SVGDocument.getElementById(tipId);
-            var xPos = TrueCoords.x + (10 * tipScale);
-            var yPos = TrueCoords.y + (10 * tipScale);
-            tipGroup.setAttributeNS(null, 'transform', 'translate(' + xPos + ',' + yPos + ') scale(' + tipScale + ')');
-            tipGroup.setAttributeNS(null, 'visibility', 'visible');
-         }
-      };
-]]></script>
-      </defs>
-      <g
-         onmouseout="HideTooltip(evt)"
-         id="y.node.0"
-         onmousemove="ShowTooltip(evt)">
-        <g
-           fill="#ffffff"
-           text-rendering="geometricPrecision"
-           shape-rendering="geometricPrecision"
-           transform="translate(-836,-551)"
-           stroke="#ffffff"
-           id="g14">
-          <rect
-             x="851.89612"
-             y="566"
-             width="90.103897"
-             rx="4"
-             ry="4"
-             height="30"
-             stroke="none"
-             id="rect12" />
-        </g>
-        <g
-           id="g20">
-          <g
-             text-rendering="geometricPrecision"
-             stroke-miterlimit="1.45"
-             shape-rendering="geometricPrecision"
-             font-family="sans-serif"
-             transform="translate(-836,-551)"
-             stroke-linecap="butt"
-             id="g18">
-            <text
-               x="877.94318"
-               xml:space="preserve"
-               y="585.71393"
-               stroke="none"
-               id="text16">UTR10</text>
-          </g>
-        </g>
-        <g
-           stroke-linecap="butt"
-           transform="translate(-836,-551)"
-           fill="#9b3333"
-           text-rendering="geometricPrecision"
-           shape-rendering="geometricPrecision"
-           stroke-dasharray="24, 8"
-           stroke="#9b3333"
-           stroke-width="4"
-           stroke-miterlimit="1.45"
-           id="g24">
-          <rect
-             x="854.97595"
-             y="562.92017"
-             fill="none"
-             width="85.755844"
-             rx="4"
-             ry="4"
-             height="37.427872"
-             id="rect22" />
-        </g>
-      </g>
-      <g
-         visibility="hidden"
-         id="tooltip.y.node.0"
-         pointer-events="none">
-        <g
-           fill="#ffffe1"
-           text-rendering="geometricPrecision"
-           shape-rendering="geometricPrecision"
-           font-family="'Segoe UI'"
-           stroke="#ffffe1"
-           id="g31" />
-        <g
-           font-family="'Segoe UI'"
-           text-rendering="geometricPrecision"
-           shape-rendering="geometricPrecision"
-           id="g35" />
-      </g>
-    </g>
     <flowRoot
        xml:space="preserve"
        id="flowRoot2937"
@@ -1397,6 +1247,71 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Bold';text-align:justify;writing-mode:lr-tb;text-anchor:start">dotted white rectangle = UTR <flowSpan
    id="flowSpan2931"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Normal';text-align:justify;writing-mode:lr-tb;text-anchor:start">Transformation Unit. Long time process of alteration or degradation of a surface of a phyical object.</flowSpan></flowSpan></flowPara></flowRoot>
+    <g
+       onmouseout="HideTooltip(evt)"
+       id="y.node.0-0"
+       onmousemove="ShowTooltip(evt)"
+       inkscape:export-filename="E:\APPLICAZIONI\ExtendedMatrix\00_EMicons\UTR.png"
+       inkscape:export-xdpi="129.88235"
+       inkscape:export-ydpi="129.88235"
+       transform="matrix(0.78554528,0,0,0.78554528,79.930024,209.27667)">
+      <g
+         fill="#ffffff"
+         text-rendering="geometricPrecision"
+         shape-rendering="geometricPrecision"
+         transform="translate(-775,-630)"
+         stroke="#ffffff"
+         id="g21">
+        <rect
+           x="802.13568"
+           y="646.06458"
+           width="68.878418"
+           rx="4"
+           ry="4"
+           height="31.793701"
+           stroke="none"
+           id="rect19" />
+      </g>
+      <g
+         id="g27">
+        <g
+           text-rendering="geometricPrecision"
+           stroke-miterlimit="1.45"
+           shape-rendering="geometricPrecision"
+           font-family="sans-serif"
+           transform="translate(-775,-630)"
+           stroke-linecap="butt"
+           id="g25">
+          <text
+             x="823.49652"
+             xml:space="preserve"
+             y="665.47949"
+             stroke="none"
+             id="text23">UTR</text>
+        </g>
+      </g>
+      <g
+         stroke-linecap="butt"
+         transform="translate(-775,-630)"
+         fill="#9b3333"
+         text-rendering="geometricPrecision"
+         shape-rendering="geometricPrecision"
+         stroke-dasharray="24, 8"
+         stroke="#9b3333"
+         stroke-width="4"
+         stroke-miterlimit="1.45"
+         id="g31-5">
+        <rect
+           x="802.13568"
+           y="646.06458"
+           fill="none"
+           width="68.878403"
+           rx="4"
+           ry="4"
+           height="31.793703"
+           id="rect29" />
+      </g>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
