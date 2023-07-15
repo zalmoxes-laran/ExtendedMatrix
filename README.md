@@ -9,9 +9,10 @@
 
 [Extended Matrix](https://www.extendedmatrix.org) - 
 
+The Extended Matrix (EM) is a scientific method and formal language for the Cultural Heritage domain. It is based on knowledge graph networks and grounded on FAIR and Open Science principles. EM formalises complex interpretative philological phenomena such as virtual reconstructive hypotheses in a transparent and robust manner; EM enables verifiability of results, reusability of data and collaborative interpretation.
 
 # Citation
-You can cite Extended Matrix using with the following BibTeX entry:
+You can cite Extended Matrix using the following BibTeX entry:
 
 ```
 @misc{demetrescu_extendedmatrix_nodate,
