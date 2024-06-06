@@ -13,12 +13,12 @@
         "serSU": {
             "symbol": "white ellipse",
             "label": "US series",
-            "description": "A series of US objects like a group of pilae from a thermal bath can be considered as a whole. This B3 seriation node acts like a proxy for the entire group."
+            "description": "A series of US objects like a group of pilae from a thermal bath can be considered as a whole. This seriation node acts like a proxy for the entire group."
         },
         "serUSV": {
             "symbol": "black ellipse",
             "label": "USV series",
-            "description": "A series of USVn objects like a colonnade or a sequence of acroterion can be considered as a B3 whole. This seriation node acts like a proxy for the entire group."
+            "description": "A series of USVn objects like a colonnade or a sequence of acroterion can be considered as a whole. This seriation node acts like a proxy for the entire group."
         },
         "USVn": {
             "symbol": "black hexagon",
@@ -38,7 +38,7 @@
         "USD": {
             "symbol": "white round rectangle",
             "label": "USD Documentary Stratigraphic Unit",
-            "description": "It is no more visible/accessible or does not exist."
+            "description": "It is no more visible/accessible or does not exist anymore but surely existed by means of a documentary wisdom."
         },
         "TSU": {
             "symbol": "dotted white rectangle",
