@@ -4,9 +4,12 @@
    height="1197.3542"
    id="svg3032"
    version="1.1"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    sodipodi:docname="EM_Reference_CHART_A.svg"
    viewBox="0 0 793.70081 1122.5197"
+   inkscape:export-filename="EM_Reference_CHART_A.jpg"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -258,21 +261,23 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.9920936"
-     inkscape:cx="138.7743"
-     inkscape:cy="278.55058"
+     inkscape:zoom="2.2766005"
+     inkscape:cx="274.53214"
+     inkscape:cy="794.82544"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="3840"
-     inkscape:window-height="2066"
-     inkscape:window-x="2869"
-     inkscape:window-y="-11"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1761"
+     inkscape:window-height="2031"
+     inkscape:window-x="2051"
+     inkscape:window-y="16"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:document-rotation="0"
-     inkscape:pagecheckerboard="0" />
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <metadata
      id="metadata3037">
     <rdf:RDF>
@@ -677,7 +682,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Normal';text-align:justify;writing-mode:lr-tb;text-anchor:start"
          id="flowPara5298"><flowSpan
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Bold';text-align:justify;writing-mode:lr-tb;text-anchor:start"
-   id="flowSpan5302">black hexagon = USV/n</flowSpan> or non-structural Virtual Stratigraphic Unit (reconstruction hypothesis made starting from &quot;sources&quot; like comparisons, general rules etc..). It is not connected to a -SU and, as a result, it is not physically &quot;proved&quot;.</flowPara></flowRoot>
+   id="flowSpan5302">black hexagon = USV/n</flowSpan> or non-structural Virtual Stratigraphic Unit A reconstruction hypothesis made starting from &quot;sources&quot; like comparisons, general rules etc... It is not connected to a -SU and, as a result, it is not physically &quot;proved&quot;.</flowPara></flowRoot>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -1093,7 +1098,7 @@
          id="tspan4385"
          x="618.54333"
          y="39.511311"
-         style="font-size:21.4533px;line-height:1.25;font-family:sans-serif">EM 1.3</tspan></text>
+         style="font-size:21.4533px;line-height:1.25;font-family:sans-serif">EM 1.4</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot2521"
@@ -1244,9 +1249,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Normal';text-align:justify;writing-mode:lr-tb;text-anchor:start"
          id="flowPara2935"><flowSpan
            id="flowSpan2933"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Bold';text-align:justify;writing-mode:lr-tb;text-anchor:start">dotted white rectangle = UTR <flowSpan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Bold';text-align:justify;writing-mode:lr-tb;text-anchor:start">dotted white rectangle = TSU <flowSpan
    id="flowSpan2931"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Normal';text-align:justify;writing-mode:lr-tb;text-anchor:start">Transformation Unit. Long time process of alteration or degradation of a surface of a phyical object.</flowSpan></flowSpan></flowPara></flowRoot>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'Sans, Normal';text-align:justify;writing-mode:lr-tb;text-anchor:start">Transformation Stratigraphic Unit. Long time process of alteration or degradation of a surface of a phyical object.</flowSpan></flowSpan></flowPara></flowRoot>
     <g
        onmouseout="HideTooltip(evt)"
        id="y.node.0-0"
@@ -1287,7 +1292,7 @@
              xml:space="preserve"
              y="665.47949"
              stroke="none"
-             id="text23">UTR</text>
+             id="text23">TSU</text>
         </g>
       </g>
       <g
