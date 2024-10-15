@@ -1,0 +1,136 @@
+{
+    "context": {
+        "node_body_types": {
+            "sphere": {
+                "type": "scene_node",
+                "default": true,
+                "data": {
+                    "url": "proxy_name_from_node_name"
+                }                
+            },
+            "symbol": {
+                "type": "svg",
+                "default": false,
+                "data": {
+                    "url": "node_name.svg"
+                }
+            },
+            "media": {
+                "type": "scene_node",
+                "default": false,
+                "data": {
+                    "url": "proxy_name_from_node_name"
+                }
+
+            }
+        },
+        "edge_body_types": {
+            "plain_line": {
+                "type": "plain",
+                "default": true      
+            },
+            "dotted_line": {
+                "type": "dotted",
+                "default": false
+            }
+        },
+        "color_schemas": {
+            "color_schema_em": {
+                "type": "em",
+                "data": {
+                    "US": {
+                        "R": 0.328,
+                        "G": 0.033,
+                        "B": 0.033
+                    },
+                    "USVn": {
+                        "R": 0.031,
+                        "G": 0.191,
+                        "B": 0.026
+                    },
+                    "USVs": {
+                        "R": 0.018,
+                        "G": 0.275,
+                        "B": 0.799
+                    },
+                    "VSF": {
+                        "R": 0.439,
+                        "G": 0.346,
+                        "B": 0.119
+                    },
+                    "SF": {
+                        "R": 0.686,
+                        "G": 0.508,
+                        "B": 0.029
+                    },
+                    "USD": {
+                        "R": 0.549,
+                        "G": 0.103,
+                        "B": 0.000
+                    }
+                }
+            }
+
+        } 
+    },
+    "filters": {
+        "filter1": {
+            "use": {
+                "edge_type": "dotted",
+                "node_type": "all"
+            },
+            "skip": {
+                "edge_type": "line",
+                "node_type": ""                
+            },
+            "depth":{
+                "max": 10,
+                "stop_at":{
+                    "node_type": "document",
+                    "edge_type": ""
+                }
+            }
+
+        }
+    },
+    "styles": {
+        "style1": {
+            "type": "Basic EM",
+            "data": {
+                "node_style": {
+                    "node_type": "USVs",
+                    "data": {
+                        "node_body_type": "symbol",
+                        "color_schema" : "EM",
+                        "label": "node_name",
+                        "scale": {
+                            "max_bounding_box_diagonal": 2.0,
+                            "multiplier": 1.0 
+                        }
+                    }
+                },
+                "edge_style": {
+                    "edge_type": "line",
+                    "data": {
+                        "edge_body_type": "symbol",
+                        "scale": {
+                            "max_lenght": 2.0,
+                            "multiplier": 1.0 
+                        }
+                    }
+                }
+
+            }
+
+        } 
+    },
+    "layouts": {
+        "layout1": {
+            "type": "radial",
+            "data": {
+                "style": "style1",
+                "style_comment": "lo stile si riferisce alla sezione styles, non so se è corretto che si riferisca al nodo padre style1 oppure al type Basic EM"
+            }
+        }
+    }
+}

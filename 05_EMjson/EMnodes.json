@@ -1,0 +1,99 @@
+{
+    "stratigraphicNodes": {
+        "US": {
+            "simbol": "white rectangle",
+            "label": "US (or US)",
+            "description": "stands for Stratigraphic Unit (or Context). A specialization is the -SU or negative stratigraphic unit that describes a gap on a SU."
+        },
+        "USVs": {
+            "symbol": "black parallelogram",
+            "label": "USV/s or structural Virtual Stratigraphic Unit",
+            "description": "A reconstruction hypothesis made starting from an in situ fragmented SU. It acts as a restoration of a -SU so that its presence is physically 'proved'."
+        },
+        "serSU": {
+            "symbol": "white ellipse",
+            "label": "US series",
+            "description": "A series of US objects like a group of pilae from a thermal bath can be considered as a whole. This seriation node acts like a proxy for the entire group."
+        },
+        "serUSV": {
+            "symbol": "black ellipse",
+            "label": "USV series",
+            "description": "A series of USVn objects like a colonnade or a sequence of acroterion can be considered as a whole. This seriation node acts like a proxy for the entire group."
+        },
+        "USVn": {
+            "symbol": "black hexagon",
+            "label": "USV/n or non-structural Virtual Stratigraphic Unit",
+            "description": "A reconstruction hypothesis made starting from 'sources' like comparisons, general rules etc.. It is not connected to a -SU and, as a result, it is not physically 'proved'."
+        },
+        "SF": {
+            "symbol": "white octagon",
+            "label": "Special Find",
+            "description": "Refers to a not in situ element (fragmented or intact) that needs to be repositioned. It is a real object so that you know several properties (color, material, etc.) except the original position."
+        },
+        "VSF": {
+            "symbol": "black octagon",
+            "label": "Virtual Special Find",
+            "description": "Represents an hypothetical reconstruction of a fragmented Special Find (not in situ element)."
+        },
+        "USD": {
+            "symbol": "white round rectangle",
+            "label": "USD Documentary Stratigraphic Unit",
+            "description": "It is no more visible/accessible or does not exist anymore but surely existed by means of a documentary wisdom."
+        },
+        "TSU": {
+            "symbol": "dotted white rectangle",
+            "label": "TSU Transformation Unit",
+            "description": "Long time TSU process of alteration or degradation of a surface of a physical object."
+        },
+        "BR": {
+            "symbol": "black rhombus",
+            "label": "continuity node",
+            "description": "Describes the end of life of a US/USV."
+        }
+    },    
+    "paradataNodes": {
+        "extractor": {
+            "symbol": "extractor icon",
+            "label": "extractor node",
+            "description": "Capable of extracting specific information from a source and passing it to a property."
+        },
+        "combiner": {
+            "symbol": "combiner icon",
+            "label": "combiner node",
+            "description": "Capable of combining information provided by two extraction nodes and passing the resulting value to a property."
+        },
+        "property": {
+            "symbol": "grey rounded square",
+            "label": "property",
+            "description": "A property node validates a material USV it is connected to. Examples of properties are 'material', 'dimension', 'placement', etc."
+        },
+        "document": {
+            "symbol": "document icon",
+            "label": "source",
+            "description": "A source node feeds a property of a USV it is connected to (through an extractor node). A source can be an image, a text, a reference, a 3D model, etc. More documents need a combiner node."
+        }
+    },
+    "edges": {
+        "line": {
+            "symbol": "single continue line",
+            "label": "stratigraphic relation",
+            "description": "This edge represents the stratigraphic succession between two (or one with more) elements. It expresses the relative chronology (before-after)."
+        },
+        "dashed": {
+            "symbol": "dashed line",
+            "label": "relation of data validation ",
+            "description": "This edge expresses the path of data validation from the documents to the properties and connects these with the corresponding stratigraphic unit"
+        },
+        "dotted": {
+            "symbol": "dotted line",
+            "label": "changing of level of certainty of existance or position of an US",
+            "description": "This edge expresses the change of position or certaintu of existance of a stratigraphic unit durint the time"
+        },
+        "double": {
+            "symbol": "double line",
+            "label": "equivalence",
+            "description": "This edge expresses the equivalence of two US even if they are separated from a stratigraphic point of view"
+        }
+
+    }
+}
