@@ -72,10 +72,51 @@ You can find [here](url) a complete list of publications where EM was employed i
 
 You are more than welcome to contribute to the project by spotting bugs/issues and providing code or solutions through pull requests to fix or improve EM functionalities (see TODO list below). Get in touch here on github, through the [telegram open-group](https://t.me/UserGroupEM) or through the other channels.
 
-## TODO list
+## Roadmap for the upcoming EM 1.5
 
-### EM
+### Completed Tasks
+
+- [X] **Added General Data as Tags in the Extended Matrix Canvas Header**
+  - Tags added next to the title in square brackets for:
+    - **ID**
+    - **ORCID**
+    - **License**
+    - **Embargo** (if needed)
+
+- [X] **Added Local Data in Swimlanes**
+  - Identified **Start** and **End** values next to the epoch name in swimlanes.
+
+- [X] **Added a Dashed Connector for Alternative Time Branches**
+  - Introduced a dashed connector to represent mutually exclusive time branches.
+
+- [X] **Added Group Nodes**
+  - **Time Branch Group Node**
+    - With a green background to represent alternative temporal sequences.
+  - **Activity Group Node**
+    - Groups related to specific activities.
+  - **Paradata Group Node**
+    - Connected to the stratigraphic node whose properties are being validated.
+
+- [X] **Improved Explanation of the Transformation Connector**
+  - Enhanced the documentation and representation of the transformation connector introduced in version 1.4.
+
+### Tasks To Do
+
+- [ ] **Document the Extended Matrix Canvas and Tags**
+  - Create an RST file explaining the canvas and the tags that can be added.
+  - Provide clear guidance and refer to further in-depth information on the system.
+  - **Include Theoretical and Formal Aspects**
+    - Consider adding details on theoretical foundations to enhance user understanding.
+
+- [ ] **Create Property Nodes in EM 1.5 Palette**
+  - Develop a series of property nodes in the EM 1.5 palette that describe various qualities such as height, width, material, etc., including qualitative attributes like meaning.
+  - *Note*: This task is closely linked to another task in s3Dgraphy project.
+
+### Future EM versions
 
 - [ ] Alternative hypothesis formalization
 - [ ] New metaphors of visualization for anastylosis and virtual restoration
 - [ ] Formalization of color maps to visualize statistical data about the reconstruction (volumes, typo of sources, property density)
+- [ ] New label system
+- [ ] New section for visual tools
+- [ ] Simplified proxy generation
