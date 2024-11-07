@@ -114,7 +114,6 @@ You are more than welcome to contribute to the project by spotting bugs/issues a
 
 ### Future EM versions
 
-- [ ] Alternative hypothesis formalization
 - [ ] New metaphors of visualization for anastylosis and virtual restoration
 - [ ] Formalization of color maps to visualize statistical data about the reconstruction (volumes, typo of sources, property density)
 - [ ] New label system
