@@ -100,22 +100,23 @@ You are more than welcome to contribute to the project by spotting bugs/issues a
 - [X] **Improved Explanation of the Transformation Connector**
   - Enhanced the documentation and representation of the transformation connector introduced in version 1.4.
 
-### Tasks To Do
-
-- [ ] **Document the Extended Matrix Canvas and Tags**
+- [X] **Document the Extended Matrix Canvas and Tags**
   - Create an RST file explaining the canvas and the tags that can be added.
   - Provide clear guidance and refer to further in-depth information on the system.
   - **Include Theoretical and Formal Aspects**
     - Consider adding details on theoretical foundations to enhance user understanding.
 
+### Tasks To Do
+
 - [ ] **Create Property Nodes in EM 1.5 Palette**
   - Develop a series of property nodes in the EM 1.5 palette that describe various qualities such as height, width, material, etc., including qualitative attributes like meaning.
   - *Note*: This task is closely linked to another task in s3Dgraphy project.
 
+- [ ] **Record a new Quickstart for the EM 1.5**
+
 ### Future EM versions
 
 - [ ] New metaphors of visualization for anastylosis and virtual restoration
-- [ ] Formalization of color maps to visualize statistical data about the reconstruction (volumes, typo of sources, property density)
-- [ ] New label system
-- [ ] New section for visual tools
-- [ ] Simplified proxy generation
+- [ ] Including Pattern sources in the EM
+- [ ] Include Landscape graph (urban and rural)
+- [ ] Include Mobile Object graph (mobile stratigraphies)
