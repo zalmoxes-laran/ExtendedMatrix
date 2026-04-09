@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extended Matrix — Development Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   EXTENDED MATRIX — DEVELOPMENT PROJECTS
+   Brand: #073763 (blue), #BD8E00 (gold)
+   Embargo: append ?embargo=on to URL to see embargoed DPs
+   ========================================================== */
+:root {
+  --em-blue: #073763;
+  --em-blue-light: #0a4a80;
+  --em-blue-pale: #e8f0f8;
+  --em-gold: #BD8E00;
+  --em-gold-light: #D4A832;
+  --em-gold-pale: #fdf6e3;
+  --em-white: #ffffff;
+  --em-offwhite: #f8f9fb;
+  --em-text: #2c3340;
+  --em-text-light: #5a6270;
+  --em-border: #dde2e8;
+  --font-sans: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --max-w: 1100px;
+  --radius: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); background: var(--em-offwhite); color: var(--em-text); line-height: 1.65; font-size: 15px; }
+a { color: var(--em-blue); text-decoration: none; }
+a:hover { color: var(--em-gold); }
+
+/* ---------- HEADER ---------- */
+.hdr { background: var(--em-blue); color: var(--em-white); border-bottom: 3px solid var(--em-gold); }
+.hdr-inner { max-width: var(--max-w); margin: 0 auto; padding: 1.8rem 2rem 1.5rem; }
+.hdr-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.6rem; }
+.hdr-top img { height: 48px; width: auto; border-radius: 4px; }
+.hdr-top h1 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; }
+.hdr-top h1 span { font-weight: 400; opacity: 0.8; }
+.hdr p { font-size: 0.88rem; opacity: 0.8; max-width: 680px; }
+.hdr-meta { margin-top: 0.7rem; display: flex; gap: 1.5rem; font-size: 0.76rem; opacity: 0.5; }
+.embargo-badge { display: inline-block; background: var(--em-gold); color: var(--em-blue); font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem; }
+
+/* ---------- METHODOLOGY (clean, centered) ---------- */
+.method { background: var(--em-white); border-bottom: 1px solid var(--em-border); }
+.method-inner { max-width: var(--max-w); margin: 0 auto; padding: 1.2rem 2rem; }
+.method-toggle { cursor: pointer; font-weight: 600; font-size: 0.85rem; color: var(--em-blue); display: flex; align-items: center; gap: 0.5rem; border: none; background: none; padding: 0; font-family: var(--font-sans); }
+.method-toggle .arrow { transition: transform 0.2s; font-size: 0.7rem; }
+.method-toggle.open .arrow { transform: rotate(90deg); }
+.method-body { display: none; padding: 0.8rem 0 0.4rem; font-size: 0.85rem; color: var(--em-text-light); max-width: 760px; line-height: 1.75; }
+.method-body.open { display: block; }
+.method-body h4 { color: var(--em-blue); font-size: 0.8rem; margin: 0.8rem 0 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.method-body p { margin-bottom: 0.3rem; }
+
+/* ---------- NAV TABS ---------- */
+.tabs { background: var(--em-white); border-bottom: 1px solid var(--em-border); position: sticky; top: 0; z-index: 100; }
+.tabs-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; display: flex; gap: 0; }
+.tab { padding: 0.7rem 1.2rem; font-size: 0.82rem; font-weight: 600; color: var(--em-text-light); border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-sans); }
+.tab:hover { color: var(--em-blue); }
+.tab.active { color: var(--em-blue); border-bottom-color: var(--em-gold); }
+
+/* ---------- SECTION CONTAINER ---------- */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ---------- TOOLBAR ---------- */
+.toolbar { max-width: var(--max-w); margin: 0 auto; padding: 0.8rem 2rem 0.3rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.toolbar label { font-size: 0.72rem; font-weight: 600; color: var(--em-text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.2rem; }
+.fbtn { padding: 0.22rem 0.6rem; border: 1px solid var(--em-border); border-radius: 3px; background: var(--em-white); font-family: var(--font-sans); font-size: 0.74rem; cursor: pointer; color: var(--em-text-light); transition: all 0.12s; }
+.fbtn:hover { border-color: var(--em-blue); color: var(--em-blue); }
+.fbtn.active { background: var(--em-blue); color: var(--em-white); border-color: var(--em-blue); }
+.search-box { margin-left: auto; padding: 0.28rem 0.6rem; border: 1px solid var(--em-border); border-radius: 3px; font-family: var(--font-sans); font-size: 0.78rem; width: 190px; outline: none; }
+.search-box:focus { border-color: var(--em-gold); }
+
+/* ---------- STATS ---------- */
+.stats { max-width: var(--max-w); margin: 0 auto; padding: 0.3rem 2rem 0.5rem; font-size: 0.74rem; color: var(--em-text-light); display: flex; gap: 1.2rem; }
+.stats b { color: var(--em-text); }
+
+/* ---------- ROADMAP GROUPS ---------- */
+.roadmap { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 2rem; }
+.rm-group { margin-bottom: 1.5rem; }
+.rm-group-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 600; color: var(--em-blue); padding-bottom: 0.4rem; border-bottom: 2px solid var(--em-border); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+.rm-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.rm-dot-done { background: var(--em-green, #27ae60); }
+.rm-dot-partial { background: #8e44ad; }
+.rm-dot-dev { background: var(--em-blue-light); }
+.rm-dot-planned { background: var(--em-gold); }
+.rm-dot-concept { background: #ccc; }
+.rm-dot-research { background: #c0392b; }
+.rm-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 0.7rem; }
+
+/* ---------- CARD ---------- */
+.dp { background: var(--em-white); border: 1px solid var(--em-border); border-radius: var(--radius); padding: 1rem 1.1rem; cursor: pointer; transition: box-shadow 0.2s; position: relative; }
+.dp:hover { box-shadow: 0 4px 16px rgba(7,55,99,0.08); }
+.dp.embargo-card { border-left: 3px solid var(--em-gold); background: var(--em-gold-pale); }
+.dp-top { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.35rem; }
+.dp-id { font-size: 0.66rem; font-weight: 700; color: var(--em-white); background: var(--em-blue); padding: 0.12rem 0.4rem; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+.dp.embargo-card .dp-id { background: var(--em-gold); }
+.dp-name { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 600; color: var(--em-blue); line-height: 1.3; }
+.dp-tags { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-bottom: 0.4rem; }
+.tag { font-size: 0.63rem; padding: 0.08rem 0.4rem; border-radius: 3px; font-weight: 600; }
+.tag-core { background: #e6f0e6; color: #1a6b1a; }
+.tag-tool { background: #f0e6f5; color: #6a2c91; }
+.tag-extension { background: var(--em-blue-pale); color: var(--em-blue); }
+.tag-infra { background: #fff0e0; color: #b35900; }
+.tag-research { background: #fce8e6; color: #a01a0a; }
+.tag-collab { background: #e0f2ee; color: #0d6b4f; }
+.tag-embargo { background: var(--em-gold); color: #fff; }
+.tag-version { background: var(--em-blue); color: #fff; }
+.tag-thesis { background: var(--em-gold-pale); color: var(--em-gold); border: 1px solid var(--em-gold); }
+.dp-desc { font-size: 0.82rem; color: var(--em-text-light); line-height: 1.55; margin-bottom: 0.5rem; }
+.dp-foot { font-size: 0.7rem; color: #aaa; border-top: 1px solid var(--em-border); padding-top: 0.4rem; }
+.dp-arrow { position: absolute; top: 0.6rem; right: 0.7rem; font-size: 0.7rem; color: #ddd; }
+.dp:hover .dp-arrow { color: var(--em-gold); }
+
+/* ---------- DETAIL OVERLAY ---------- */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(7,55,99,0.3); z-index: 500; justify-content: center; align-items: flex-start; padding: 4vh 1rem; overflow-y: auto; }
+.overlay.open { display: flex; }
+.panel { background: var(--em-white); border-radius: 8px; box-shadow: 0 8px 32px rgba(7,55,99,0.15); max-width: 680px; width: 100%; overflow: hidden; }
+.panel-hdr { background: var(--em-blue); color: #fff; padding: 1.3rem 1.6rem 1rem; position: relative; }
+.panel-close { position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.4rem; cursor: pointer; }
+.panel-close:hover { color: #fff; }
+.panel-id { font-size: 0.72rem; font-weight: 700; background: rgba(255,255,255,0.15); display: inline-block; padding: 0.12rem 0.45rem; border-radius: 3px; margin-bottom: 0.3rem; }
+.panel-hdr h2 { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; }
+.panel-hdr .dp-tags { margin-top: 0.5rem; }
+.panel-body { padding: 1.3rem 1.6rem 1.6rem; }
+.psec { margin-bottom: 1rem; }
+.psec h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--em-gold); margin-bottom: 0.3rem; padding-bottom: 0.2rem; border-bottom: 1px solid var(--em-border); }
+.psec p, .psec ul { font-size: 0.86rem; color: var(--em-text); line-height: 1.7; }
+.psec ul { list-style: none; padding: 0; }
+.psec ul li { padding: 0.15rem 0 0.15rem 0.9rem; position: relative; }
+.psec ul li::before { content: ""; position: absolute; left: 0; top: 0.65rem; width: 5px; height: 5px; border-radius: 50%; background: var(--em-gold); }
+.status-line { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; }
+.embargo-detail { background: var(--em-gold-pale); border: 1px solid var(--em-gold); border-radius: var(--radius); padding: 0.8rem 1rem; margin-top: 0.5rem; font-size: 0.83rem; }
+.embargo-detail h4 { color: var(--em-gold); font-size: 0.78rem; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* ---------- VERSIONS SECTION ---------- */
+.versions { max-width: var(--max-w); margin: 0 auto; padding: 1rem 2rem 2rem; }
+.ver-card { background: var(--em-white); border: 1px solid var(--em-border); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 0.8rem; }
+.ver-card.current { border-left: 3px solid var(--em-gold); }
+.ver-card h3 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--em-blue); margin-bottom: 0.3rem; }
+.ver-card h3 .ver-tag { font-size: 0.65rem; background: var(--em-gold); color: #fff; padding: 0.1rem 0.4rem; border-radius: 3px; vertical-align: middle; margin-left: 0.4rem; }
+.ver-card p { font-size: 0.84rem; color: var(--em-text-light); }
+.ver-dps { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.ver-dp { font-size: 0.72rem; background: var(--em-blue-pale); color: var(--em-blue); padding: 0.12rem 0.45rem; border-radius: 3px; font-weight: 600; }
+.ver-dp.done { background: #e6f0e6; color: #1a6b1a; }
+
+/* ---------- INCORPORATED SECTION ---------- */
+.incorp { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 2rem; }
+.incorp-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+.incorp-table th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--em-text-light); padding: 0.5rem 0.6rem; border-bottom: 2px solid var(--em-border); }
+.incorp-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--em-border); }
+
+/* ---------- FOOTER ---------- */
+.foot { text-align: center; padding: 1.5rem 2rem; font-size: 0.74rem; color: var(--em-text-light); border-top: 2px solid var(--em-gold); margin-top: 1rem; }
+.foot a { color: var(--em-blue); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .rm-cards { grid-template-columns: 1fr; }
+  .hdr-inner, .toolbar, .stats, .roadmap, .versions, .incorp { padding-left: 1rem; padding-right: 1rem; }
+  .tabs-inner { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-top">
+      <img src="logo_EM.png" alt="Extended Matrix">
+      <h1><span>Extended</span> Matrix <span style="font-size:0.6em;font-weight:400;opacity:0.55;">Development Projects</span></h1>
+    </div>
+    <p>Active and planned development projects for the EM formal language, framework, and tooling ecosystem.</p>
+    <div class="hdr-meta">
+      <span>Last updated: April 2026</span>
+      <span>Current: EM v1.5 (in development)</span>
+      <span>Emanuel Demetrescu — CNR-ISPC</span>
+      <span id="embargoIndicator" style="display:none"><span class="embargo-badge">EMBARGO MODE</span></span>
+    </div>
+  </div>
+</header>
+
+<!-- METHODOLOGY -->
+<div class="method">
+  <div class="method-inner">
+    <button class="method-toggle" id="methodToggle">
+      <span class="arrow">&#9654;</span> How Development Projects work
+    </button>
+    <div class="method-body" id="methodBody">
+      <h4>Three-level architecture</h4>
+      <p><strong>Extended Matrix (Language)</strong> — Nodes and node variants formalizing virtual reconstruction. Expandable through new node types. Currently expressed in yEd/GraphML; s3Dgraphy provides a richer property graph underneath.</p>
+      <p><strong>Extended Matrix Framework</strong> — Tools ecosystem: internal tools (Blender add-on), external standalone tools, connectors. Separation of responsibilities enables parallel development.</p>
+      <p><strong>Governance Cycle</strong> — EM advances every 6 months with community validation. A <em>Component</em> is a new node or a tool using/expanding existing nodes. A <em>Development Project</em> impacts one or more Components. Each DP requires a <em>Key Study with open data</em>.</p>
+      <h4>DP Lifecycle</h4>
+      <p>Proposal (with Key Study) &rarr; Development &rarr; Community Review &rarr; Candidate for EM Version &rarr; Inclusion</p>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION TABS -->
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" data-tab="roadmap">Roadmap</button>
+    <button class="tab" data-tab="versions">EM Versions</button>
+    <button class="tab" data-tab="incorporated">Incorporated</button>
+  </div>
+</nav>
+
+<!-- ==================== ROADMAP TAB ==================== -->
+<div class="section active" id="sec-roadmap">
+  <div class="toolbar" id="toolbar">
+    <label>Show</label>
+    <button class="fbtn active" data-filter="all">All</button>
+    <button class="fbtn" data-filter="core">Core</button>
+    <button class="fbtn" data-filter="tool">Tools</button>
+    <button class="fbtn" data-filter="extension">Domains</button>
+    <button class="fbtn" data-filter="infra">Infra</button>
+    <button class="fbtn" data-filter="research">Research</button>
+    <button class="fbtn" data-filter="collab">Collab</button>
+    <input type="text" class="search-box" placeholder="Search..." id="searchBox">
+  </div>
+  <div class="stats">
+    <div>Total: <b id="totalCount">0</b></div>
+    <div>Visible: <b id="visibleCount">0</b></div>
+    <div id="embargoStats" style="display:none">Embargoed: <b id="embargoCount">0</b></div>
+  </div>
+  <div class="roadmap" id="roadmapContainer"></div>
+</div>
+
+<!-- ==================== VERSIONS TAB ==================== -->
+<div class="section" id="sec-versions">
+  <div class="versions" id="versionsContainer"></div>
+</div>
+
+<!-- ==================== INCORPORATED TAB ==================== -->
+<div class="section" id="sec-incorporated">
+  <div class="incorp" id="incorpContainer"></div>
+</div>
+
+<!-- DETAIL OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="panel" id="panel"></div>
+</div>
+
+<footer class="foot">
+  Extended Matrix Development Projects&ensp;&bull;&ensp;<a href="https://extendedmatrix.org">extendedmatrix.org</a><br>
+  Emanuel Demetrescu, CNR-ISPC Virtual Heritage Lab, Roma
+</footer>
+
+<script>
+// ================================================================
+// EMBARGO SYSTEM: append ?embargo=on to URL to see hidden DPs
+// e.g.: index.html?embargo=on
+// ================================================================
+const EMBARGO_ON = new URLSearchParams(window.location.search).get('embargo') === 'on';
+if (EMBARGO_ON) {
+  document.getElementById('embargoIndicator').style.display = 'inline';
+  document.getElementById('embargoStats').style.display = '';
+}
+
+// ================================================================
+// EM VERSIONS
+// ================================================================
+const emVersions = [
+  { version: "1.0", date: "2019", status: "released", summary: "First formal release of Extended Matrix language and core node types." },
+  { version: "1.1", date: "2020", status: "released", summary: "Refinements to node types, reliability levels formalization." },
+  { version: "1.2", date: "2021", status: "released", summary: "Paradata system improvements, new connectors." },
+  { version: "1.3", date: "2023", status: "released", summary: "Epoch Manager, expanded proxy system, stratigraphy manager." },
+  { version: "1.4", date: "2024", status: "released", summary: "TSU node, dotted connector, multi-instance support, s3Dgraphy integration." },
+  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Multigraph, building archaeology nodes, propagative metadata, vocabulary presets." }
+];
+
+// ================================================================
+// DEVELOPMENT PROJECTS DATA
+// embargo: true = hidden unless ?embargo=on
+// targetVersion: which EM version this DP targets
+// incorporated: "1.4" means already shipped in EM 1.4
+// ================================================================
+const projects = [
+  {
+    id: "DP-01", title: "Tapestry", cat: "research", embargo: true,
+    status: "research", statusLabel: "Research",
+    desc: "AI-based system for Extended Matrix.",
+    full: "AI-driven system that integrates with the Extended Matrix ecosystem. Details under embargo pending scientific publication.",
+    components: ["New external system"],
+    targetVersion: "TBD", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Pending",
+    embargoNotes: "Paper in preparation. Expected submission: 2026."
+  },
+  {
+    id: "DP-02", title: "Stratiminer", cat: "research", embargo: true,
+    status: "research", statusLabel: "Prototype",
+    desc: "AI tool to extract stratigraphic data from grey literature and PDFs.",
+    full: "Tool to extract stratigraphic information from grey literature, PDFs, and online sources using AI. Currently exists as a prompt-based workflow generating Stratigraphy and Paradata XLSX tables compatible with s3Dgraphy.",
+    components: ["Data import pipeline", "XLSX schema"],
+    targetVersion: "TBD", incorporated: null,
+    notes: "Functional as prompt workflow", thesis: true, keyStudy: "Pending",
+    embargoNotes: "Prompt workflow already operational. Standalone tool planned."
+  },
+  {
+    id: "DP-03", title: "TSU Completion", cat: "tool", embargo: false,
+    status: "in-dev", statusLabel: "In development",
+    desc: "Grease Pencil annotation for Technical Stratigraphic Units.",
+    full: "Annotation system based on Grease Pencil in Blender to annotate TSUs for restoration, surface characterization, and working-unit analysis. Creates pencil-based annotations directly on 3D surfaces.",
+    components: ["Blender add-on", "Annotation pipeline", "Grease Pencil integration"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "", thesis: true, keyStudy: "In progress"
+  },
+  {
+    id: "DP-04", title: "Landscape Reconstruction", cat: "extension", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Territorial graph: topographic units, sites, Canvas concept.",
+    full: "Territorial-scale graph with topographic units, sites, and the Canvas concept. Canvas = surface on which archaeological presence is recorded. Orchestrates multiple EM graphs underneath, enabling landscape-level documentation.",
+    components: ["Topographic Unit node", "Site node", "Canvas node", "Paradata extensions"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-05", title: "Geophysics Workflow", cat: "extension", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Import and annotation system for geophysics data.",
+    full: "Two-phase system: (1) Import & filtering via top-bar EM menu in Blender for 'dry imports', (2) Annotation with pseudo-stratigraphic nodes (specialization of documentary SU). Consider integration with 3D Survey Collection.",
+    components: ["Import pipeline", "Pseudo-stratigraphic node", "EM menu"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-06", title: "Data Transformation Chunk", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Formal data transformation steps within the EM workflow.",
+    full: "Formalizes how source data is transformed into interpretive elements. Defines transformation chunks as discrete, traceable steps in the data processing pipeline.",
+    components: ["Data pipeline", "Transformation nodes"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Needed"
+  },
+  {
+    id: "DP-07", title: "Document Node + Temporal Positioning", cat: "core", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Red document node with instancing and temporal delta for uncertainty.",
+    full: "Red document node with instancing. Temporal source positioning with start-end epochs plus delta (uncertainty range, e.g., 1450–1456). Activity list with proxy selection/hiding buttons like Epoch Manager.",
+    components: ["Document node", "Epoch Manager", "Source timeline", "Delta system"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Instancing partly done; delta system still needed", thesis: false, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-08", title: "Subjectivity Project", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Subjectivity-specific qualia in EM paradata.",
+    full: "Defines how subjective interpretive choices are formally recorded. Subjectivity-specific qualia capture the degree of interpretive freedom and reasoning behind decisions.",
+    components: ["Qualia system", "Paradata nodes"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-09", title: "Vocabulary Project", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "yEd qualia presets: measurements, properties, color-coded.",
+    full: "yEd template additions for qualia presets: length, width, height, measurable properties. Distinct background colors (e.g., light blue for measurements). Programmatic GraphML generation possible via Claude.",
+    components: ["yEd template", "GraphML schema", "Qualia node types"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Could use Claude to auto-generate qualia in GraphML", thesis: false, keyStudy: "Needed"
+  },
+  {
+    id: "DP-10", title: "Multigraph Project", cat: "core", embargo: false,
+    status: "near", statusLabel: "Near completion",
+    desc: "Multiple interconnected graphs in a single EM project.",
+    full: "Multi-graph support: multiple interconnected graphs within a single EM project for complex documentation. Nearly complete.",
+    components: ["Graph management", "s3Dgraphy"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Nearly complete", thesis: false, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-11", title: "Reverse Project", cat: "core", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "Derive EM documentation from existing 3D reconstructions.",
+    full: "Reverse engineering workflow: deriving stratigraphic interpretation from already existing 3D reconstructions. Retroactive documentation for reconstructions made without EM.",
+    components: ["TBD"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-12", title: "Temporal Branches", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Alternative chronological interpretations as graph branches.",
+    full: "Temporal branching to represent alternative chronological interpretations or parallel temporal sequences. Documents competing scholarly interpretations of the same evidence.",
+    components: ["Graph structure", "Temporal logic"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-13", title: "Virtual SU Sheet", cat: "collab", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "Structured documentation form for Virtual Stratigraphic Units.",
+    full: "A proper form/sheet for Virtual SUs. Could be Jupyter Notebook or Blender panel. Structured documentation template with all relevant fields and metadata.",
+    components: ["Documentation pipeline", "Jupyter (optional)"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-14", title: "EM Surfaces — Artù", cat: "extension", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Large urban stratigraphies: elevation points, core samples.",
+    full: "Digitization of the Artù project (~15 years old). Elevation points and core samples as interpretation elements, specific in time/space/properties. Requires propagation algorithm from data points.",
+    components: ["Elevation point node", "Core sample node", "Propagation algorithm"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "Based on 15 years of Artù methodology", thesis: true, keyStudy: "Artù dataset"
+  },
+  {
+    id: "DP-15", title: "Open Shelf", cat: "collab", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Search engine for graph fragment comparison across studies.",
+    full: "Tool shelf and search engine to find graph fragments as comparisons. Reuses existing Open Shelf add-on code. Enables cross-referencing and pattern reuse.",
+    components: ["Search engine", "Graph fragment indexing", "Comparison UI"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "Reuses Open Shelf add-on code", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-16", title: "EM Review System", cat: "collab", embargo: false,
+    status: "partial", statusLabel: "Prototype (Miro)",
+    desc: "Peer review for virtual reconstructions.",
+    full: "Peer review system for collaborative virtual reconstruction environments. Fully designed on Miro board, to be published with student collaborator.",
+    components: ["Review workflow", "Collaborative annotations"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "Miro board ready; publication pending", thesis: false, keyStudy: "Existing (Miro)"
+  },
+  {
+    id: "DP-17", title: "Knowledge Graph Connector", cat: "infra", embargo: true,
+    status: "research", statusLabel: "Research",
+    desc: "s3Dgraphy to triple store / knowledge graph connector.",
+    full: "Connector between s3Dgraphy and triple store / knowledge graph backends (Blaze, Grapho, etc.). Read/write from Blender to RDF stores.",
+    components: ["s3Dgraphy export/import", "RDF mapping", "SPARQL"],
+    targetVersion: "TBD", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Pending",
+    embargoNotes: "Core infrastructure for KG vision. Research phase."
+  },
+  {
+    id: "DP-18", title: "Heritage Digital Twin Mapping", cat: "infra", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Mapping EM objects to digital twin standards.",
+    full: "Bridges EM documentation with Heritage Digital Twin and digital twin management frameworks.",
+    components: ["Export/mapping pipeline", "Metadata standards"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-19", title: "Canvas Project", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Geo-referenced canvas with swimlane-level qualia declaration.",
+    full: "Canvas as formal concept: geo-referenced surface for archaeological presence. Geo-node for spatial shift. Swimlane-level qualia declaration as paradata node group (free-floating, defining temporal interpretation of epoch band with start/end and paradata).",
+    components: ["Canvas node", "Geo-node", "Swimlane paradata group"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "Swimlane paradata = specialization of Paradata Node Group", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-20", title: "Temporal Propagation", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Algorithm for chronological propagation through the graph.",
+    full: "Temporal propagation from known data points through stratigraphic relationships. Related: Pletka platform has a different implementation.",
+    components: ["s3Dgraphy temporal logic", "Graph algorithms"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "Pletka has related implementation", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-21", title: "EM Meter", cat: "tool", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Jupyter analytics: GraphML statistics, proxy metrics.",
+    full: "Jupyter Notebook analytics using s3Dgraphy: GraphML statistics, project metrics, proxy volumes, visible surfaces from Blender's experimental exporter. Future: embedded 3D visualizations.",
+    components: ["s3Dgraphy Python API", "Jupyter", "Data visualization"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "3D visualization in future version", thesis: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-22", title: "Triple Store Database", cat: "infra", embargo: true,
+    status: "research", statusLabel: "Research",
+    desc: "Triple store for holistic archaeological documentation.",
+    full: "Triple store database for holistic archaeology and cultural heritage documentation, including counter-stratigraphic data.",
+    components: ["Database backend", "RDF schema", "Counter-stratigraphic model"],
+    targetVersion: "TBD", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Pending",
+    embargoNotes: "Core KG infrastructure. Research phase."
+  },
+  {
+    id: "DP-23", title: "Music Reconstruction", cat: "extension", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "EM applied to auditory heritage.",
+    full: "EM methodology applied to music reconstruction, extending beyond physical/spatial into auditory heritage.",
+    components: ["Musical qualia", "New node adaptations"],
+    targetVersion: "2.0+", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-24", title: "Dance Reconstruction", cat: "extension", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "EM applied to movement-based intangible heritage.",
+    full: "EM methodology for dance reconstruction: movement-based intangible heritage documentation.",
+    components: ["Choreographic nodes", "Movement qualia"],
+    targetVersion: "2.0+", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-25", title: "Basilica Iulia", cat: "research", embargo: true,
+    status: "research", statusLabel: "Research",
+    desc: "Case study: equality and same-epoch connectors.",
+    full: "Case study requiring two new connector types: equality connector and same-epoch connector as structural additions to the EM language.",
+    components: ["Equality edge type", "Same-epoch edge type"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Basilica Iulia",
+    embargoNotes: "New connector types pending publication."
+  },
+  {
+    id: "DP-26", title: "Spolia Project", cat: "extension", embargo: false,
+    status: "in-dev", statusLabel: "In development (Nicola)",
+    desc: "Special find node (red) for reused architectural elements.",
+    full: "Special find node in red for spolia — reused architectural/decorative elements. Being developed by Nicola.",
+    components: ["Special Find node (red)"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Lead: Nicola", thesis: false, keyStudy: "In progress (Nicola)"
+  },
+  {
+    id: "DP-27", title: "Building Archaeology", cat: "extension", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Negative SU, Neutral SU, Wall SU hypergraph with spolia.",
+    full: "New nodes: Negative SU (cuts, destructions), Neutral SU (transparent volumes for doors/windows), Wall SU as hypergraph containing spolia. Wall SU hypergraph partly developed.",
+    components: ["Negative SU node", "Neutral SU node", "Wall SU hypergraph", "Spolia integration"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Wall SU hypergraph partly done", thesis: true, keyStudy: "In progress"
+  },
+  {
+    id: "DP-28", title: "Virtual SU Pattern", cat: "core", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "Virtual SUs driven by cultural patterns, not physical evidence.",
+    full: "VSUs caused by cultural patterns (not physical necessity). Where a recognized cultural pattern exists, the reconstruction relies on it with cultural justification.",
+    components: ["VSU classification extension", "Cultural pattern paradata"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-29", title: "Narrative Units", cat: "extension", embargo: false,
+    status: "partial", statusLabel: "Prototype (thesis)",
+    desc: "Real-time narrative events with characters.",
+    full: "Narrative events with characters (e.g., theatrical dialogue). Prototyped in student thesis. Narrative layers in reconstructed contexts.",
+    components: ["Narrative Unit node", "Character system"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "Prototyped in student thesis", thesis: false, keyStudy: "Existing (thesis)"
+  },
+  {
+    id: "DP-30", title: "Reconstructive Elements", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Props and characters with micro-stratigraphy, clickable hypergraphs.",
+    full: "Props, characters with internal micro-stratigraphy. Clickable via hypergraphs to open sub-graphs. Reusable, instanced into the main graph.",
+    components: ["Hypergraph navigation", "Instancing system", "Prop nodes", "Character nodes"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-31", title: "HBIM Integration", cat: "infra", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Integration with Heritage BIM and IFC standards.",
+    full: "Integration with HBIM workflows and IFC standards for heritage management.",
+    components: ["Export/import pipeline", "IFC mapping"],
+    targetVersion: "2.0", incorporated: null,
+    notes: "", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-32", title: "Propagative Metadata System", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Hierarchical metadata: graph > swimlane > node, with propagation.",
+    full: "Three scope levels: (1) Graph-level (Author, License, Embargo, CC — in EM Tree Panel header), (2) Swimlane-level (epoch-specific paradata groups), (3) Node-level (local overrides). Propagation: node > swimlane > graph.",
+    components: ["EM Tree Panel header", "GraphML header", "Paradata groups", "yEd template nodes"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Scope hierarchy: node > swimlane > graph", thesis: false, keyStudy: "Needed"
+  },
+  {
+    id: "DP-33", title: "Stratigraphy Manager+", cat: "tool", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Mini-graph extraction, SU soloing, proxy toggle buttons.",
+    full: "Enhancements: 'Extract more info' button (mini-graph of epochs/relationships), SU soloing (isolate with neighbors), activity list with proxy selection/hiding buttons.",
+    components: ["Stratigraphy Manager UI", "EM Graph viewer", "Mini-graph generator"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-34", title: "Label & Layout System", cat: "tool", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Labels, metric scales, contours, section materials.",
+    full: "New labels, automatic metric scales, contour generation via Grease Pencil, backface-shadeless materials for sections. Future layout with 3D Survey Collection.",
+    components: ["Blender add-on", "Grease Pencil modifiers", "3D Survey Collection"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Needed"
+  },
+  {
+    id: "DP-35", title: "UI/UX Refactoring", cat: "tool", embargo: false,
+    status: "in-dev", statusLabel: "Ongoing",
+    desc: "Comprehensive UI/UX modernization of the EM Blender add-on.",
+    full: "Comprehensive refactoring: modernized interface and improved workflow ergonomics across all panels.",
+    components: ["Blender add-on UI (all panels)"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Ongoing, informed by all feature DPs", thesis: false, keyStudy: "N/A"
+  },
+  {
+    id: "DP-36", title: "Anastylosis & USVS Groups", cat: "core", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Anastylosis group (done) and USVS container formalization.",
+    full: "Anastylosis group (done). USVS group: auto-derivable from connections, acts as container for composing/restored SUs. Applicable case-by-case.",
+    components: ["Anastylosis group node", "USVS group node", "Auto-derivation logic"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Anastylosis done; USVS context-dependent", thesis: false, keyStudy: "Existing (Anastylosis)"
+  },
+  {
+    id: "DP-37", title: "Chronontology Connector", cat: "infra", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "REST API integration with iDAI.chronontology.",
+    full: "Connects EM epoch system to iDAI.chronontology for standardized spatio-temporal epoch definitions.",
+    components: ["Epoch Manager extension", "REST API client"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "Target: iDAI.chronontology REST API", thesis: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-38", title: "Tropy Document Import", cat: "tool", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Spatialize documents in 3D space, import from Tropy.",
+    full: "Spatialize JPEG/image documents in 3D. Import from Tropy for spatial arrangement of documentary sources.",
+    components: ["Import pipeline", "Document visualization", "Tropy integration"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "", thesis: false, keyStudy: "Needed"
+  }
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+const catLabel = { core:"Core Language", tool:"Tools", extension:"New Domains", infra:"Infrastructure", research:"Research", collab:"Collaboration" };
+const catTag = { core:"tag-core", tool:"tag-tool", extension:"tag-extension", infra:"tag-infra", research:"tag-research", collab:"tag-collab" };
+
+const statusOrder = ["near","in-dev","partial","planned","concept","research"];
+const statusGroupLabel = {
+  "near": "Near completion",
+  "in-dev": "In development",
+  "partial": "Partially implemented",
+  "planned": "Planned",
+  "concept": "Concept",
+  "research": "Research"
+};
+const statusDot = {
+  "near":"rm-dot-done", "in-dev":"rm-dot-dev", "partial":"rm-dot-partial",
+  "planned":"rm-dot-planned", "concept":"rm-dot-concept", "research":"rm-dot-research"
+};
+
+let activeFilter = "all";
+let searchQ = "";
+
+// ================================================================
+// RENDER ROADMAP (grouped by status, non-temporal)
+// ================================================================
+function renderRoadmap() {
+  const container = document.getElementById("roadmapContainer");
+  container.innerHTML = "";
+  let vis = 0, emb = 0;
+
+  // filter
+  const filtered = projects.filter(p => {
+    if (p.embargo) emb++;
+    if (p.embargo && !EMBARGO_ON) return false;
+    if (p.incorporated) return false; // show in Incorporated tab
+    if (activeFilter !== "all" && p.cat !== activeFilter) return false;
+    if (searchQ) {
+      const q = searchQ.toLowerCase();
+      if (!(p.id+" "+p.title+" "+p.desc+" "+p.cat).toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  // group by status
+  const groups = {};
+  statusOrder.forEach(s => groups[s] = []);
+  filtered.forEach(p => {
+    const g = groups[p.status] ? p.status : "planned";
+    groups[g].push(p);
+    vis++;
+  });
+
+  statusOrder.forEach(s => {
+    if (!groups[s].length) return;
+    const grp = document.createElement("div");
+    grp.className = "rm-group";
+    grp.innerHTML = `<div class="rm-group-title"><span class="rm-dot ${statusDot[s]}"></span>${statusGroupLabel[s]} (${groups[s].length})</div>`;
+    const cards = document.createElement("div");
+    cards.className = "rm-cards";
+    groups[s].forEach(p => {
+      const d = document.createElement("div");
+      d.className = "dp" + (p.embargo ? " embargo-card" : "");
+      d.onclick = () => openDetail(p.id);
+      d.innerHTML = `
+        <span class="dp-arrow">&rarr;</span>
+        <div class="dp-top">
+          <span class="dp-id">${p.id}</span>
+          <span class="dp-name">${p.title}</span>
+        </div>
+        <div class="dp-tags">
+          <span class="tag ${catTag[p.cat]}">${catLabel[p.cat]}</span>
+          ${p.embargo ? '<span class="tag tag-embargo">EMBARGO</span>' : ''}
+          ${p.targetVersion && p.targetVersion !== "TBD" ? `<span class="tag tag-version">v${p.targetVersion}</span>` : ''}
+          ${p.thesis ? '<span class="tag tag-thesis">Thesis</span>' : ''}
+        </div>
+        <div class="dp-desc">${p.desc}</div>
+        <div class="dp-foot">
+          ${p.targetVersion ? `Target: EM ${p.targetVersion}` : ''}
+          ${p.keyStudy && p.keyStudy !== "Needed" ? ` &bull; Key study: ${p.keyStudy}` : ''}
+        </div>
+      `;
+      cards.appendChild(d);
+    });
+    grp.appendChild(cards);
+    container.appendChild(grp);
+  });
+
+  document.getElementById("totalCount").textContent = projects.filter(p => !p.incorporated).length;
+  document.getElementById("visibleCount").textContent = vis;
+  document.getElementById("embargoCount").textContent = emb;
+}
+
+// ================================================================
+// RENDER VERSIONS
+// ================================================================
+function renderVersions() {
+  const c = document.getElementById("versionsContainer");
+  c.innerHTML = "<h2 style='font-family:var(--font-serif);color:var(--em-blue);margin-bottom:1rem;font-size:1.2rem'>Extended Matrix Versions</h2>";
+  emVersions.slice().reverse().forEach(v => {
+    const isCurrent = v.status === "in-development";
+    const dps = projects.filter(p => p.targetVersion === v.version);
+    const card = document.createElement("div");
+    card.className = "ver-card" + (isCurrent ? " current" : "");
+    card.innerHTML = `
+      <h3>EM ${v.version} <span style="font-weight:400;font-size:0.85rem;color:var(--em-text-light)">(${v.date})</span>
+        ${isCurrent ? '<span class="ver-tag">IN DEVELOPMENT</span>' : ''}
+      </h3>
+      <p>${v.summary}</p>
+      ${dps.length ? `<div class="ver-dps">${dps.map(p => `<span class="ver-dp ${p.incorporated ? 'done' : ''}">${p.id} ${p.title}</span>`).join("")}</div>` : ''}
+    `;
+    c.appendChild(card);
+  });
+}
+
+// ================================================================
+// RENDER INCORPORATED
+// ================================================================
+function renderIncorporated() {
+  const c = document.getElementById("incorpContainer");
+  const done = projects.filter(p => p.incorporated);
+  if (!done.length) {
+    c.innerHTML = `<p style="padding:2rem 0;color:var(--em-text-light);font-size:0.9rem">No Development Projects have been fully incorporated yet. Projects targeting EM v1.5 are currently in development.</p>`;
+    return;
+  }
+  let html = `<h2 style="font-family:var(--font-serif);color:var(--em-blue);margin-bottom:1rem;font-size:1.2rem">Incorporated Development Projects</h2>`;
+  html += `<table class="incorp-table"><thead><tr><th>DP</th><th>Title</th><th>Category</th><th>EM Version</th><th>Key Study</th></tr></thead><tbody>`;
+  done.forEach(p => {
+    html += `<tr><td>${p.id}</td><td>${p.title}</td><td>${catLabel[p.cat]}</td><td>v${p.incorporated}</td><td>${p.keyStudy||''}</td></tr>`;
+  });
+  html += `</tbody></table>`;
+  c.innerHTML = html;
+}
+
+// ================================================================
+// DETAIL PANEL
+// ================================================================
+function openDetail(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  const panel = document.getElementById("panel");
+
+  const comps = (p.components||[]).map(c => `<li>${c}</li>`).join("");
+
+  panel.innerHTML = `
+    <div class="panel-hdr">
+      <button class="panel-close" onclick="closeDetail()">&times;</button>
+      <div class="panel-id">${p.id}${p.embargo ? ' — EMBARGO' : ''}</div>
+      <h2>${p.title}</h2>
+      <div class="dp-tags" style="margin-top:0.5rem">
+        <span class="tag ${catTag[p.cat]}">${catLabel[p.cat]}</span>
+        ${p.embargo ? '<span class="tag tag-embargo">EMBARGO</span>' : ''}
+        ${p.targetVersion && p.targetVersion !== "TBD" ? `<span class="tag tag-version">v${p.targetVersion}</span>` : ''}
+        ${p.thesis ? '<span class="tag tag-thesis">Thesis candidate</span>' : ''}
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="psec">
+        <h3>Description</h3>
+        <p>${p.full || p.desc}</p>
+      </div>
+      <div class="psec">
+        <h3>Status</h3>
+        <div class="status-line">
+          <span class="rm-dot ${statusDot[p.status]||'rm-dot-planned'}"></span>
+          ${p.statusLabel}
+        </div>
+      </div>
+      <div class="psec">
+        <h3>Target EM Version</h3>
+        <p>${p.targetVersion || 'TBD'}</p>
+      </div>
+      <div class="psec">
+        <h3>Components</h3>
+        <ul>${comps || '<li>TBD</li>'}</ul>
+      </div>
+      <div class="psec">
+        <h3>Key Study</h3>
+        <p>${p.keyStudy || 'Needed'}</p>
+      </div>
+      ${p.notes ? `<div class="psec"><h3>Notes</h3><p>${p.notes}</p></div>` : ''}
+      ${(EMBARGO_ON && p.embargoNotes) ? `
+        <div class="embargo-detail">
+          <h4>Embargo notes (visible only in embargo mode)</h4>
+          <p>${p.embargoNotes}</p>
+        </div>
+      ` : ''}
+    </div>
+  `;
+
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDetail() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("overlay").addEventListener("click", function(e) { if (e.target === this) closeDetail(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); });
+
+// ================================================================
+// TABS
+// ================================================================
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    document.getElementById("sec-" + t.dataset.tab).classList.add("active");
+  });
+});
+
+// ================================================================
+// METHODOLOGY TOGGLE
+// ================================================================
+document.getElementById("methodToggle").addEventListener("click", function() {
+  this.classList.toggle("open");
+  document.getElementById("methodBody").classList.toggle("open");
+});
+
+// ================================================================
+// FILTERS
+// ================================================================
+document.querySelectorAll("#toolbar .fbtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#toolbar .fbtn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    renderRoadmap();
+  });
+});
+document.getElementById("searchBox").addEventListener("input", function() { searchQ = this.value; renderRoadmap(); });
+
+// ================================================================
+// INIT
+// ================================================================
+renderRoadmap();
+renderVersions();
+renderIncorporated();
+</script>
+</body>
+</html>
