@@ -149,6 +149,7 @@ a.tag-stratigraph-link { text-decoration: none; }
 .incorp-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
 .incorp-table th { text-align: left; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--em-text-light); padding: 0.5rem 0.6rem; border-bottom: 2px solid var(--em-border); }
 .incorp-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--em-border); }
+.incorp-table tbody tr:hover { background: var(--em-bg-card); }
 
 .foot { text-align: center; padding: 1.5rem 2rem; font-size: 0.78rem; color: var(--em-text-light); border-top: 2px solid var(--em-gold); margin-top: 1rem; }
 .foot a { color: var(--em-blue); font-weight: 600; }
@@ -858,7 +859,7 @@ function renderIncorporated() {
   }
   let h = `<h2 style="font-family:var(--font-serif);color:var(--em-blue);margin-bottom:1rem;font-size:1.25rem">Incorporated Development Projects</h2>`;
   h += `<table class="incorp-table"><thead><tr><th>DP</th><th>Title</th><th>Category</th><th>EM Version</th><th>Key Study</th></tr></thead><tbody>`;
-  done.forEach(p => { h += `<tr><td>${p.id}</td><td>${p.title}</td><td>${catLabel[p.cat]}</td><td>v${p.incorporated}</td><td>${p.keyStudy||''}</td></tr>`; });
+  done.forEach(p => { h += `<tr style="cursor:pointer" onclick="openDetail('${p.id}')"><td>${p.id}</td><td>${p.title}</td><td>${catLabel[p.cat]}</td><td>v${p.incorporated}</td><td>${p.keyStudy||''}</td></tr>`; });
   h += `</tbody></table>`;
   c.innerHTML = h;
 }
