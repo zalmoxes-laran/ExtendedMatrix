@@ -727,6 +727,26 @@ const projects = [
     impacts: ["emtools", "s3d"],
     targetVersion: "1.5", incorporated: null,
     notes: "XLSX import and merge wizard functional. Graph Merger in s3Dgraphy. Image resources pending.", thesis: false, stratigraph: true, keyStudy: "Basilica"
+  },
+  {
+    id: "DP-46", title: "Proxy Box Creator", cat: "tool", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Assisted creation and metadata of proxy boxes for planar shapes using a 7-point measurement system.",
+    full: "Tool for creating proxy geometry for square and planar shapes (walls in photogrammetry, pseudo-stratigraphy forms in geophysics from point clouds or rasters). Uses a 7-point measurement system to generate box meshes with configurable pivot. Includes a document picker with graph search for assigning source documents to measurement points, extractor ID auto-calculation, and graph node creation (ExtractorNode, CombinerNode) with edges. UI panels for main workflow, settings, and measurement points are functional. Remaining work: connecting the writing of extractors and documents to a Stratigraphic Unit (US), auto-activating the Proxy collection and associating it with the active US in Stratigraphy Manager, and establishing a direct proxy-to-US relationship in the graph.",
+    components: ["Proxy geometry engine (done)", "7-point measurement system (done)", "Document picker with graph search (done)", "Extractor/Combiner graph nodes (done)", "Proxy collection management (pending)", "US linkage in graph (pending)"],
+    impacts: ["emtools", "s3d", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Related to DP-33 (Stratigraphy Manager+). Proxy collection activation and US linkage still needed.", thesis: false, stratigraph: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-47", title: "RMDoc Manager", cat: "tool", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "3D Document Manager for importing, spatializing, and temporalizing 2D sources in 3D space.",
+    full: "Tool for importing, managing, and spatializing 2D documentary sources (images, photographs, plans) in 3D space and linking them to temporalized documents. Creates textured quads and cameras from document metadata via DOSCO path resolution. Integrates with the graph through RepresentationModelDocNode creation and edges. Supports temporal linking with dates, epochs, and a master/instance model with certainty classification. UI panel with filtering, detail view, and completeness indicators is functional. Remaining work: camera/quad spatialization refinement, property-based visualization in Visual Manager, enhanced Activity Manager integration for temporal scope display, and Temporal Source Positioning for advanced chronological visualization.",
+    components: ["Image import pipeline (done)", "Quad/Camera creation (done)", "DOSCO path resolution (done)", "RepresentationModelDocNode graph sync (done)", "Master/Instance model (done)", "Certainty classification system (done)", "Camera/Quad refinement (pending)", "Visual Manager integration (pending)", "Temporal Source Positioning (pending)"],
+    impacts: ["emtools", "s3d", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Implements DP-07 (Document Node as a Spatio-Temporal Entity) on the tool side. Related to DP-38 (Tropy Document Import) for future import pipeline.", thesis: false, stratigraph: true, keyStudy: "Needed"
   }
 ];
 
