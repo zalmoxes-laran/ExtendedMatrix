@@ -748,6 +748,26 @@ const projects = [
     impacts: ["emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
     notes: "Implements DP-07 (Document Node as a Spatio-Temporal Entity) on the tool side. Related to DP-38 (Tropy Document Import) for future import pipeline.", thesis: false, stratigraph: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-48", title: "GraphML Writer & Updater", cat: "tool", embargo: false,
+    status: "in-dev", statusLabel: "In development",
+    desc: "Tools for writing, updating, and assembling GraphML files from multiple sources.",
+    full: "Toolset for creating and updating GraphML files from diverse data sources (XLSX tables, Blender scene data, manual annotation). Covers the full pipeline from initial graph creation to incremental updates and multi-source merging. The EMtools manual section on how to create a GraphML from different sources needs to be updated to reflect the current workflow and capabilities.",
+    components: ["GraphML exporter (done)", "GraphML patcher/updater (done)", "Multi-source assembly pipeline (in progress)", "Manual documentation update (pending)"],
+    impacts: ["emtools", "s3d", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "EMtools manual section on GraphML creation from multiple sources requires update. Related to DP-06 (Data Transformation Chunk) and DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-49", title: "Stratigraphy & Paradata XLSX Formalization", cat: "tool", embargo: false,
+    status: "in-dev", statusLabel: "In development",
+    desc: "Formalization and import/export of stratigraphy.xlsx and paradata.xlsx tables.",
+    full: "Formal definition of the stratigraphy.xlsx and paradata.xlsx table schemas, with standardized import/export pipelines in EMtools and s3Dgraphy. Covers column structure, validation rules, and bidirectional conversion between XLSX tables and the s3Dgraphy graph model. Connects to StratiMiner (DP-02) which generates these tables from grey literature using AI-based extraction.",
+    components: ["Stratigraphy XLSX schema (in progress)", "Paradata XLSX schema (in progress)", "s3Dgraphy XLSX importer (done)", "s3Dgraphy XLSX exporter (done)", "EMtools XLSX merge wizard (done)", "Validation rules (pending)"],
+    impacts: ["emtools", "s3d", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Connected to DP-02 (Stratiminer) which generates stratigraphy and paradata XLSX tables. Related to DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
   }
 ];
 
