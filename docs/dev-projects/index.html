@@ -99,6 +99,9 @@ a:hover { color: var(--em-gold); }
 .tag-embargo { background: var(--em-gold); color: #fff; }
 .tag-version { background: var(--em-blue); color: #fff; }
 .tag-thesis { background: var(--em-gold-pale); color: var(--em-gold); border: 1px solid var(--em-gold); }
+.tag-stratigraph { background: #2e7d32; color: #fff; border: 1px solid #1b5e20; cursor: pointer; }
+.tag-stratigraph:hover { background: #1b5e20; }
+a.tag-stratigraph-link { text-decoration: none; }
 /* impact tags */
 .tag-emtools { background: #e8d5f5; color: #5b2c8e; }
 .tag-s3d { background: #d5eef5; color: #1a6b7a; }
@@ -183,12 +186,14 @@ a:hover { color: var(--em-gold); }
     <div class="method-body" id="methodBody">
       <h4>Three-level architecture</h4>
       <p><strong>Extended Matrix (Language)</strong> — Nodes and node variants formalizing virtual reconstruction. Expandable through new node types. Currently expressed in yEd/GraphML; s3Dgraphy provides a richer property graph underneath. s3Dgraphy JSON config files encode the formal rules and are part of the core language.</p>
-      <p><strong>Extended Matrix Framework</strong> — Tools ecosystem: EMtools (Blender add-on), s3Dgraphy (Python library), Heriverse (online viewer), external standalone tools, connectors. Separation of responsibilities enables parallel development.</p>
+      <p><strong>Extended Matrix Framework</strong> — Tools ecosystem: EMtools (Blender add-on), s3Dgraphy (Python library), 3D Survey Collection (3DSC, photogrammetry &amp; 3D model preparation), Heriverse (online viewer), Tapestry (AI-based proxy rendering), external standalone tools, connectors. Separation of responsibilities enables parallel development.</p>
       <p><strong>Governance Cycle</strong> — EM advances every 6 months with community validation. A <em>Component</em> is a new node or a tool using/expanding existing nodes. A <em>Development Project</em> impacts one or more Components. Each DP requires a <em>Key Study with open data</em>.</p>
       <h4>DP Lifecycle</h4>
       <p>Proposal (with Key Study) &rarr; Development &rarr; Community Review &rarr; Candidate for EM Version &rarr; Inclusion</p>
+      <h4>StratiGraph EU Project</h4>
+      <p>Several Development Projects are funded or developed within <a href="https://stratigraph-eccch.eu" target="_blank"><strong>StratiGraph</strong></a>, a European project supporting the creation of a collaborative infrastructure for stratigraphic heritage documentation. DPs tagged with <span class="tag tag-stratigraph" style="font-size:0.82rem">StratiGraph</span> were created or advanced as part of this initiative. Use the StratiGraph filter to isolate them.</p>
       <h4>Resources</h4>
-      <p><a href="https://www.extendedmatrix.org/how-to">Documentation</a> &bull; <a href="https://github.com/zalmoxes-laran/EM-blender-tools">EMtools repo</a> &bull; <a href="https://github.com/zalmoxes-laran/s3Dgraphy">s3Dgraphy repo</a> &bull; <a href="https://pypi.org/project/s3dgraphy/">s3Dgraphy on PyPI</a></p>
+      <p><a href="https://www.extendedmatrix.org/how-to">Documentation</a> &bull; <a href="https://github.com/zalmoxes-laran/EM-blender-tools">EMtools repo</a> &bull; <a href="https://github.com/zalmoxes-laran/s3Dgraphy">s3Dgraphy repo</a> &bull; <a href="https://pypi.org/project/s3dgraphy/">s3Dgraphy on PyPI</a> &bull; <a href="https://github.com/zalmoxes-laran/3D-survey-collection">3DSC repo</a> &bull; <a href="https://stratigraph-eccch.eu">StratiGraph project</a></p>
     </div>
   </div>
 </div>
@@ -211,6 +216,8 @@ a:hover { color: var(--em-gold); }
     <button class="fbtn" data-filter="infra">Infra</button>
     <button class="fbtn" data-filter="research">Research</button>
     <button class="fbtn" data-filter="collab">Collab</button>
+    <span style="margin-left:0.8rem;border-left:1px solid var(--em-border);padding-left:0.8rem"></span>
+    <button class="fbtn" data-filter="stratigraph">StratiGraph</button>
     <input type="text" class="search-box" placeholder="Search..." id="searchBox">
   </div>
   <div class="stats">
@@ -256,7 +263,7 @@ const emVersions = [
   { version: "1.4", date: "2024", status: "released", summary: "TSU node, dotted connector, multi-instance support, s3Dgraphy integration.",
     links: { "EMtools v1.4.3 LTS": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EM-tools_v1.4.3" }
   },
-  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Multigraph, building archaeology nodes, propagative metadata, vocabulary presets, Heriverse exporter.",
+  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Canvas header metadata tags incorporated. Multigraph, building archaeology nodes, group nodes, dashed connector, transformation connector, XLSX auxiliary data, propagative metadata, vocabulary presets, Heriverse exporter in progress.",
     links: {
       "EMtools v1.5 dev": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EMtools_dev1.5.0Beta3",
       "s3Dgraphy": "https://github.com/zalmoxes-laran/s3Dgraphy",
@@ -289,13 +296,14 @@ const impactTagClass = {
 const projects = [
   {
     id: "DP-01", title: "Tapestry", cat: "research", embargo: true,
-    status: "research", statusLabel: "Research",
-    desc: "AI-based system for Extended Matrix.",
-    full: "AI-driven system that integrates with the Extended Matrix ecosystem. Details under embargo pending scientific publication.",
-    components: ["New external system"], impacts: [],
-    targetVersion: "TBD", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Pending",
-    embargoNotes: "Paper in preparation. Expected submission: 2026."
+    status: "in-dev", statusLabel: "In development",
+    desc: "AI-based image-to-image generation constrained by EM knowledge graphs.",
+    full: "Image-to-image generation system constrained by Extended Matrix knowledge graphs. Core implementation complete: FastAPI server, ComfyUI integration with ControlNet (depth + canny), Stable Diffusion SDXL. Deterministic property-to-prompt mapping from s3Dgraphy graph nodes. Input: RGB render, depth map (EXR), ID masks, s3Dgraphy graph extract (JSON). Output: photorealistic image + paradata JSON for reincorporation into s3Dgraphy. Dedicated repository: EM-Tapestry.",
+    components: ["FastAPI server", "ComfyUI workflow builder", "ControlNet integration", "s3Dgraphy constraint builder", "EMtools integration (planned)", "Web UI (planned)"],
+    impacts: ["emtools", "s3d"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Core tested and functional. Next: ComfyUI installation, Web UI, EMtools bridge.", thesis: false, stratigraph: false, keyStudy: "Sarmizegetusa",
+    embargoNotes: "Paper in preparation. Expected submission: 2026. Standalone repo: EM-Tapestry."
   },
   {
     id: "DP-02", title: "Stratiminer", cat: "research", embargo: true,
@@ -304,7 +312,7 @@ const projects = [
     full: "Tool to extract stratigraphic information from grey literature, PDFs, and online sources using AI. Currently exists as a prompt-based workflow generating Stratigraphy and Paradata XLSX tables compatible with s3Dgraphy.",
     components: ["Data import pipeline", "XLSX schema"], impacts: ["s3d"],
     targetVersion: "TBD", incorporated: null,
-    notes: "Functional as prompt workflow", thesis: true, keyStudy: "Pending",
+    notes: "Functional as prompt workflow", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa",
     embargoNotes: "Prompt workflow already operational. Standalone tool planned."
   },
   {
@@ -315,17 +323,17 @@ const projects = [
     components: ["Blender add-on", "Annotation pipeline", "Grease Pencil integration"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "yEd palette node already defined", thesis: true, keyStudy: "In progress"
+    notes: "yEd palette node already defined", thesis: true, stratigraph: true, keyStudy: "Basilica"
   },
   {
-    id: "DP-04", title: "Landscape Reconstruction", cat: "extension", embargo: false,
+    id: "DP-04", title: "Landscape & Urban Surfaces Reconstruction", cat: "extension", embargo: false,
     status: "planned", statusLabel: "Planned",
-    desc: "Territorial graph: topographic units, sites, Canvas concept.",
-    full: "Territorial-scale graph with topographic units, sites, and the Canvas concept. Canvas = surface on which archaeological presence is recorded. Orchestrates multiple EM graphs underneath.",
-    components: ["Topographic Unit node", "Site node", "Canvas node", "Paradata extensions"],
+    desc: "Territorial graph with topographic units, sites, Canvas concept, and urban stratigraphies (elevation points, core samples).",
+    full: "Territorial-scale graph with topographic units, sites, and the Canvas concept. Canvas = surface on which archaeological presence is recorded. Orchestrates multiple EM graphs underneath. Includes the Art\u00f9 project: digitization of large urban stratigraphies with elevation points and core samples as interpretation elements. Requires propagation algorithm. Based on 15 years of Art\u00f9 methodology.",
+    components: ["Topographic Unit node", "Site node", "Canvas node", "Paradata extensions", "Elevation point node", "Core sample node", "Propagation algorithm"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "2.0", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "Merged from former DP-04 and DP-14 (EM Surfaces \u2014 Art\u00f9)", thesis: true, stratigraph: false, keyStudy: "Amba Aradam"
   },
   {
     id: "DP-05", title: "Geophysics Workflow", cat: "extension", embargo: false,
@@ -335,7 +343,7 @@ const projects = [
     components: ["Import pipeline", "Pseudo-stratigraphic node", "EM menu"],
     impacts: ["emtools", "s3d"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: true, keyStudy: "Needed"
   },
   {
     id: "DP-06", title: "Data Transformation Chunk", cat: "core", embargo: false,
@@ -345,7 +353,7 @@ const projects = [
     components: ["Data pipeline", "Transformation nodes"],
     impacts: ["yed", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Needed"
+    notes: "", thesis: false, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-07", title: "Document Node as a Spatio-Temporal Entity", cat: "core", embargo: false,
@@ -355,7 +363,7 @@ const projects = [
     components: ["Document node", "Epoch Manager", "Source timeline", "Delta system"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Instancing partly done; delta system still needed", thesis: false, keyStudy: "Sarmizegetusa"
+    notes: "Instancing partly done; delta system still needed", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-08", title: "Subjectivity Project", cat: "core", embargo: false,
@@ -365,37 +373,37 @@ const projects = [
     components: ["Qualia system", "Paradata nodes"],
     impacts: ["yed", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-09", title: "Vocabulary Project", cat: "core", embargo: false,
-    status: "planned", statusLabel: "Planned",
-    desc: "yEd qualia presets: measurements, properties, color-coded.",
-    full: "yEd template additions for qualia presets: length, width, height, measurable properties. Distinct background colors to separate qualia from SU nodes.",
-    components: ["yEd template", "GraphML schema", "Qualia node types"],
-    impacts: ["yed", "config"],
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "yEd qualia presets: measurements, properties, color-coded. Property icon and Qualia Importer exist.",
+    full: "yEd template additions for qualia presets: length, width, height, measurable properties. Distinct background colors to separate qualia from SU nodes. Property node icon (property.png) already created in EM 1.5 icons. s3Dgraphy v0.1.28 implements a Qualia Importer for importing from Qualia templates. Palette integration pending.",
+    components: ["yEd template", "GraphML schema", "Qualia node types", "Property icon (done)", "s3Dgraphy Qualia Importer (done)"],
+    impacts: ["yed", "config", "s3d"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Could use Claude to auto-generate qualia in GraphML", thesis: false, keyStudy: "Needed"
+    notes: "Property icon exists; s3Dgraphy Qualia Importer done. yEd palette integration pending.", thesis: false, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-10", title: "Multigraph Project", cat: "tool", embargo: false,
     status: "near", statusLabel: "Near completion",
-    desc: "Multiple interconnected graphs in a single EM project.",
-    full: "Multi-graph support: multiple interconnected graphs within a single EM project. Impacts s3Dgraphy and EMtools (not directly the core language).",
-    components: ["Graph management", "s3Dgraphy multi-graph", "EMtools UI"],
+    desc: "Multiple interconnected graphs in a single EM project. Landscape system operational.",
+    full: "Multi-graph support: multiple interconnected graphs within a single EM project. EMtools implements a Landscape system with multi-graph toggling, graph-code prefixes, and CronoFilter for custom chronological horizons. s3Dgraphy supports multi-graph management. Impacts s3Dgraphy and EMtools (not directly the core language).",
+    components: ["Landscape system (EMtools, done)", "CronoFilter horizons (done)", "s3Dgraphy multi-graph (done)", "Graph management", "EMtools UI"],
     impacts: ["emtools", "s3d"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Nearly complete", thesis: false, keyStudy: "Sarmizegetusa"
+    notes: "Landscape system and CronoFilter operational in EMtools.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-11", title: "Heriverse Project", cat: "tool", embargo: false,
     status: "in-dev", statusLabel: "In development (Beta)",
-    desc: "Heritage Metaverse online viewer (successor to EMviq) + EMtools exporter.",
-    full: "Two components: (1) Heriverse — online Heritage Metaverse service based on Aton, successor to EMviq with greatly expanded capabilities. Currently in beta with a beta tester program open for applications. (2) EMtools Heriverse exporter for publishing EM projects online. The exporter targets EM v1.5.",
-    components: ["Heriverse viewer (Aton-based)", "EMtools Heriverse exporter", "Beta tester program"],
+    desc: "Heritage Metaverse online viewer (successor to EMviq) + EMtools exporter. May evolve into Strativerse.",
+    full: "Two components: (1) Heriverse — online Heritage Metaverse service based on Aton, successor to EMviq with greatly expanded capabilities. Currently in beta with a beta tester program open for applications. May evolve into Strativerse. Docker-based deployment production-ready (ATON Framework, CouchDB, Keycloak, Nginx HTTPS). (2) EMtools Heriverse exporter for publishing EM projects online with GPU instancing and ParaData objects export. The exporter targets EM v1.5.",
+    components: ["Heriverse viewer (Aton-based)", "Docker deployment (production-ready)", "EMtools Heriverse exporter (with GPU instancing)", "ParaData objects export (done)", "Beta tester program"],
     impacts: ["emtools", "heriverse"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Beta version live; tester program open", thesis: true, keyStudy: "Sarmizegetusa"
+    notes: "Beta version live; Docker deployment ready. Possible rebranding to Strativerse.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-12", title: "Temporal Branches", cat: "core", embargo: false,
@@ -405,7 +413,7 @@ const projects = [
     components: ["Graph structure", "Temporal logic"],
     impacts: ["yed", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-13", title: "Virtual SU Sheet", cat: "collab", embargo: false,
@@ -415,17 +423,7 @@ const projects = [
     components: ["Documentation pipeline", "Jupyter (optional)"],
     impacts: [],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
-  },
-  {
-    id: "DP-14", title: "EM Surfaces \u2014 Art\u00f9", cat: "extension", embargo: false,
-    status: "planned", statusLabel: "Planned",
-    desc: "Large urban stratigraphies: elevation points, core samples.",
-    full: "Digitization of the Art\u00f9 project. Elevation points and core samples as interpretation elements. Requires propagation algorithm.",
-    components: ["Elevation point node", "Core sample node", "Propagation algorithm"],
-    impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "2.0", incorporated: null,
-    notes: "Based on 15 years of Art\u00f9 methodology", thesis: true, keyStudy: "Art\u00f9 dataset"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-15", title: "Open Shelf", cat: "collab", embargo: false,
@@ -435,7 +433,7 @@ const projects = [
     components: ["Search engine", "Graph fragment indexing", "Comparison UI"],
     impacts: ["s3d"],
     targetVersion: "2.0", incorporated: null,
-    notes: "Reuses Open Shelf add-on code", thesis: true, keyStudy: "Needed"
+    notes: "Reuses Open Shelf add-on code", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-16", title: "EM Review System", cat: "collab", embargo: true,
@@ -445,19 +443,19 @@ const projects = [
     components: ["Review workflow", "Collaborative annotations"],
     impacts: [],
     targetVersion: "1.6", incorporated: null,
-    notes: "Miro board ready; publication pending", thesis: false, keyStudy: "Existing (Miro)",
+    notes: "Miro board ready; publication pending", thesis: false, stratigraph: false, keyStudy: "Existing (Miro)",
     embargoNotes: "Publication with student collaborator in preparation."
   },
   {
-    id: "DP-17", title: "Knowledge Graph Connector", cat: "infra", embargo: true,
+    id: "DP-17", title: "Knowledge Graph & Triple Store", cat: "infra", embargo: true,
     status: "research", statusLabel: "Research",
-    desc: "s3Dgraphy to triple store / knowledge graph connector.",
-    full: "Connector between s3Dgraphy and triple store / knowledge graph backends (Blaze, Grapho, etc.).",
-    components: ["s3Dgraphy export/import", "RDF mapping", "SPARQL"],
+    desc: "s3Dgraphy to triple store / knowledge graph connector and database backend. RDF/TTL and Neo4j export planned.",
+    full: "Connector between s3Dgraphy and triple store / knowledge graph backends (Blaze, Grapho, etc.). Includes triple store database for holistic archaeology and cultural heritage documentation. Covers RDF mapping, SPARQL queries, and database schema. s3Dgraphy already has CIDOC-CRM mappings for all edge types (v1.5.4). Planned in s3Dgraphy roadmap: RDF/TTL export for semantic web compliance, Neo4j export for graph database integration.",
+    components: ["s3Dgraphy export/import", "RDF mapping", "SPARQL", "Database backend", "RDF schema", "CIDOC-CRM edge mappings (done in s3Dgraphy)", "RDF/TTL export (planned)", "Neo4j export (planned)"],
     impacts: ["s3d"],
     targetVersion: "TBD", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Pending",
-    embargoNotes: "Core infrastructure for KG vision. Research phase."
+    notes: "Merged from former DP-17 and DP-22. CIDOC-CRM mappings already in s3Dgraphy.", thesis: true, stratigraph: true, keyStudy: "Basilica",
+    embargoNotes: "Core infrastructure for KG vision. CIDOC-CRM mappings done. RDF/TTL and Neo4j exports planned in s3Dgraphy roadmap."
   },
   {
     id: "DP-18", title: "Heritage Digital Twin Mapping", cat: "infra", embargo: false,
@@ -467,7 +465,7 @@ const projects = [
     components: ["Export/mapping pipeline", "Metadata standards"],
     impacts: ["s3d"],
     targetVersion: "2.0", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-19", title: "Canvas Project", cat: "core", embargo: false,
@@ -477,17 +475,17 @@ const projects = [
     components: ["Canvas node", "Geo-node", "Swimlane paradata group"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "Swimlane paradata = specialization of Paradata Node Group", thesis: true, keyStudy: "Needed"
+    notes: "Swimlane paradata = specialization of Paradata Node Group", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-20", title: "Temporal Propagation", cat: "core", embargo: false,
-    status: "planned", statusLabel: "Planned",
-    desc: "Algorithm for chronological propagation through the graph.",
-    full: "Temporal propagation from known data points through stratigraphic relationships. Related: Pletka platform.",
-    components: ["s3Dgraphy temporal logic", "Graph algorithms"],
-    impacts: ["s3d"],
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Algorithm for chronological propagation through the graph. BFS-based engine in s3Dgraphy.",
+    full: "Temporal propagation from known data points through stratigraphic relationships. s3Dgraphy v0.1.32 implements a chronology calculation engine with BFS-based TPQ/TAQ propagation and temporal property detection (absolute_start_date/absolute_end_date PropertyNodes). EMtools integration and full UI pending. Related: Pletka platform.",
+    components: ["s3Dgraphy chronology engine (completed)", "BFS-based TPQ/TAQ propagation", "Temporal property detection", "EMtools UI (planned)", "Graph algorithms"],
+    impacts: ["s3d", "emtools"],
     targetVersion: "1.6", incorporated: null,
-    notes: "Pletka has related implementation", thesis: true, keyStudy: "Needed"
+    notes: "s3Dgraphy engine completed in v0.1.32. EMtools integration pending.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-21", title: "EM Meter", cat: "tool", embargo: false,
@@ -497,18 +495,7 @@ const projects = [
     components: ["s3Dgraphy Python API", "Jupyter", "Data visualization"],
     impacts: ["s3d"],
     targetVersion: "1.5", incorporated: null,
-    notes: "3D visualization in future version", thesis: true, keyStudy: "Sarmizegetusa"
-  },
-  {
-    id: "DP-22", title: "Triple Store Database", cat: "infra", embargo: true,
-    status: "research", statusLabel: "Research",
-    desc: "Triple store for holistic archaeological documentation.",
-    full: "Triple store database for holistic archaeology and cultural heritage documentation.",
-    components: ["Database backend", "RDF schema"],
-    impacts: ["s3d"],
-    targetVersion: "TBD", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Pending",
-    embargoNotes: "Core KG infrastructure. Research phase."
+    notes: "3D visualization in future version", thesis: true, stratigraph: false, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-23", title: "Music Reconstruction", cat: "extension", embargo: false,
@@ -518,7 +505,7 @@ const projects = [
     components: ["Musical qualia", "New node adaptations"],
     impacts: ["yed", "config"],
     targetVersion: "2.0+", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
     id: "DP-24", title: "Dance Reconstruction", cat: "extension", embargo: false,
@@ -528,7 +515,7 @@ const projects = [
     components: ["Choreographic nodes", "Movement qualia"],
     impacts: ["yed", "config"],
     targetVersion: "2.0+", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
     id: "DP-25", title: "Basilica Iulia", cat: "research", embargo: true,
@@ -538,7 +525,7 @@ const projects = [
     components: ["Equality edge type", "Same-epoch edge type"],
     impacts: ["yed", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Basilica Iulia",
+    notes: "", thesis: false, stratigraph: true, keyStudy: "Basilica Iulia",
     embargoNotes: "New connector types pending publication."
   },
   {
@@ -549,7 +536,7 @@ const projects = [
     components: ["SF node with red border (yEd)", "s3Dgraphy rules", "EMtools support"],
     impacts: ["yed", "s3d", "config", "emtools"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Lead: Nicola Delbarba (Ph.D. thesis)", thesis: true, keyStudy: "In progress (Nicola)"
+    notes: "Lead: Nicola Delbarba (Ph.D. thesis)", thesis: true, stratigraph: false, keyStudy: "In progress (Nicola)"
   },
   {
     id: "DP-27", title: "Building Archaeology", cat: "core", embargo: false,
@@ -559,7 +546,7 @@ const projects = [
     components: ["Negative SU node", "Neutral SU node", "Wall SU hypergraph", "Spolia integration"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Wall SU hypergraph partly done", thesis: true, keyStudy: "In progress"
+    notes: "Wall SU hypergraph partly done", thesis: true, stratigraph: true, keyStudy: "Ostia Porta Marina"
   },
   {
     id: "DP-28", title: "Virtual SU Pattern", cat: "core", embargo: false,
@@ -569,7 +556,7 @@ const projects = [
     components: ["VSU classification extension", "Cultural pattern paradata"],
     impacts: ["yed", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Ostia Porta Marina"
   },
   {
     id: "DP-29", title: "Narrative Units", cat: "extension", embargo: false,
@@ -579,7 +566,7 @@ const projects = [
     components: ["Narrative Unit node", "Character system"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "2.0", incorporated: null,
-    notes: "Prototyped in student thesis", thesis: true, keyStudy: "Existing (thesis)"
+    notes: "Prototyped in student thesis", thesis: true, stratigraph: false, keyStudy: "Existing (thesis)"
   },
   {
     id: "DP-30", title: "Reconstructive Elements", cat: "core", embargo: false,
@@ -589,7 +576,7 @@ const projects = [
     components: ["Hypergraph navigation", "Instancing system", "Prop nodes", "Character nodes"],
     impacts: ["emtools", "s3d"],
     targetVersion: "2.0", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Amba Aradam"
   },
   {
     id: "DP-31", title: "HBIM Integration", cat: "infra", embargo: false,
@@ -599,7 +586,7 @@ const projects = [
     components: ["Export/import pipeline", "IFC mapping"],
     impacts: ["emtools", "s3d"],
     targetVersion: "2.0", incorporated: null,
-    notes: "", thesis: true, keyStudy: "Needed"
+    notes: "", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
     id: "DP-32", title: "Propagative Metadata System", cat: "core", embargo: false,
@@ -609,7 +596,7 @@ const projects = [
     components: ["EM Tree Panel header", "GraphML header", "Paradata groups", "yEd template nodes"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Scope: node > swimlane > graph", thesis: false, keyStudy: "Needed"
+    notes: "Scope: node > swimlane > graph", thesis: false, stratigraph: false, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-33", title: "Stratigraphy Manager+", cat: "tool", embargo: false,
@@ -619,7 +606,7 @@ const projects = [
     components: ["Stratigraphy Manager UI", "EM Graph viewer", "Mini-graph generator"],
     impacts: ["emtools"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Sarmizegetusa"
+    notes: "", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-34", title: "Label & Layout System", cat: "tool", embargo: false,
@@ -629,27 +616,27 @@ const projects = [
     components: ["Blender add-on", "Grease Pencil modifiers", "3D Survey Collection"],
     impacts: ["emtools"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Needed"
+    notes: "", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-35", title: "UI/UX Refactoring", cat: "tool", embargo: false,
     status: "in-dev", statusLabel: "Ongoing",
-    desc: "Comprehensive UI/UX modernization of the EM Blender add-on.",
-    full: "Comprehensive refactoring: modernized interface and improved workflow ergonomics.",
-    components: ["Blender add-on UI (all panels)"],
+    desc: "Comprehensive UI/UX modernization of the EM Blender add-on. Modular manager architecture.",
+    full: "Major rewrite of EMtools: migrated to Blender Extension format (.zip packages), modular manager architecture (Stratigraphy, Epoch, Visual, Reconstruction, Paradata, Document managers), Graph Editor with dynamic node generation, Visual Manager with property-based colouring and colour ramps, Proxy Box Creator, performance optimization framework (~4,000 lines). Multi-platform CI/CD with GitHub Actions.",
+    components: ["Blender Extension format (done)", "Modular manager architecture (done)", "Graph Editor/Viewer (done)", "Visual Manager (done)", "Proxy Box Creator (done)", "Performance framework (30% integrated)", "Multi-platform CI/CD (done)"],
     impacts: ["emtools"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Ongoing, informed by all feature DPs", thesis: false, keyStudy: "N/A"
+    notes: "Ongoing, informed by all feature DPs. v1.5.0-dev.140.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-36", title: "Container Nodes", cat: "core", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
-    desc: "Container nodes for VSF, US, and USD grouping.",
-    full: "Container nodes that include and group different node types: Virtual Special Find (VSF), Stratigraphic Unit (US), Documentary Stratigraphic Unit (USD). Enables nesting of nodes within logical containers. Anastylosis group container is already completed.",
-    components: ["VSF container", "US container", "USD container", "Group logic"],
+    status: "near", statusLabel: "Near completion",
+    desc: "Container nodes for VSF, US, and USD grouping. Implemented in s3Dgraphy and EMtools.",
+    full: "Container nodes that include and group different node types: Virtual Special Find (VSF), Stratigraphic Unit (US), Documentary Stratigraphic Unit (USD). Enables nesting of nodes within logical containers. Anastylosis group container completed. s3Dgraphy v0.1.31 implements container group nodes (US, USD, VSF). EMtools supports instance-chain and containment filtering.",
+    components: ["VSF container", "US container", "USD container", "Group logic", "s3Dgraphy container groups (done)", "EMtools containment filtering (done)"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Anastylosis container done; others in progress", thesis: false, keyStudy: "Existing (Anastylosis)"
+    notes: "s3Dgraphy and EMtools both implement containers. Near completion.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-37", title: "Chronontology Connector", cat: "infra", embargo: false,
@@ -659,7 +646,7 @@ const projects = [
     components: ["Epoch Manager extension", "REST API client"],
     impacts: ["emtools", "s3d"],
     targetVersion: "1.6", incorporated: null,
-    notes: "Target: iDAI.chronontology REST API", thesis: true, keyStudy: "Needed"
+    notes: "Target: iDAI.chronontology REST API", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
     id: "DP-38", title: "Tropy Document Import", cat: "tool", embargo: false,
@@ -669,17 +656,77 @@ const projects = [
     components: ["Import pipeline", "Document visualization", "Tropy integration"],
     impacts: ["emtools"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: false, keyStudy: "Needed"
+    notes: "", thesis: false, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-39", title: "Transformation Connector (Dotted)", cat: "core", embargo: false,
+    status: "near", statusLabel: "Near completion",
+    desc: "Dotted connector linking instances of the same node that change over time. s3Dgraphy implements instance chains.",
+    full: "Dotted connector that links multiple instances of the same stratigraphic unit or element that has transformed or moved over time. Enables tracking of temporal transformations of individual nodes across epochs. Core language addition. s3Dgraphy v0.1.31 implements instance chains via changed_from edges. EMtools supports instance-chain filtering.",
+    components: ["Dotted connector edge type", "yEd template", "s3Dgraphy changed_from edges (done)", "EMtools instance-chain filtering (done)"],
+    impacts: ["yed", "s3d", "config", "emtools"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Introduced in EM 1.4; s3Dgraphy and EMtools both implement instance chains.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-40", title: "Canvas Header Metadata Tags", cat: "core", embargo: false,
+    status: "near", statusLabel: "Incorporated",
+    desc: "Graph-level metadata tags in canvas header: ID, ORCID, License, Embargo.",
+    full: "Added general metadata as tags in square brackets next to the EM canvas title: ID, ORCID, License, and Embargo. These are graph-level metadata propagating to all nodes. Part of the Propagative Metadata System (DP-32) scope, specifically the graph-level header implementation.",
+    components: ["Canvas header tags", "yEd template", "GraphML header"],
+    impacts: ["yed", "config"],
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "Subset of DP-32 scope, completed for 1.5", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-41", title: "Swimlane Epoch Local Data", cat: "core", embargo: false,
+    status: "concept", statusLabel: "Concept",
+    desc: "Start and End epoch values displayed next to epoch name in swimlanes.",
+    full: "Local temporal data in swimlanes: Start and End values displayed next to the epoch name. Enables swimlane-level temporal scoping as part of the propagative metadata approach.",
+    components: ["Swimlane header data", "Epoch value display", "yEd template"],
+    impacts: ["yed", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Complements DP-32 at swimlane scope level", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-42", title: "Dashed Connector (Alternative Branches)", cat: "core", embargo: false,
     status: "partial", statusLabel: "Partially implemented",
-    desc: "Dotted connector linking instances of the same node that change over time.",
-    full: "Dotted connector that links multiple instances of the same stratigraphic unit or element that has transformed or moved over time. Enables tracking of temporal transformations of individual nodes across epochs. Core language addition.",
-    components: ["Dotted connector edge type", "yEd template", "s3Dgraphy support"],
+    desc: "Dashed connector representing mutually exclusive time branches.",
+    full: "New dashed connector type to represent mutually exclusive alternative time branches. Distinct from the dotted transformation connector (DP-39/EM 1.4). Enables formal representation of temporal branching in the EM graph.",
+    components: ["Dashed edge type", "yEd template", "GraphML schema"],
     impacts: ["yed", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
-    notes: "Introduced in EM 1.4; being extended in 1.5", thesis: false, keyStudy: "Sarmizegetusa"
+    notes: "Related to DP-12 (Temporal Branches) which covers the broader concept", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-43", title: "Group Nodes (Time Branch, Activity, Paradata)", cat: "core", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Three group node types: Time Branch (green), Activity, and Paradata.",
+    full: "Three new group node types: (1) Time Branch Group Node with green background for alternative temporal sequences, (2) Activity Group Node for grouping related activities, (3) Paradata Group Node connected to the stratigraphic node whose properties are being validated. Extends the container/grouping concept (related to DP-36).",
+    components: ["Time Branch group node", "Activity group node", "Paradata group node", "yEd template"],
+    impacts: ["yed", "emtools", "s3d", "config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Complements DP-36 (Container Nodes); specific group node types now formalized", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-44", title: "Transformation Connector Documentation", cat: "core", embargo: false,
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Improved documentation and formal description of the dotted transformation connector.",
+    full: "Enhanced documentation and representation of the transformation connector (dotted) introduced in EM 1.4. Clearer formal description and usage guidance for linking instances of the same node that change over time.",
+    components: ["Documentation", "RST files", "Formal description"],
+    impacts: ["config"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "Documentation improvement for DP-39 connector", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+  },
+  {
+    id: "DP-45", title: "XLSX Auxiliary Data & US Image Resources", cat: "tool", embargo: false,
+    status: "near", statusLabel: "Near completion",
+    desc: "XLSX files as auxiliary data sources and images linked to Stratigraphic Units as resources.",
+    full: "Support for reading XLSX spreadsheets as auxiliary data files within the EM workflow, and linking images to Stratigraphic Units (US) as documentary resources. EMtools v1.4+ implements XLSX import for stratigraphic data. EMtools v1.5 adds XLSX merge wizard with conflict resolution, epoch compatibility validation, and merge UI. s3Dgraphy supports Excel import/export and Graph Merger with conflict resolution (v0.1.33). Enables richer documentation pipelines where tabular data and photographic evidence complement the stratigraphic graph. EMtools v1.6 roadmap includes Image Viewing System (JSON-LD, XLSX-based, folder-based).",
+    components: ["XLSX import (EMtools, done since v1.4)", "XLSX merge wizard with conflict resolution (EMtools v1.5, done)", "s3Dgraphy Graph Merger with conflict resolution (done, v0.1.33)", "s3Dgraphy Excel import/export (done)", "US image resource linker", "Image Viewing System (EMtools v1.6, planned)"],
+    impacts: ["emtools", "s3d"],
+    targetVersion: "1.5", incorporated: null,
+    notes: "XLSX import and merge wizard functional. Graph Merger in s3Dgraphy. Image resources pending.", thesis: false, stratigraph: true, keyStudy: "Basilica"
   }
 ];
 
@@ -710,10 +757,11 @@ function renderRoadmap() {
     if (p.embargo) emb++;
     if (p.embargo && !EMBARGO_ON) return false;
     if (p.incorporated) return false;
-    if (activeFilter !== "all" && p.cat !== activeFilter) return false;
+    if (activeFilter === "stratigraph" && !p.stratigraph) return false;
+    if (activeFilter !== "all" && activeFilter !== "stratigraph" && p.cat !== activeFilter) return false;
     if (searchQ) {
       const q = searchQ.toLowerCase();
-      if (!(p.id+" "+p.title+" "+p.desc+" "+p.cat+" "+(p.impacts||[]).join(" ")).toLowerCase().includes(q)) return false;
+      if (!(p.id+" "+p.title+" "+p.desc+" "+p.cat+" "+(p.impacts||[]).join(" ")+(p.stratigraph ? " stratigraph" : "")+(p.thesis ? " thesis" : "")).toLowerCase().includes(q)) return false;
     }
     return true;
   });
@@ -739,6 +787,7 @@ function renderRoadmap() {
           ${p.embargo ? '<span class="tag tag-embargo">EMBARGO</span>' : ''}
           ${p.targetVersion && p.targetVersion !== "TBD" ? `<span class="tag tag-version">v${p.targetVersion}</span>` : ''}
           ${p.thesis ? '<span class="tag tag-thesis">Thesis</span>' : ''}
+          ${p.stratigraph ? '<a href="https://stratigraph-eccch.eu" target="_blank" class="tag-stratigraph-link" onclick="event.stopPropagation()"><span class="tag tag-stratigraph">StratiGraph &#8599;</span></a>' : ''}
           ${makeImpactTags(p.impacts)}
         </div>
         <div class="dp-desc">${p.desc}</div>
@@ -812,6 +861,7 @@ function openDetail(id) {
         ${p.embargo ? '<span class="tag tag-embargo">EMBARGO</span>' : ''}
         ${p.targetVersion && p.targetVersion !== "TBD" ? `<span class="tag tag-version">v${p.targetVersion}</span>` : ''}
         ${p.thesis ? '<span class="tag tag-thesis">Thesis candidate</span>' : ''}
+        ${p.stratigraph ? '<a href="https://stratigraph-eccch.eu" target="_blank" class="tag-stratigraph-link"><span class="tag tag-stratigraph">StratiGraph &#8599;</span></a>' : ''}
         ${makeImpactTags(p.impacts)}
       </div>
     </div>

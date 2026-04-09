@@ -26,6 +26,7 @@ All data lives in JavaScript arrays inside `index.html`:
   incorporated: null,       // Set to "1.5" when shipped → moves to Incorporated tab
   notes: "",
   thesis: true,             // Thesis candidate flag
+  stratigraph: false,       // true = funded/created within StratiGraph EU project
   keyStudy: "Needed",
   embargoNotes: ""          // Visible only in embargo mode (optional)
 }
@@ -46,7 +47,13 @@ All data lives in JavaScript arrays inside `index.html`:
 
 **Mark incorporated:** set `incorporated: "1.5"` → moves from Roadmap to Incorporated tab
 
-**Add new DP:** append to `projects` array, next ID is DP-40+
+**Add new DP:** append to `projects` array, next ID is DP-46+
+
+**Tag StratiGraph:** set `stratigraph: true` — displays a dark blue "StratiGraph" tag. Filterable via toolbar button.
+
+**Merged DPs (April 2026):**
+- DP-04 now includes former DP-14 (EM Surfaces — Artù)
+- DP-17 now includes former DP-22 (Triple Store Database)
 
 ## EM Versions
 

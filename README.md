@@ -74,6 +74,8 @@ You are more than welcome to contribute to the project by spotting bugs/issues a
 
 ## Roadmap for the upcoming EM 1.5
 
+> **Note:** EM 1.5 is in active development, with 8 palette iterations (dev1 through dev8) produced so far. Multiple features listed below as completed have already been integrated into companion tools (EMtools, s3Dgraphy). A detailed interactive tracker of all Development Projects is available at [docs/dev-projects/index.html](docs/dev-projects/index.html).
+
 ### Completed Tasks
 
 - [X] **Added General Data as Tags in the Extended Matrix Canvas Header**
@@ -111,10 +113,13 @@ You are more than welcome to contribute to the project by spotting bugs/issues a
 - [ ] **Create Property Nodes in EM 1.5 Palette**
   - Develop a series of property nodes in the EM 1.5 palette that describe various qualities such as height, width, material, etc., including qualitative attributes like meaning.
   - *Note*: This task is closely linked to another task in s3Dgraphy project.
+  - *Progress*: A property node icon (`property.png`) is already present in `00_EMicons/2D/`.
 
 - [ ] **Record a new Quickstart for the EM 1.5**
 
 ### Future EM versions
+
+Items below are also tracked as formal Development Projects in the [dev-projects tracker](docs/dev-projects/index.html).
 
 - [ ] New metaphors of visualization for anastylosis and virtual restoration
 - [ ] Including Pattern sources in the EM
