@@ -768,6 +768,16 @@ const projects = [
     impacts: ["emtools", "s3d", "config"],
     targetVersion: "1.5", incorporated: null,
     notes: "Connected to DP-02 (Stratiminer) which generates stratigraphy and paradata XLSX tables. Related to DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
+  },
+  {
+    id: "DP-50", title: "Surface Areale System", cat: "tool", embargo: false,
+    status: "in-dev", statusLabel: "In development",
+    desc: "Surface proxy creation on Representation Models for documenting surface phenomena (toolmarks, degradation, lacunae).",
+    full: "System for creating bidimensional surface proxies (areali) that conform to high-resolution 3D Representation Models. Enables documentation of surface archaeological phenomena: stone working traces (Working Unit / UL), degradation (TSU), lacunae, preparatory layers. Pipeline: Grease Pencil contour drawing on RM surface, automatic complexity classification (planar/angular/3D), three generation strategies (projective, shrinkwrap, boolean), adaptive subdivision, normal offset anti z-fighting. Integrates with stratigraphic graph via ExtractorNode paradata. Introduces the Working Unit (UL) node type in s3Dgraphy for toolmark documentation. Extends has_representation_model connector to support DocumentNode as source.",
+    components: ["Surface Areale operator (modal GP)", "Contour builder", "Projective strategy (done)", "Shrinkwrap strategy (planned)", "Boolean strategy (planned)", "Complexity analyzer (planned)", "Working Unit (UL) node type", "has_representation_model extension"],
+    impacts: ["emtools", "s3d", "config"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "MVP implements projective strategy for planar surfaces. Shrinkwrap and Boolean strategies planned for subsequent iterations.", thesis: true, stratigraph: false, keyStudy: "Basilica"
   }
 ];
 
