@@ -774,10 +774,10 @@ const projects = [
     status: "in-dev", statusLabel: "In development",
     desc: "Surface proxy creation on Representation Models for documenting surface phenomena (toolmarks, degradation, lacunae).",
     full: "System for creating bidimensional surface proxies (areali) that conform to high-resolution 3D Representation Models. Enables documentation of surface archaeological phenomena: stone working traces (Working Unit / UL), degradation (TSU), lacunae, preparatory layers. Pipeline: Grease Pencil contour drawing on RM surface, automatic complexity classification (planar/angular/3D), three generation strategies (projective, shrinkwrap, boolean), adaptive subdivision, normal offset anti z-fighting. Integrates with stratigraphic graph via ExtractorNode paradata. Introduces the Working Unit (UL) node type in s3Dgraphy for toolmark documentation. Extends has_representation_model connector to support DocumentNode as source.",
-    components: ["Surface Areale operator (modal GP)", "Contour builder", "Projective strategy (done)", "Shrinkwrap strategy (planned)", "Boolean strategy (planned)", "Complexity analyzer (planned)", "Working Unit (UL) node type", "has_representation_model extension"],
+    components: ["Surface Areale operator (modal GP)", "Contour builder", "Projective strategy (done)", "Shrinkwrap adaptive strategy (done)", "Boolean + LOD strategy (done)", "Complexity classifier A/B/C (done)", "Hardware benchmark + time estimation (done)", "Working Unit (UL) node type (done)", "Full paradata chain: US→Property→Extractor→Document→RM (done)", "has_representation_model extension (done)", "Document Manager rename + create operator (done)", "RMDoc sub-panel (done)"],
     impacts: ["emtools", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "MVP implements projective strategy for planar surfaces. Shrinkwrap and Boolean strategies planned for subsequent iterations.", thesis: true, stratigraph: false, keyStudy: "Basilica"
+    notes: "All three strategies implemented. Auto-classification selects best strategy based on surface geometry. Full paradata chain with correct edge types.", thesis: true, stratigraph: false, keyStudy: "Basilica"
   }
 ];
 
