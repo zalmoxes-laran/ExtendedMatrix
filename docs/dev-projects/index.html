@@ -307,7 +307,7 @@ const projects = [
     embargoNotes: "Paper in preparation. Expected submission: 2026. Standalone repo: EM-Tapestry."
   },
   {
-    id: "DP-02", title: "Stratiminer", cat: "research", embargo: true,
+    id: "DP-02", title: "Stratiminer", cat: "research", embargo: false,
     status: "research", statusLabel: "Prototype",
     desc: "AI tool to extract stratigraphic data from grey literature and PDFs.",
     full: "Tool to extract stratigraphic information from grey literature, PDFs, and online sources using AI. Currently exists as a prompt-based workflow generating Stratigraphy and Paradata XLSX tables compatible with s3Dgraphy.",
@@ -323,8 +323,8 @@ const projects = [
     full: "Annotation system based on Grease Pencil in Blender to annotate TSUs for restoration, surface characterization, and working-unit analysis. Creates pencil-based annotations directly on 3D surfaces. Impacts core language (yEd palette already created), EMtools add-on, and s3Dgraphy (JSON config rules are part of the formal language).",
     components: ["Blender add-on", "Annotation pipeline", "Grease Pencil integration"],
     impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "yEd palette node already defined", thesis: true, stratigraph: true, keyStudy: "Basilica"
+    targetVersion: "1.6", incorporated: null,
+    notes: "yEd palette node already defined. Moved to EM 1.6.", thesis: true, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-04", title: "Landscape & Urban Surfaces Reconstruction", cat: "extension", embargo: false,
@@ -389,32 +389,32 @@ const projects = [
   {
     id: "DP-10", title: "Multigraph Project", cat: "tool", embargo: false,
     status: "near", statusLabel: "Near completion",
-    desc: "Multiple interconnected graphs in a single EM project. Landscape system operational.",
-    full: "Multi-graph support: multiple interconnected graphs within a single EM project. EMtools implements a Landscape system with multi-graph toggling, graph-code prefixes, and CronoFilter for custom chronological horizons. s3Dgraphy supports multi-graph management. Impacts s3Dgraphy and EMtools (not directly the core language).",
-    components: ["Landscape system (EMtools, done)", "CronoFilter horizons (done)", "s3Dgraphy multi-graph (done)", "Graph management", "EMtools UI"],
+    desc: "Multiple interconnected graphs in a single EM project. Landscape system, multi-graph management and CronoFilter shipped.",
+    full: "Multi-graph support: multiple interconnected graphs within a single EM project. Shipped in EM 1.5: (1) s3Dgraphy holds several named graphs concurrently with top-level helpers (get_graph, get_all_graph_ids, remove_graph) and multigraph loader (load_graph_from_file). (2) EMtools exposes the graph set through scene.em_tools.graphml_files with a per-graph 'publishable' flag that drives the Heriverse exporter. (3) A Landscape Mode toggles from a single-site workflow to a multi-site territorial view, prefixing objects and proxies with graph codes to prevent name collisions between sites. (4) CronoFilter provides custom chronological horizons (CF_ChronologicalHorizon) with auto-generation from all loaded graphs' epochs, save/load to .cf.json, and integration with the Heriverse JSON exporter. (5) Per-graph operations (import, remove, reload) isolate side effects so editing one site does not invalidate the others. Core language unchanged; this is a pure EMtools + s3Dgraphy feature.",
+    components: ["Landscape Mode toggling (done)", "CronoFilter horizons + auto-from-epochs (done)", "CronoFilter .cf.json save/load (done)", "s3Dgraphy multi-graph API (done)", "Per-graph publishable flag (done)", "Graph-code object prefixing (done)", "Heriverse multi-graph JSON export (done)"],
     impacts: ["emtools", "s3d"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Landscape system and CronoFilter operational in EMtools.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "Landscape Mode, CronoFilter and multi-graph Heriverse export all operational in EM 1.5.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-11", title: "Heriverse Project", cat: "tool", embargo: false,
-    status: "in-dev", statusLabel: "In development (Beta)",
-    desc: "Heritage Metaverse online viewer (successor to EMviq) + EMtools exporter. May evolve into Strativerse.",
-    full: "Two components: (1) Heriverse — online Heritage Metaverse service based on Aton, successor to EMviq with greatly expanded capabilities. Currently in beta with a beta tester program open for applications. May evolve into Strativerse. Docker-based deployment production-ready (ATON Framework, CouchDB, Keycloak, Nginx HTTPS). (2) EMtools Heriverse exporter for publishing EM projects online with GPU instancing and ParaData objects export. The exporter targets EM v1.5.",
-    components: ["Heriverse viewer (Aton-based)", "Docker deployment (production-ready)", "EMtools Heriverse exporter (with GPU instancing)", "ParaData objects export (done)", "Beta tester program"],
+    status: "near", statusLabel: "Near completion",
+    desc: "Heritage Metaverse online viewer (successor to EMviq) + EMtools exporter, both shipped in 1.5. May evolve into Strativerse.",
+    full: "Two components now operational. (1) Heriverse — online Heritage Metaverse service based on the ATON Framework, successor to EMviq with greatly expanded capabilities. Docker-based deployment production-ready (ATON, CouchDB, Keycloak, Nginx HTTPS). Beta version live with open beta-tester program. May evolve into Strativerse. (2) EMtools Heriverse exporter, refactored in 1.5 into a dedicated export_operators/heriverse/ subpackage (split by concern: operator, json_export, gltf wrapper, utils, collections helper). Exporter features: multi-graph JSON export with per-graph publishable flag, GLTF export for proxies and Representation Models with Draco compression and optional GPU instancing, separate texture pipeline with configurable max resolution and quality, ParaData (RMDoc) objects export with transform preservation, Special Finds (RMSF) export, optional ZIP packaging and Cesium tileset skip. A dedicated HERIVERSE_OT_make_collections_visible helper unhides all collections containing RM objects before export. The Export Manager panel now uses a plugin-style provider registry (ExportProvider) that hosts the Heriverse UI without coupling to the panel.",
+    components: ["Heriverse viewer (Aton-based, beta live)", "Docker deployment (production-ready)", "export_operators/heriverse/ subpackage split (done)", "Multi-graph JSON export (done)", "GLTF with Draco + GPU instancing (done)", "Separate textures + compression (done)", "ParaData objects export (done)", "Special Finds export (done)", "Pre-export collection visibility helper (done)", "Export Manager plugin-style provider (done)"],
     impacts: ["emtools", "heriverse"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Beta version live; Docker deployment ready. Possible rebranding to Strativerse.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "Exporter refactored in 1.5 into a plugin-style architecture. Heriverse beta live; possible rebranding to Strativerse.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-12", title: "Temporal Branches", cat: "core", embargo: false,
     status: "planned", statusLabel: "Planned",
-    desc: "Alternative chronological interpretations as graph branches.",
-    full: "Temporal branching for alternative chronological interpretations or parallel temporal sequences.",
-    components: ["Graph structure", "Temporal logic"],
+    desc: "Alternative chronological interpretations as graph branches, including the dashed connector for mutually exclusive time branches (absorbs former DP-42).",
+    full: "Temporal branching for alternative chronological interpretations or parallel temporal sequences. Scope merged with the former DP-42 'Dashed Connector (Alternative Branches)': a dedicated dashed edge type will represent mutually exclusive alternative time branches, distinct from the dotted transformation connector (DP-39). The combined design covers both the graph-level branching structure and its visual encoding in the yEd palette, the s3Dgraphy schema and the GraphML round-trip.",
+    components: ["Graph structure", "Temporal logic", "Dashed edge type (ex-DP-42)", "yEd palette entry (ex-DP-42)", "GraphML schema update (ex-DP-42)"],
     impacts: ["yed", "s3d", "config"],
-    targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "future", incorporated: null,
+    notes: "Absorbs former DP-42 (Dashed Connector). Deferred to future work.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-13", title: "Virtual SU Sheet", cat: "collab", embargo: false,
@@ -448,7 +448,7 @@ const projects = [
     embargoNotes: "Publication with student collaborator in preparation."
   },
   {
-    id: "DP-17", title: "Knowledge Graph & Triple Store", cat: "infra", embargo: true,
+    id: "DP-17", title: "Knowledge Graph & Triple Store", cat: "infra", embargo: false,
     status: "research", statusLabel: "Research",
     desc: "s3Dgraphy to triple store / knowledge graph connector and database backend. RDF/TTL and Neo4j export planned.",
     full: "Connector between s3Dgraphy and triple store / knowledge graph backends (Blaze, Grapho, etc.). Includes triple store database for holistic archaeology and cultural heritage documentation. Covers RDF mapping, SPARQL queries, and database schema. s3Dgraphy already has CIDOC-CRM mappings for all edge types (v1.5.4). Planned in s3Dgraphy roadmap: RDF/TTL export for semantic web compliance, Neo4j export for graph database integration.",
@@ -519,15 +519,14 @@ const projects = [
     notes: "", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
-    id: "DP-25", title: "Basilica Iulia", cat: "research", embargo: true,
+    id: "DP-25", title: "Basilica Iulia", cat: "research", embargo: false,
     status: "research", statusLabel: "Research",
     desc: "Case study: equality and same-epoch connectors.",
     full: "Case study requiring equality connector and same-epoch connector as structural additions to EM.",
     components: ["Equality edge type", "Same-epoch edge type"],
     impacts: ["yed", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "", thesis: false, stratigraph: true, keyStudy: "Basilica Iulia",
-    embargoNotes: "New connector types pending publication."
+    targetVersion: "1.6", incorporated: null,
+    notes: "Out of embargo. Connector types targeted for EM 1.6.", thesis: false, stratigraph: true, keyStudy: "Basilica Iulia"
   },
   {
     id: "DP-26", title: "Spolia Project", cat: "core", embargo: false,
@@ -536,18 +535,18 @@ const projects = [
     full: "Core language proposal: new Special Find (SF) node with red border for spolia \u2014 reused architectural/decorative elements. Part of Nicola Delbarba\u2019s Ph.D. thesis.",
     components: ["SF node with red border (yEd)", "s3Dgraphy rules", "EMtools support"],
     impacts: ["yed", "s3d", "config", "emtools"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Lead: Nicola Delbarba (Ph.D. thesis)", thesis: true, stratigraph: false, keyStudy: "In progress (Nicola)"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Lead: Nicola Delbarba (Ph.D. thesis). Moved to EM 1.6.", thesis: true, stratigraph: false, keyStudy: "In progress (Nicola)"
   },
   {
     id: "DP-27", title: "Building Archaeology", cat: "core", embargo: false,
     status: "partial", statusLabel: "Partially implemented",
-    desc: "Negative SU, Neutral SU, Wall SU hypergraph with spolia.",
+    desc: "Negative SU, Neutral SU, Wall SU hypergraph with spolia. Re-targeted to EM 1.6.",
     full: "New nodes for building archaeology: Negative SU (cuts), Neutral SU (transparent volumes for doors/windows), Wall SU as hypergraph containing spolia. Core language extension into a new domain.",
     components: ["Negative SU node", "Neutral SU node", "Wall SU hypergraph", "Spolia integration"],
     impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Wall SU hypergraph partly done", thesis: true, stratigraph: true, keyStudy: "Ostia Porta Marina"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Wall SU hypergraph partly done. Moved to EM 1.6.", thesis: true, stratigraph: true, keyStudy: "Ostia Porta Marina"
   },
   {
     id: "DP-28", title: "Virtual SU Pattern", cat: "core", embargo: false,
@@ -591,7 +590,7 @@ const projects = [
   },
   {
     id: "DP-32", title: "Propagative Metadata System", cat: "core", embargo: false,
-    status: "planned", statusLabel: "Planned",
+    status: "near", statusLabel: "Near completion",
     desc: "Hierarchical metadata: graph > swimlane > node, with propagation.",
     full: "Three scope levels: Graph-level (Author, License, Embargo, CC), Swimlane-level (epoch-specific paradata groups), Node-level (local overrides). Propagation: node > swimlane > graph.",
     components: ["EM Tree Panel header", "GraphML header", "Paradata groups", "yEd template nodes"],
@@ -600,14 +599,14 @@ const projects = [
     notes: "Scope: node > swimlane > graph", thesis: false, stratigraph: false, keyStudy: "Sarmizegetusa"
   },
   {
-    id: "DP-33", title: "Stratigraphy Manager+", cat: "tool", embargo: false,
+    id: "DP-33", title: "EM Graph Project", cat: "tool", embargo: false,
     status: "planned", statusLabel: "Planned",
-    desc: "Mini-graph extraction, SU soloing, proxy toggle buttons.",
-    full: "Enhancements: 'Extract more info' (mini-graph), SU soloing (isolate with neighbors), activity list with proxy toggle.",
-    components: ["Stratigraphy Manager UI", "EM Graph viewer", "Mini-graph generator"],
+    desc: "Node Editor-based graph visualization, Mini Graph for single-SU neighborhoods, and authoring helpers built on top of it.",
+    full: "Umbrella project for the in-Blender graph visualization and authoring stack. Covers: (1) Node Editor — a dedicated Blender Node Editor space that renders the s3Dgraphy graph natively, with dynamic node generation, edge-type filters and a colour scheme aligned with the yEd palette. Currently shipping as the 'EMGraph (Experimental)' panel and Node Editor space. (2) Mini Graph — a lightweight view that extracts and shows the neighborhood of a single Stratigraphic Unit (SU soloing + immediate predecessors/successors), so authors can inspect a node's context without loading the full graph. (3) Authoring helpers that consume the shared graph view: SU soloing (isolate with neighbors), activity list with proxy toggles, 'Extract more info' action that spawns a Mini Graph from the current selection, and a two-way link between the Stratigraphy Manager selection and the Node Editor. Successor to the former 'Stratigraphy Manager+' concept: the graph-centric tooling is unified under a single project name.",
+    components: ["Node Editor space (experimental today)", "Dynamic node classes + socket generator", "Node Editor keymap + custom layout", "Mini Graph for single-SU neighborhoods", "SU soloing action", "Activity list with proxy toggle", "Bi-directional selection with Stratigraphy Manager", "Edge-type filters aligned with yEd palette"],
     impacts: ["emtools"],
     targetVersion: "1.6", incorporated: null,
-    notes: "", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    notes: "Renamed from 'Stratigraphy Manager+'. EMGraph Node Editor already ships as experimental; Mini Graph and authoring helpers targeted for 1.6.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-34", title: "Label & Layout System", cat: "tool", embargo: false,
@@ -621,33 +620,33 @@ const projects = [
   },
   {
     id: "DP-35", title: "UI/UX Refactoring", cat: "tool", embargo: false,
-    status: "in-dev", statusLabel: "Ongoing",
-    desc: "Comprehensive UI/UX modernization of the EM Blender add-on. Modular manager architecture.",
-    full: "Major rewrite of EMtools: migrated to Blender Extension format (.zip packages), modular manager architecture (Stratigraphy, Epoch, Visual, Reconstruction, Paradata, Document managers), Graph Editor with dynamic node generation, Visual Manager with property-based colouring and colour ramps, Proxy Box Creator, performance optimization framework (~4,000 lines). Multi-platform CI/CD with GitHub Actions.",
-    components: ["Blender Extension format (done)", "Modular manager architecture (done)", "Graph Editor/Viewer (done)", "Visual Manager (done)", "Proxy Box Creator (done)", "Performance framework (30% integrated)", "Multi-platform CI/CD (done)"],
+    status: "near", statusLabel: "Near completion",
+    desc: "Comprehensive UI/UX modernization of the EM Blender add-on. Modular package architecture, plugin-style Export Manager, uniform experimental gating.",
+    full: "Major rewrite of EMtools shipped in 1.5. Delivery (April 2026): (1) Build and distribution: migrated to Blender Extension format (.zip packages) with multi-platform CI/CD on GitHub Actions and a single build pipeline for stable and experimental channels. (2) Module architecture: every former monolithic top-level .py file promoted to a proper package with separation of concerns — anastylosis_manager/ (properties, lod_utils, graph_utils, operators_list, operators_link, operators_lod, ui), activity_manager/ (properties, operators, ui), em_statistics/ (materials, metrics, properties, operators, ui), export_manager/ (registry, panel, providers/), proxy_inflate_manager/ (helpers, operators, ui), cronofilter/ (properties, operators, ui + integration/json_exporter_patch siblings). Existing packages (rm_manager, paradata_manager, document_manager, graph_editor, proxy_box_creator, import_operators, visual_manager, em_setup, epoch_manager, stratigraphy_manager, tapestry_integration) audited and kept structurally clean; tapestry_integration/ui_panel.py renamed to ui.py for cross-module consistency. (3) Export Manager redesigned as a plugin-style panel: a central ExportProvider registry lets new exporter UI sections self-register without touching the panel; current providers are tabular (CSV) and heriverse (UI wrapper around export.heriverse). Dead EMviq path (EM_runaton, EM_export, EM_openemviq, old JSON_OT_exportEMformat) and its Scene properties removed. (4) Heriverse exporter split from a 2232-line monolith into export_operators/heriverse/ (operator, json_export, gltf, collections_op, utils). JSON_OT_exportEMformat renamed to HERIVERSE_OT_export_json with bl_idname preserved for backward compatibility. (5) Experimental features gating unified: red header + '(Experimental)' suffix + EXPERIMENTAL icon on all experimental UIs (RM Coloring, Proxy Inflate Manager, Export Statistics, GraphML Wizard, Tapestry, EMGraph). Surface Areale marked experimental. (6) Modular manager pattern (Stratigraphy, Epoch, Visual, Reconstruction, Paradata, Document managers) with Scene.em_tools single source of truth. (7) Visual Manager with property-based colouring and colour ramps. (8) Proxy Box Creator. (9) Performance optimization framework (~4,000 lines, ~30% integrated).",
+    components: ["Blender Extension format + CI/CD (done)", "Modular package split for every top-level .py (done)", "Export Manager plugin-style ExportProvider registry (done)", "export_operators/heriverse/ split from 2232-line monolith (done)", "EMviq dead-code removal (done)", "Uniform experimental gating (done)", "Modular manager architecture (done)", "Graph Editor/Viewer (done)", "Visual Manager + colour ramps (done)", "Proxy Box Creator (done)", "Performance framework (~30% integrated)"],
     impacts: ["emtools"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Ongoing, informed by all feature DPs. v1.5.0-dev.140.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "v1.5 modernization shipped. Package refactor + plugin-style export panel + uniform experimental gating are the headline items.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-36", title: "Container Nodes", cat: "core", embargo: false,
     status: "near", statusLabel: "Near completion",
-    desc: "Container nodes for VSF, US, and USD grouping. Implemented in s3Dgraphy and EMtools.",
-    full: "Container nodes that include and group different node types: Virtual Special Find (VSF), Stratigraphic Unit (US), Documentary Stratigraphic Unit (USD). Enables nesting of nodes within logical containers. Anastylosis group container completed. s3Dgraphy v0.1.31 implements container group nodes (US, USD, VSF). EMtools supports instance-chain and containment filtering.",
-    components: ["VSF container", "US container", "USD container", "Group logic", "s3Dgraphy container groups (done)", "EMtools containment filtering (done)"],
+    desc: "Container nodes for VSF, US, and USD grouping. Shipped end-to-end across core language, s3Dgraphy and EMtools.",
+    full: "Container nodes that include and group stratigraphic-family node types: Virtual Special Find (VSF), Stratigraphic Unit (US), Documentary Stratigraphic Unit (USD). Enables nesting of nodes within logical containers so that a reconstruction fragment composed of many small pieces can be handled as a single unit. Shipped in 1.5 across the three layers: (1) Core language: yEd palette additions with container-typed swimlanes and the formalization of 'is_contained_in' semantics. (2) s3Dgraphy v0.1.31+: container group node classes for US / USD / VSF, instance-chain edges and containment-aware queries. (3) EMtools: the Anastylosis Manager uses VSF containers to bundle virtual Special Finds into anastylosis groups, and Stratigraphy Manager filters support containment as a first-class axis (show only nodes inside a container / expand a container inline). The anastylosis refactor (sub-package with properties / lod_utils / graph_utils / operators_list / operators_link / operators_lod / ui) landed with this milestone and exposes detect_lod_variants and related helpers for scripted use.",
+    components: ["VSF container node (done)", "US container node (done)", "USD container node (done)", "yEd palette entries (done)", "s3Dgraphy container classes (done, v0.1.31+)", "EMtools containment filtering (done)", "Anastylosis Manager container-based grouping (done)", "Instance-chain edges (done)"],
     impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "s3Dgraphy and EMtools both implement containers. Near completion.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "End-to-end support: language, s3Dgraphy and EMtools all implement containers. Anastylosis Manager module restructured as a package.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-37", title: "Chronontology Connector", cat: "infra", embargo: false,
     status: "planned", statusLabel: "Planned",
-    desc: "REST API integration with iDAI.chronontology.",
+    desc: "REST API integration with iDAI.chronontology. Future work targeted at EM 2.0.",
     full: "Connects EM epoch system to iDAI.chronontology for standardized spatio-temporal epoch definitions.",
     components: ["Epoch Manager extension", "REST API client"],
     impacts: ["emtools", "s3d"],
-    targetVersion: "1.6", incorporated: null,
-    notes: "Target: iDAI.chronontology REST API", thesis: true, stratigraph: false, keyStudy: "Needed"
+    targetVersion: "2.0", incorporated: null,
+    notes: "Deferred to EM 2.0. Target: iDAI.chronontology REST API.", thesis: true, stratigraph: false, keyStudy: "Needed"
   },
   {
     id: "DP-38", title: "Tropy Document Import", cat: "tool", embargo: false,
@@ -662,12 +661,12 @@ const projects = [
   {
     id: "DP-39", title: "Transformation Connector (Dotted)", cat: "core", embargo: false,
     status: "near", statusLabel: "Near completion",
-    desc: "Dotted connector linking instances of the same node that change over time. s3Dgraphy implements instance chains.",
-    full: "Dotted connector that links multiple instances of the same stratigraphic unit or element that has transformed or moved over time. Enables tracking of temporal transformations of individual nodes across epochs. Core language addition. s3Dgraphy v0.1.31 implements instance chains via changed_from edges. EMtools supports instance-chain filtering.",
-    components: ["Dotted connector edge type", "yEd template", "s3Dgraphy changed_from edges (done)", "EMtools instance-chain filtering (done)"],
+    desc: "Dotted connector linking instances of the same node that change over time. Core, s3Dgraphy and EMtools implementations shipped; documentation integrated (absorbs former DP-44).",
+    full: "Dotted connector type that links multiple instances of the same stratigraphic unit or element that has transformed or moved over time, enabling tracking of temporal transformations of individual nodes across epochs. Introduced in EM 1.4 and completed in EM 1.5 across three layers: (1) Core language: dotted edge type formalized in the yEd palette with clear semantics distinct from standard causal connectors. (2) s3Dgraphy v0.1.31+: changed_from edge type with instance-chain traversal helpers that rebuild the temporal sequence of a node across its evolutions. (3) EMtools: Stratigraphy Manager and RM Manager expose instance-chain filtering so that selecting one instance highlights all its transformation steps in the scene. Dedicated import/export paths in the GraphML pipeline preserve the edge semantics on round-trip. The former DP-44 (documentation of this connector) has been merged into this DP: formal description, RST documentation and authoring-time usage guidance ship together with the feature.",
+    components: ["Dotted connector edge type (done)", "yEd palette template (done)", "s3Dgraphy changed_from edges + chain helpers (done)", "GraphML round-trip preservation (done)", "EMtools instance-chain filtering (done)", "Formal documentation (done, absorbs DP-44)"],
     impacts: ["yed", "s3d", "config", "emtools"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Introduced in EM 1.4; s3Dgraphy and EMtools both implement instance chains.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "Introduced in EM 1.4, completed in EM 1.5. Absorbs former DP-44 (documentation of this connector).", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-40", title: "Canvas Header Metadata Tags", cat: "core", embargo: false,
@@ -681,43 +680,23 @@ const projects = [
   },
   {
     id: "DP-41", title: "Swimlane Epoch Local Data", cat: "core", embargo: false,
-    status: "concept", statusLabel: "Concept",
+    status: "planned", statusLabel: "Planned",
     desc: "Start and End epoch values displayed next to epoch name in swimlanes.",
     full: "Local temporal data in swimlanes: Start and End values displayed next to the epoch name. Enables swimlane-level temporal scoping as part of the propagative metadata approach.",
     components: ["Swimlane header data", "Epoch value display", "yEd template"],
     impacts: ["yed", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Complements DP-32 at swimlane scope level", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
-  },
-  {
-    id: "DP-42", title: "Dashed Connector (Alternative Branches)", cat: "core", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
-    desc: "Dashed connector representing mutually exclusive time branches.",
-    full: "New dashed connector type to represent mutually exclusive alternative time branches. Distinct from the dotted transformation connector (DP-39/EM 1.4). Enables formal representation of temporal branching in the EM graph.",
-    components: ["Dashed edge type", "yEd template", "GraphML schema"],
-    impacts: ["yed", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Related to DP-12 (Temporal Branches) which covers the broader concept", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Complements DP-32 at swimlane scope level. Planned for EM 1.6.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-43", title: "Group Nodes (Time Branch, Activity, Paradata)", cat: "core", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
-    desc: "Three group node types: Time Branch (green), Activity, and Paradata.",
-    full: "Three new group node types: (1) Time Branch Group Node with green background for alternative temporal sequences, (2) Activity Group Node for grouping related activities, (3) Paradata Group Node connected to the stratigraphic node whose properties are being validated. Extends the container/grouping concept (related to DP-36).",
-    components: ["Time Branch group node", "Activity group node", "Paradata group node", "yEd template"],
+    status: "near", statusLabel: "Near completion",
+    desc: "Three group node types — Time Branch (green), Activity, Paradata — formalized in the palette and supported end-to-end.",
+    full: "Three group node types shipped in 1.5, complementing the generic Container Nodes effort (DP-36): (1) Time Branch Group Node with green background for alternative temporal sequences, letting authors bundle mutually exclusive reconstructive hypotheses under a single temporal branch. (2) Activity Group Node (ActivityNodeGroup) that clusters related activities and feeds the Activity Manager panel: the Stratigraphy Manager's 'By Activity' filter is driven by this group. (3) Paradata Group Node connected to the stratigraphic node whose properties are being validated, used by the Paradata Manager and by the Heriverse exporter to bundle ParaData (RMDoc) objects per source. All three node types are formalized in the yEd palette, parsed by the GraphML importer, and round-tripped correctly by the GraphML writer.",
+    components: ["Time Branch group node (done)", "Activity group node (done)", "Paradata group node (done)", "yEd palette entries (done)", "Activity Manager integration (done)", "Paradata Manager integration (done)", "Heriverse exporter ParaData bundling (done)"],
     impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Complements DP-36 (Container Nodes); specific group node types now formalized", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
-  },
-  {
-    id: "DP-44", title: "Transformation Connector Documentation", cat: "core", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
-    desc: "Improved documentation and formal description of the dotted transformation connector.",
-    full: "Enhanced documentation and representation of the transformation connector (dotted) introduced in EM 1.4. Clearer formal description and usage guidance for linking instances of the same node that change over time.",
-    components: ["Documentation", "RST files", "Formal description"],
-    impacts: ["config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Documentation improvement for DP-39 connector", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.5", incorporated: "1.5",
+    notes: "Complements DP-36 (Container Nodes). All three group types operational across core, s3Dgraphy and EMtools.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-45", title: "XLSX Auxiliary Data & US Image Resources", cat: "tool", embargo: false,
@@ -731,7 +710,7 @@ const projects = [
   },
   {
     id: "DP-46", title: "Proxy Box Creator", cat: "tool", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
+    status: "near", statusLabel: "Near completion",
     desc: "Assisted creation and metadata of proxy boxes for planar shapes using a 7-point measurement system.",
     full: "Tool for creating proxy geometry for square and planar shapes (walls in photogrammetry, pseudo-stratigraphy forms in geophysics from point clouds or rasters). Uses a 7-point measurement system to generate box meshes with configurable pivot. Includes a document picker with graph search for assigning source documents to measurement points, extractor ID auto-calculation, and graph node creation (ExtractorNode, CombinerNode) with edges. UI panels for main workflow, settings, and measurement points are functional. Remaining work: connecting the writing of extractors and documents to a Stratigraphic Unit (US), auto-activating the Proxy collection and associating it with the active US in Stratigraphy Manager, and establishing a direct proxy-to-US relationship in the graph.",
     components: ["Proxy geometry engine (done)", "7-point measurement system (done)", "Document picker with graph search (done)", "Extractor/Combiner graph nodes (done)", "Proxy collection management (pending)", "US linkage in graph (pending)"],
@@ -741,7 +720,7 @@ const projects = [
   },
   {
     id: "DP-47", title: "RMDoc Manager", cat: "tool", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
+    status: "near", statusLabel: "Near completion",
     desc: "3D Document Manager for importing, spatializing, and temporalizing 2D sources in 3D space.",
     full: "Tool for importing, managing, and spatializing 2D documentary sources (images, photographs, plans) in 3D space and linking them to temporalized documents. Creates textured quads and cameras from document metadata via DOSCO path resolution. Integrates with the graph through RepresentationModelDocNode creation and edges. Supports temporal linking with dates, epochs, and a master/instance model with certainty classification. UI panel with filtering, detail view, and completeness indicators is functional. Remaining work: camera/quad spatialization refinement, property-based visualization in Visual Manager, enhanced Activity Manager integration for temporal scope display, and Temporal Source Positioning for advanced chronological visualization.",
     components: ["Image import pipeline (done)", "Quad/Camera creation (done)", "DOSCO path resolution (done)", "RepresentationModelDocNode graph sync (done)", "Master/Instance model (done)", "Certainty classification system (done)", "Camera/Quad refinement (pending)", "Visual Manager integration (pending)", "Temporal Source Positioning (pending)"],
@@ -752,12 +731,12 @@ const projects = [
   {
     id: "DP-48", title: "GraphML Writer & Updater", cat: "tool", embargo: false,
     status: "in-dev", statusLabel: "In development",
-    desc: "Tools for writing, updating, and assembling GraphML files from multiple sources.",
-    full: "Toolset for creating and updating GraphML files from diverse data sources (XLSX tables, Blender scene data, manual annotation). Covers the full pipeline from initial graph creation to incremental updates and multi-source merging. The EMtools manual section on how to create a GraphML from different sources needs to be updated to reflect the current workflow and capabilities.",
-    components: ["GraphML exporter (done)", "GraphML patcher/updater (done)", "Multi-source assembly pipeline (in progress)", "Manual documentation update (pending)"],
+    desc: "Tools for writing, updating, and assembling GraphML files from multiple sources. Moved to EM 1.6.",
+    full: "Toolset for creating and updating GraphML files from diverse data sources (XLSX tables, Blender scene data, manual annotation). Covers the full pipeline from initial graph creation to incremental updates and multi-source merging. Basic exporter and patcher are operational; multi-source assembly pipeline and the revised authoring manual are the remaining 1.6 work.",
+    components: ["GraphML exporter (done)", "GraphML patcher/updater (done)", "Multi-source assembly pipeline (in progress)", "Authoring manual update (pending)"],
     impacts: ["emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "EMtools manual section on GraphML creation from multiple sources requires update. Related to DP-06 (Data Transformation Chunk) and DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Target 1.6. Related to DP-06 (Data Transformation Chunk) and DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
   },
   {
     id: "DP-49", title: "Stratigraphy & Paradata XLSX Formalization", cat: "tool", embargo: false,
@@ -766,18 +745,18 @@ const projects = [
     full: "Formal definition of the stratigraphy.xlsx and paradata.xlsx table schemas, with standardized import/export pipelines in EMtools and s3Dgraphy. Covers column structure, validation rules, and bidirectional conversion between XLSX tables and the s3Dgraphy graph model. Connects to StratiMiner (DP-02) which generates these tables from grey literature using AI-based extraction.",
     components: ["Stratigraphy XLSX schema (in progress)", "Paradata XLSX schema (in progress)", "s3Dgraphy XLSX importer (done)", "s3Dgraphy XLSX exporter (done)", "EMtools XLSX merge wizard (done)", "Validation rules (pending)"],
     impacts: ["emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Connected to DP-02 (Stratiminer) which generates stratigraphy and paradata XLSX tables. Related to DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Connected to DP-02 (Stratiminer) which generates stratigraphy and paradata XLSX tables. Related to DP-45 (XLSX Auxiliary Data). Moved to EM 1.6.", thesis: false, stratigraph: true, keyStudy: "Needed"
   },
   {
     id: "DP-50", title: "Surface Areale System", cat: "tool", embargo: false,
-    status: "in-dev", statusLabel: "In development",
-    desc: "Surface proxy creation on Representation Models for documenting surface phenomena (toolmarks, degradation, lacunae).",
-    full: "System for creating bidimensional surface proxies (areali) that conform to high-resolution 3D Representation Models. Enables documentation of surface archaeological phenomena: stone working traces (Working Unit / UL), degradation (TSU), lacunae, preparatory layers. Pipeline: Grease Pencil contour drawing on RM surface, automatic complexity classification (planar/angular/3D), three generation strategies (projective, shrinkwrap, boolean), adaptive subdivision, normal offset anti z-fighting. Integrates with stratigraphic graph via ExtractorNode paradata. Introduces the Working Unit (UL) node type in s3Dgraphy for toolmark documentation. Extends has_representation_model connector to support DocumentNode as source.",
+    status: "near", statusLabel: "Near completion",
+    desc: "Surface proxy creation on Representation Models for documenting surface phenomena. Shipping experimental in EM 1.6.",
+    full: "System for creating bidimensional surface proxies (areali) that conform to high-resolution 3D Representation Models. Enables documentation of surface archaeological phenomena: stone working traces (Working Unit / UL), degradation (TSU), lacunae, preparatory layers. Pipeline: Grease Pencil contour drawing on RM surface, automatic complexity classification (planar/angular/3D), three generation strategies (projective, shrinkwrap, boolean), adaptive subdivision, normal offset anti z-fighting. Integrates with stratigraphic graph via ExtractorNode paradata. Introduces the Working Unit (UL) node type in s3Dgraphy for toolmark documentation. Extends has_representation_model connector to support DocumentNode as source. Released as experimental in the EMtools Blender UI: the RM2Proxy and Surface Areale panels carry the '(Experimental)' suffix and are gated behind scene.em_tools.experimental_features so that the feature is visible only to opted-in users while the API stabilizes.",
     components: ["Surface Areale operator (modal GP)", "Contour builder", "Projective strategy (done)", "Shrinkwrap adaptive strategy (done)", "Boolean + LOD strategy (done)", "Complexity classifier A/B/C (done)", "Hardware benchmark + time estimation (done)", "Working Unit (UL) node type (done)", "Full paradata chain: US→Property→Extractor→Document→RM (done)", "has_representation_model extension (done)", "Document Manager rename + create operator (done)", "RMDoc sub-panel (done)"],
     impacts: ["emtools", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "All three strategies implemented. Auto-classification selects best strategy based on surface geometry. Full paradata chain with correct edge types.", thesis: true, stratigraph: false, keyStudy: "Basilica"
+    notes: "Feature functionally complete. Shipping experimental in EM 1.6 pending user feedback and final API review.", thesis: true, stratigraph: false, keyStudy: "Basilica"
   }
 ];
 
