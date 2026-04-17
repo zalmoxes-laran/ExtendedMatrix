@@ -264,7 +264,7 @@ const emVersions = [
   { version: "1.4", date: "2024", status: "released", summary: "TSU node, dotted connector, multi-instance support, s3Dgraphy integration.",
     links: { "EMtools v1.4.3 LTS": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EM-tools_v1.4.3" }
   },
-  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Canvas header metadata tags incorporated. Multigraph, building archaeology nodes, group nodes, dashed connector, transformation connector, XLSX auxiliary data, propagative metadata, vocabulary presets, Heriverse exporter in progress.",
+  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Incorporated: Canvas header metadata tags, Multigraph Project (Landscape Mode + CronoFilter), Heriverse viewer and exporter (plugin-style, multi-graph JSON), Container Nodes (US/USD/VSF), Group Nodes (Time Branch, Activity, Paradata), Transformation Connector (dotted, with documentation), UI/UX refactor (modular packages + plugin-style Export Manager + uniform experimental gating). In progress for 1.5: Tapestry (DP-01), Document Node spatio-temporal entity (DP-07), Vocabulary presets (DP-09), EM Meter (DP-21), Propagative Metadata System (DP-32), XLSX Auxiliary Data & US images (DP-45), Proxy Box Creator (DP-46), RMDoc Manager (DP-47).",
     links: {
       "EMtools v1.5 dev": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EMtools_dev1.5.0Beta3",
       "s3Dgraphy": "https://github.com/zalmoxes-laran/s3Dgraphy",
@@ -388,7 +388,7 @@ const projects = [
   },
   {
     id: "DP-10", title: "Multigraph Project", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Multiple interconnected graphs in a single EM project. Landscape system, multi-graph management and CronoFilter shipped.",
     full: "Multi-graph support: multiple interconnected graphs within a single EM project. Shipped in EM 1.5: (1) s3Dgraphy holds several named graphs concurrently with top-level helpers (get_graph, get_all_graph_ids, remove_graph) and multigraph loader (load_graph_from_file). (2) EMtools exposes the graph set through scene.em_tools.graphml_files with a per-graph 'publishable' flag that drives the Heriverse exporter. (3) A Landscape Mode toggles from a single-site workflow to a multi-site territorial view, prefixing objects and proxies with graph codes to prevent name collisions between sites. (4) CronoFilter provides custom chronological horizons (CF_ChronologicalHorizon) with auto-generation from all loaded graphs' epochs, save/load to .cf.json, and integration with the Heriverse JSON exporter. (5) Per-graph operations (import, remove, reload) isolate side effects so editing one site does not invalidate the others. Core language unchanged; this is a pure EMtools + s3Dgraphy feature.",
     components: ["Landscape Mode toggling (done)", "CronoFilter horizons + auto-from-epochs (done)", "CronoFilter .cf.json save/load (done)", "s3Dgraphy multi-graph API (done)", "Per-graph publishable flag (done)", "Graph-code object prefixing (done)", "Heriverse multi-graph JSON export (done)"],
@@ -398,7 +398,7 @@ const projects = [
   },
   {
     id: "DP-11", title: "Heriverse Project", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Heritage Metaverse online viewer (successor to EMviq) + EMtools exporter, both shipped in 1.5. May evolve into Strativerse.",
     full: "Two components now operational. (1) Heriverse — online Heritage Metaverse service based on the ATON Framework, successor to EMviq with greatly expanded capabilities. Docker-based deployment production-ready (ATON, CouchDB, Keycloak, Nginx HTTPS). Beta version live with open beta-tester program. May evolve into Strativerse. (2) EMtools Heriverse exporter, refactored in 1.5 into a dedicated export_operators/heriverse/ subpackage (split by concern: operator, json_export, gltf wrapper, utils, collections helper). Exporter features: multi-graph JSON export with per-graph publishable flag, GLTF export for proxies and Representation Models with Draco compression and optional GPU instancing, separate texture pipeline with configurable max resolution and quality, ParaData (RMDoc) objects export with transform preservation, Special Finds (RMSF) export, optional ZIP packaging and Cesium tileset skip. A dedicated HERIVERSE_OT_make_collections_visible helper unhides all collections containing RM objects before export. The Export Manager panel now uses a plugin-style provider registry (ExportProvider) that hosts the Heriverse UI without coupling to the panel.",
     components: ["Heriverse viewer (Aton-based, beta live)", "Docker deployment (production-ready)", "export_operators/heriverse/ subpackage split (done)", "Multi-graph JSON export (done)", "GLTF with Draco + GPU instancing (done)", "Separate textures + compression (done)", "ParaData objects export (done)", "Special Finds export (done)", "Pre-export collection visibility helper (done)", "Export Manager plugin-style provider (done)"],
@@ -620,7 +620,7 @@ const projects = [
   },
   {
     id: "DP-35", title: "UI/UX Refactoring", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Comprehensive UI/UX modernization of the EM Blender add-on. Modular package architecture, plugin-style Export Manager, uniform experimental gating.",
     full: "Major rewrite of EMtools shipped in 1.5. Delivery (April 2026): (1) Build and distribution: migrated to Blender Extension format (.zip packages) with multi-platform CI/CD on GitHub Actions and a single build pipeline for stable and experimental channels. (2) Module architecture: every former monolithic top-level .py file promoted to a proper package with separation of concerns — anastylosis_manager/ (properties, lod_utils, graph_utils, operators_list, operators_link, operators_lod, ui), activity_manager/ (properties, operators, ui), em_statistics/ (materials, metrics, properties, operators, ui), export_manager/ (registry, panel, providers/), proxy_inflate_manager/ (helpers, operators, ui), cronofilter/ (properties, operators, ui + integration/json_exporter_patch siblings). Existing packages (rm_manager, paradata_manager, document_manager, graph_editor, proxy_box_creator, import_operators, visual_manager, em_setup, epoch_manager, stratigraphy_manager, tapestry_integration) audited and kept structurally clean; tapestry_integration/ui_panel.py renamed to ui.py for cross-module consistency. (3) Export Manager redesigned as a plugin-style panel: a central ExportProvider registry lets new exporter UI sections self-register without touching the panel; current providers are tabular (CSV) and heriverse (UI wrapper around export.heriverse). Dead EMviq path (EM_runaton, EM_export, EM_openemviq, old JSON_OT_exportEMformat) and its Scene properties removed. (4) Heriverse exporter split from a 2232-line monolith into export_operators/heriverse/ (operator, json_export, gltf, collections_op, utils). JSON_OT_exportEMformat renamed to HERIVERSE_OT_export_json with bl_idname preserved for backward compatibility. (5) Experimental features gating unified: red header + '(Experimental)' suffix + EXPERIMENTAL icon on all experimental UIs (RM Coloring, Proxy Inflate Manager, Export Statistics, GraphML Wizard, Tapestry, EMGraph). Surface Areale marked experimental. (6) Modular manager pattern (Stratigraphy, Epoch, Visual, Reconstruction, Paradata, Document managers) with Scene.em_tools single source of truth. (7) Visual Manager with property-based colouring and colour ramps. (8) Proxy Box Creator. (9) Performance optimization framework (~4,000 lines, ~30% integrated).",
     components: ["Blender Extension format + CI/CD (done)", "Modular package split for every top-level .py (done)", "Export Manager plugin-style ExportProvider registry (done)", "export_operators/heriverse/ split from 2232-line monolith (done)", "EMviq dead-code removal (done)", "Uniform experimental gating (done)", "Modular manager architecture (done)", "Graph Editor/Viewer (done)", "Visual Manager + colour ramps (done)", "Proxy Box Creator (done)", "Performance framework (~30% integrated)"],
@@ -630,7 +630,7 @@ const projects = [
   },
   {
     id: "DP-36", title: "Container Nodes", cat: "core", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Container nodes for VSF, US, and USD grouping. Shipped end-to-end across core language, s3Dgraphy and EMtools.",
     full: "Container nodes that include and group stratigraphic-family node types: Virtual Special Find (VSF), Stratigraphic Unit (US), Documentary Stratigraphic Unit (USD). Enables nesting of nodes within logical containers so that a reconstruction fragment composed of many small pieces can be handled as a single unit. Shipped in 1.5 across the three layers: (1) Core language: yEd palette additions with container-typed swimlanes and the formalization of 'is_contained_in' semantics. (2) s3Dgraphy v0.1.31+: container group node classes for US / USD / VSF, instance-chain edges and containment-aware queries. (3) EMtools: the Anastylosis Manager uses VSF containers to bundle virtual Special Finds into anastylosis groups, and Stratigraphy Manager filters support containment as a first-class axis (show only nodes inside a container / expand a container inline). The anastylosis refactor (sub-package with properties / lod_utils / graph_utils / operators_list / operators_link / operators_lod / ui) landed with this milestone and exposes detect_lod_variants and related helpers for scripted use.",
     components: ["VSF container node (done)", "US container node (done)", "USD container node (done)", "yEd palette entries (done)", "s3Dgraphy container classes (done, v0.1.31+)", "EMtools containment filtering (done)", "Anastylosis Manager container-based grouping (done)", "Instance-chain edges (done)"],
@@ -660,7 +660,7 @@ const projects = [
   },
   {
     id: "DP-39", title: "Transformation Connector (Dotted)", cat: "core", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Dotted connector linking instances of the same node that change over time. Core, s3Dgraphy and EMtools implementations shipped; documentation integrated (absorbs former DP-44).",
     full: "Dotted connector type that links multiple instances of the same stratigraphic unit or element that has transformed or moved over time, enabling tracking of temporal transformations of individual nodes across epochs. Introduced in EM 1.4 and completed in EM 1.5 across three layers: (1) Core language: dotted edge type formalized in the yEd palette with clear semantics distinct from standard causal connectors. (2) s3Dgraphy v0.1.31+: changed_from edge type with instance-chain traversal helpers that rebuild the temporal sequence of a node across its evolutions. (3) EMtools: Stratigraphy Manager and RM Manager expose instance-chain filtering so that selecting one instance highlights all its transformation steps in the scene. Dedicated import/export paths in the GraphML pipeline preserve the edge semantics on round-trip. The former DP-44 (documentation of this connector) has been merged into this DP: formal description, RST documentation and authoring-time usage guidance ship together with the feature.",
     components: ["Dotted connector edge type (done)", "yEd palette template (done)", "s3Dgraphy changed_from edges + chain helpers (done)", "GraphML round-trip preservation (done)", "EMtools instance-chain filtering (done)", "Formal documentation (done, absorbs DP-44)"],
@@ -670,7 +670,7 @@ const projects = [
   },
   {
     id: "DP-40", title: "Canvas Header Metadata Tags", cat: "core", embargo: false,
-    status: "near", statusLabel: "Incorporated",
+    status: "done", statusLabel: "Incorporated",
     desc: "Graph-level metadata tags in canvas header: ID, ORCID, License, Embargo.",
     full: "Added general metadata as tags in square brackets next to the EM canvas title: ID, ORCID, License, and Embargo. These are graph-level metadata propagating to all nodes. Part of the Propagative Metadata System (DP-32) scope, specifically the graph-level header implementation.",
     components: ["Canvas header tags", "yEd template", "GraphML header"],
@@ -765,9 +765,12 @@ const projects = [
 // ================================================================
 const catLabel = { core:"Core Language", tool:"Tools", extension:"New Domains", infra:"Infrastructure", research:"Research", collab:"Collaboration" };
 const catTag = { core:"tag-core", tool:"tag-tool", extension:"tag-extension", infra:"tag-infra", research:"tag-research", collab:"tag-collab" };
-const statusOrder = ["near","in-dev","partial","planned","concept","research"];
-const statusGroupLabel = { "near":"Near completion", "in-dev":"In development", "partial":"Partially implemented", "planned":"Planned", "concept":"Concept", "research":"Research" };
-const statusDot = { "near":"rm-dot-done", "in-dev":"rm-dot-dev", "partial":"rm-dot-partial", "planned":"rm-dot-planned", "concept":"rm-dot-concept", "research":"rm-dot-research" };
+// "done" is reserved for DPs that are shipped (incorporated:"<version>" set).
+// They are filtered out of the Roadmap tab and shown in the Incorporated tab,
+// but the status is still rendered in the DP detail view, so keep it coherent.
+const statusOrder = ["done","near","in-dev","partial","planned","concept","research"];
+const statusGroupLabel = { "done":"Incorporated", "near":"Near completion", "in-dev":"In development", "partial":"Partially implemented", "planned":"Planned", "concept":"Concept", "research":"Research" };
+const statusDot = { "done":"rm-dot-done", "near":"rm-dot-done", "in-dev":"rm-dot-dev", "partial":"rm-dot-partial", "planned":"rm-dot-planned", "concept":"rm-dot-concept", "research":"rm-dot-research" };
 
 let activeFilter = "all";
 let searchQ = "";
