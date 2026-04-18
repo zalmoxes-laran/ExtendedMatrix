@@ -471,12 +471,12 @@ const projects = [
   {
     id: "DP-19", title: "Canvas Project", cat: "core", embargo: false,
     status: "planned", statusLabel: "Planned",
-    desc: "Geo-referenced canvas with swimlane-level qualia declaration.",
-    full: "Canvas as formal concept: geo-referenced surface. Geo-node for spatial shift. Swimlane-level qualia declaration as paradata node group.",
-    components: ["Canvas node", "Geo-node", "Swimlane paradata group"],
+    desc: "Geo-referenced canvas with Geo-node and swimlane-level qualia declared via a dedicated Swimlane Paradata Node Group.",
+    full: "Canvas as formal concept: a geo-referenced surface on which EM content is placed. Three pillars. (1) Canvas node — formalizes the canvas as a first-class node carrying geo-referencing metadata and the embargo/license header tags already shipped with DP-40. (2) Geo-node — spatial shift container that keeps the canvas's geodetic frame separate from the working coordinate system of the 3D scene. (3) Swimlane Paradata Node Group — a dedicated ParadataNodeGroup attached to a single swimlane as a standalone 'big node', keeping the swimlane header row lean while carrying the full paradata chain that justifies every declared swimlane-level property (dating, author, license, quality, …). The group aggregates the usual PropertyNode → ExtractorNode → DocumentNode chains for that swimlane, and its exposed fields are what the DP-32 Hierarchical Scope Resolver reads at the 'swimlane' level. This formalizes the distinction between DP-43 Paradata Group Node (connected to a single stratigraphic node) and the swimlane-scoped group introduced here: the yEd palette will host two visually distinct group types, both GraphML-round-tripable, with edge types has_paradata_group (node→group) and has_swimlane_paradata_group (swimlane→group).",
+    components: ["Canvas node (yEd + s3Dgraphy)", "Geo-node (spatial shift)", "Swimlane Paradata Node Group (yEd palette entry)", "Edge type has_swimlane_paradata_group", "Parser support in GraphML importer", "Exposed fields feed DP-32 resolver at swimlane level", "Author slot in swimlane paradata group (co-ordinated with DP-51)"],
     impacts: ["yed", "emtools", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
-    notes: "Swimlane paradata = specialization of Paradata Node Group", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
+    notes: "Swimlane Paradata Node Group is the swimlane-scoped sibling of DP-43's node-scoped Paradata Group. Feeds DP-32 resolver and exposes the slot for DP-51 author data.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-20", title: "Temporal Propagation", cat: "core", embargo: false,
@@ -590,13 +590,13 @@ const projects = [
   },
   {
     id: "DP-32", title: "Propagative Metadata System", cat: "core", embargo: false,
-    status: "near", statusLabel: "Near completion",
-    desc: "Hierarchical metadata: graph > swimlane > node, with propagation.",
-    full: "Three scope levels: Graph-level (Author, License, Embargo, CC), Swimlane-level (epoch-specific paradata groups), Node-level (local overrides). Propagation: node > swimlane > graph.",
-    components: ["EM Tree Panel header", "GraphML header", "Paradata groups", "yEd template nodes"],
+    status: "partial", statusLabel: "Partially implemented",
+    desc: "Two-layer mechanism: hierarchical scope resolver (node > swimlane > graph) + bidirectional temporal constraint closure (TPQ forward, TAQ reverse) with coherence checking on conflicting seeds.",
+    full: "Propagative metadata is a two-layer mechanism. Layer A — Hierarchical Scope Resolver: for any declared property, the resolver looks first on the node (node.attributes or a connected PropertyNode), then on the swimlane the node belongs to (EpochNode + the Swimlane Paradata Node Group defined in DP-19), then on the graph (canvas header tags from DP-40, already shipped). The first non-null value wins. Layer B — Temporal Constraint Closure: symmetrical TPQ/TAQ propagation along is_after and survive_in_epoch edges, using Layer A values as seeds. TPQ (forward): if an older node X has start=150, every more recent node Y with 'Y is_after X' inherits start ≥ 150. TAQ (reverse): if a more recent node B has end=130, every older node with 'B is_after A' inherits end ≤ 130. Overlapping seeds compound correctly: a chain with both a start seed (MID.start=150) and a later end seed (NEW.end=180) splits the population into three coherent sub-ranges (OLD[swimlane_start, 180], MID/NEW[150, 180], LATE[150, swimlane_end]). Reconciled propagation vs paradox: when seeds agree with the stratigraphy, Layer B simply tightens the windows; when seeds contradict the stratigraphic order (e.g. X older with abs_start=150 and Y more recent with abs_start=130, Y is_after X), this is a paradox and must be surfaced to the user, not silently overwritten. Current status: Layer B symmetrical propagation (both directions + overlaps) is implemented in s3Dgraphy graph._propagate_tpq_taq() and consumed by the Horizon Manager in Landscape Mode (verified by test_chronology_resolver.py synthetic fixtures). Layer A exists but is hardcoded for chronology inside _calculate_base_chronology(). Coherence / paradox detection is NOT implemented: conflicting seeds are silently tightened, losing user-declared values — planned for 1.6 alongside the generic PropagationRule resolver. The author property (DP-51) and the swimlane-level Paradata Node Group (DP-19) are the first consumers of the generic Layer A.",
+    components: ["Canvas header graph-level tags (done, DP-40)", "Layer A: node + swimlane seed lookup, chronology-only (done)", "Layer B TPQ forward: start propagates to more recent nodes (done)", "Layer B TAQ reverse: end propagates to more ancient nodes (done)", "Layer B: overlapping seeds → multiple coherent sub-ranges (done)", "Horizon Manager consumption in Landscape Mode (done)", "Synthetic regression test (done, s3Dgraphy/test_chronology_resolver.py)", "Coherence / paradox detection with user-facing warnings (planned, 1.6)", "Generic PropagationRule resolver (planned, 1.6)", "Swimlane-level Paradata Node Group integration (planned, DP-19)", "Author property resolution (planned, DP-51)"],
     impacts: ["yed", "emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Scope: node > swimlane > graph", thesis: false, stratigraph: false, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Layer B symmetrical (TPQ + TAQ) operational and locked by synthetic tests. Layer A is a generic resolver pending: shipped hardcoded for chronology only. Paradox detection is the other 1.6 gap: today conflicting seeds are silently overwritten.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-33", title: "EM Graph Project", cat: "tool", embargo: false,
@@ -757,6 +757,16 @@ const projects = [
     impacts: ["emtools", "s3d", "config"],
     targetVersion: "1.6", incorporated: null,
     notes: "Feature functionally complete. Shipping experimental in EM 1.6 pending user feedback and final API review.", thesis: true, stratigraph: false, keyStudy: "Basilica"
+  },
+  {
+    id: "DP-51", title: "Author Node Formalization", cat: "core", embargo: false,
+    status: "planned", statusLabel: "Planned",
+    desc: "Formalize AuthorNode in yEd palette, define linking rules to swimlanes and nodes, wire into the DP-32 propagative resolver.",
+    full: "AuthorNode already exists as a class in s3Dgraphy (nodes/author_node.py) with fields orcid, name, surname, but is not instantiated, parsed from GraphML nor connected anywhere. This DP closes the loop across all three layers. (1) Core language / yEd palette: define the AuthorNode visual style and the edge types has_author (applicable to any propagation level: node → AuthorNode, EpochNode/swimlane → AuthorNode, Canvas → AuthorNode) and co_author for multi-author cases. (2) s3Dgraphy: GraphML importer parses AuthorNode instances and their has_author edges; a resolver-friendly getter that returns the Author list for a given scope (node / swimlane / graph) with deduplication. (3) EMtools consumption: the DP-32 generic resolver exposes an AUTHOR_RULE PropagationRule that looks up the author at node-level first, then on the Swimlane Paradata Node Group (DP-19), then on the Canvas Header (DP-40 author_name / author_surname / ORCID, already loaded in graph.attributes). The Visual Manager and Heriverse exporter consume the resolved author for per-node credit and provenance display. Acceptance test: in a dataset where the canvas declares a main author, one swimlane overrides with a local author, and one node inside that swimlane has its own AuthorNode, the resolver returns three different authors for the three node classes.",
+    components: ["yEd AuthorNode palette entry", "has_author edge type (multi-scope)", "co_author edge type", "GraphML importer support (s3Dgraphy)", "Resolver-friendly scope-aware author getter (s3Dgraphy)", "DP-32 AUTHOR_RULE registration", "EMtools Visual Manager integration", "Heriverse exporter per-node author metadata"],
+    impacts: ["yed", "s3d", "config", "emtools"],
+    targetVersion: "1.6", incorporated: null,
+    notes: "Depends on DP-32 (generic resolver) and DP-19 (Swimlane Paradata Node Group). Unblocks per-node author attribution across the whole EM pipeline.", thesis: false, stratigraph: true, keyStudy: "Sarmizegetusa"
   }
 ];
 
