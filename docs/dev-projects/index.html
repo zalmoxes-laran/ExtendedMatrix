@@ -358,7 +358,7 @@ const projects = [
   },
   {
     id: "DP-07", title: "Document Node as a Spatio-Temporal Entity", cat: "core", embargo: false,
-    status: "partial", statusLabel: "Partially implemented",
+    status: "near", statusLabel: "Near completion",
     desc: "Red document node with instancing and temporal delta for source uncertainty.",
     full: "Red document node with instancing. Temporal source positioning with start-end epochs plus delta (uncertainty range, e.g., 1450\u20131456). Activity list with proxy selection/hiding buttons like Epoch Manager.",
     components: ["Document node", "Epoch Manager", "Source timeline", "Delta system"],
@@ -383,8 +383,8 @@ const projects = [
     full: "yEd template additions for qualia presets: length, width, height, measurable properties. Distinct background colors to separate qualia from SU nodes. Property node icon (property.png) already created in EM 1.5 icons. s3Dgraphy v0.1.28 implements a Qualia Importer for importing from Qualia templates. Palette integration pending.",
     components: ["yEd template", "GraphML schema", "Qualia node types", "Property icon (done)", "s3Dgraphy Qualia Importer (done)"],
     impacts: ["yed", "config", "s3d"],
-    targetVersion: "1.5", incorporated: null,
-    notes: "Property icon exists; s3Dgraphy Qualia Importer done. yEd palette integration pending.", thesis: false, stratigraph: true, keyStudy: "Basilica"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Property icon exists; s3Dgraphy Qualia Importer done. yEd palette integration pending. Moved to EM 1.6.", thesis: false, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-10", title: "Multigraph Project", cat: "tool", embargo: false,
@@ -750,7 +750,7 @@ const projects = [
   },
   {
     id: "DP-50", title: "Surface Areale System", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "partial", statusLabel: "Partially implemented",
     desc: "Surface proxy creation on Representation Models for documenting surface phenomena. Shipping experimental in EM 1.6.",
     full: "System for creating bidimensional surface proxies (areali) that conform to high-resolution 3D Representation Models. Enables documentation of surface archaeological phenomena: stone working traces (Working Unit / UL), degradation (TSU), lacunae, preparatory layers. Pipeline: Grease Pencil contour drawing on RM surface, automatic complexity classification (planar/angular/3D), three generation strategies (projective, shrinkwrap, boolean), adaptive subdivision, normal offset anti z-fighting. Integrates with stratigraphic graph via ExtractorNode paradata. Introduces the Working Unit (UL) node type in s3Dgraphy for toolmark documentation. Extends has_representation_model connector to support DocumentNode as source. Released as experimental in the EMtools Blender UI: the RM2Proxy and Surface Areale panels carry the '(Experimental)' suffix and are gated behind scene.em_tools.experimental_features so that the feature is visible only to opted-in users while the API stabilizes.",
     components: ["Surface Areale operator (modal GP)", "Contour builder", "Projective strategy (done)", "Shrinkwrap adaptive strategy (done)", "Boolean + LOD strategy (done)", "Complexity classifier A/B/C (done)", "Hardware benchmark + time estimation (done)", "Working Unit (UL) node type (done)", "Full paradata chain: US→Property→Extractor→Document→RM (done)", "has_representation_model extension (done)", "Document Manager rename + create operator (done)", "RMDoc sub-panel (done)"],
