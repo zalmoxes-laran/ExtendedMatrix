@@ -84,6 +84,11 @@ This moves the DP from the Roadmap tab to the Incorporated tab. Setting only `in
 - DP-17 absorbs former DP-22 (Triple Store Database)
 - DP-12 absorbs former DP-42 (Dashed Connector for alternative branches)
 - DP-39 absorbs former DP-44 (Transformation Connector Documentation)
+- DP-02 absorbs former DP-49 (Stratigraphy & Paradata XLSX Formalization — superseded by the unified em_data.xlsx 5-sheet schema shipped inside StratiMiner)
+
+**Split DPs (history):**
+- DP-53 split out from DP-48 (Multi-source GraphML Assembly Pipeline — DP-48 shipped its core exporter+patcher in 1.5, DP-53 carries the higher-level multi-source orchestration to 1.6)
+- DP-54 split out from DP-50 (Surface Areale Boolean + LOD strategy — DP-50 shipped projective+shrinkwrap in 1.5, DP-54 carries the more invasive Boolean + LOD strategy to 1.6)
 
 ## EM Versions
 
