@@ -257,14 +257,14 @@ if (EMBARGO_ON) {
 // EM VERSIONS — with repo links
 // ================================================================
 const emVersions = [
-  { version: "1.0", date: "2019", status: "released", summary: "First formal release of Extended Matrix language and core node types.", links: {} },
-  { version: "1.1", date: "2020", status: "released", summary: "Refinements to node types, reliability levels formalization.", links: {} },
-  { version: "1.2", date: "2021", status: "released", summary: "Paradata system improvements, new connectors.", links: {} },
-  { version: "1.3", date: "2023", status: "released", summary: "Epoch Manager, expanded proxy system, stratigraphy manager.", links: {} },
-  { version: "1.4", date: "2024", status: "released", summary: "TSU node, dotted connector, multi-instance support, s3Dgraphy integration.",
+  { version: "1.0", date: "2015", status: "released", summary: "First version of Extended Matrix.", links: {} },
+  { version: "1.1", date: "2017", status: "released", summary: "First version of EMtools; formalization of the activity report and of how to publish a reconstruction. Includes a first version of EM-viq desktop.", links: {} },
+  { version: "1.2", date: "2021", status: "released", summary: "Formalization of the reconstructive steps.", links: {} },
+  { version: "1.3", date: "2023", status: "released", summary: "Introduces EMviq and the USD node, and a formalized source list for data collection.", links: {} },
+  { version: "1.4", date: "2024", status: "released", summary: "Introduces the TSU node and a first experimental version of EM manager desktop.",
     links: { "EMtools v1.4.3 LTS": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EM-tools_v1.4.3" }
   },
-  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Incorporated: Canvas header metadata tags (DP-40), Multigraph Project (DP-10, Landscape Mode + CronoFilter), Heriverse viewer and exporter (DP-11, plugin-style multi-graph JSON), Container Nodes (DP-36, US/USD/VSF), Group Nodes (DP-43, Time Branch / Activity / Paradata), Transformation Connector (DP-39, dotted + documentation), UI/UX refactor (DP-35, modular packages + plugin-style Export Manager + uniform experimental gating), Document Node spatio-temporal entity with three-axis classification (DP-07, role/content_nature/geometry), Propagative Metadata System (DP-32, Layer A+B shipped, Heriverse migration deferred), Author Node formalization (DP-51, co_author + Visual Manager deferred), RMDoc Manager (DP-47, Visual Manager + temporal source positioning deferred), GraphML Writer & Updater core (DP-48, multi-source pipeline split out to DP-53), Surface Areale projective + shrinkwrap strategies (DP-50, Boolean+LOD split out to DP-54). Behind scene.em_tools.experimental_features: StratiMiner panel (DP-02, validation pass + publication pending), Surface Areale panel (DP-50). In progress / pending 1.5 cut: Tapestry (DP-01), Vocabulary presets (DP-09), XLSX Auxiliary Data validation pass with pyArchInit + EMdb data (DP-45), Proxy Box Creator field-test pass (DP-46 — write-lock guard + full paradata chain with PD nodegroup + Document instance cloning + chain-summary now shipped, gate drop after validation), Stratigraphic US Creation Workflow Unification (DP-55 — shared Add-US dialog across Stratigraphy Manager / Proxy Box / Surface Areas; s3Dgraphy node datamodel patch v1.5.2 with family + is_series metadata; USN class landed; final field-test validation pending).",
+  { version: "1.5", date: "2026", status: "in-development", summary: "Current development cycle. Incorporated: Canvas header metadata tags (DP-40), Multigraph Project (DP-10, Landscape Mode + CronoFilter), Heriverse viewer and exporter (DP-11, plugin-style multi-graph JSON), Container Nodes (DP-36, US/USD/VSF), Group Nodes (DP-43, Time Branch / Activity / Paradata), Transformation Connector (DP-39, dotted + documentation), UI/UX refactor (DP-35, modular packages + plugin-style Export Manager + uniform experimental gating), Document Node spatio-temporal entity with three-axis classification (DP-07, role/content_nature/geometry), Propagative Metadata System (DP-32, Layer A+B shipped, Heriverse migration deferred), Author Node formalization (DP-51, co_author + Visual Manager deferred), RMDoc Manager (DP-47, Visual Manager + temporal source positioning deferred), GraphML Writer & Updater core (DP-48, multi-source pipeline split out to DP-53), Surface Areale projective + shrinkwrap strategies (DP-50, Boolean+LOD split out to DP-54), XLSX Auxiliary Data & US Image Resources (DP-45, XLSX import + merge wizard with conflict resolution + s3Dgraphy Graph Merger; image resources and Image Viewing System deferred to v1.6), Proxy Box Creator (DP-46, 7-point measurement system with ExtractorNode/CombinerNode paradata chain, per-US ParadataNodeGroup, Document instance cloning, write-lock guard, chain-summary narrative), Stratigraphic Unit Creation Workflow Unification (DP-55, shared Add-US dialog across Stratigraphy Manager / Proxy Box / Surface Areas, s3Dgraphy node datamodel patch v1.5.2 with family + is_series metadata, USN class landed). Behind scene.em_tools.experimental_features: StratiMiner panel (DP-02, validation pass + publication pending), Surface Areale panel (DP-50). In progress / pending 1.5 cut: Tapestry (DP-01), Vocabulary presets (DP-09), Spolia Project (DP-26 — last DP to close before the 1.5 release; introduces the SF node with red border for reused architectural/decorative elements, and reinforces the 'US container' formalism already present in the language and codebase by extending it to spolia, making the container discourse more robust on the language side as well as on the tooling side).",
     links: {
       "EMtools v1.5 dev": "https://github.com/zalmoxes-laran/EM-blender-tools/tree/EMtools_dev1.5.0Beta3",
       "s3Dgraphy": "https://github.com/zalmoxes-laran/s3Dgraphy",
@@ -416,8 +416,8 @@ const projects = [
     full: "Temporal branching for alternative chronological interpretations or parallel temporal sequences. Scope merged with the former DP-42 'Dashed Connector (Alternative Branches)': a dedicated dashed edge type will represent mutually exclusive alternative time branches, distinct from the dotted transformation connector (DP-39). The combined design covers both the graph-level branching structure and its visual encoding in the yEd palette, the s3Dgraphy schema and the GraphML round-trip.",
     components: ["Graph structure", "Temporal logic", "Dashed edge type (ex-DP-42)", "yEd palette entry (ex-DP-42)", "GraphML schema update (ex-DP-42)"],
     impacts: ["yed", "s3d", "config"],
-    targetVersion: "future", incorporated: null,
-    notes: "Absorbs former DP-42 (Dashed Connector). Deferred to future work.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
+    targetVersion: "1.6", incorporated: null,
+    notes: "Absorbs former DP-42 (Dashed Connector). Targeted to EM 1.6.", thesis: true, stratigraph: true, keyStudy: "Sarmizegetusa"
   },
   {
     id: "DP-13", title: "Virtual SU Sheet", cat: "collab", embargo: false,
@@ -457,8 +457,8 @@ const projects = [
     full: "Connector between s3Dgraphy and triple store / knowledge graph backends (Blaze, Grapho, etc.). Includes triple store database for holistic archaeology and cultural heritage documentation. Covers RDF mapping, SPARQL queries, and database schema. s3Dgraphy already has CIDOC-CRM mappings for all edge types (v1.5.4). Planned in s3Dgraphy roadmap: RDF/TTL export for semantic web compliance, Neo4j export for graph database integration.",
     components: ["s3Dgraphy export/import", "RDF mapping", "SPARQL", "Database backend", "RDF schema", "CIDOC-CRM edge mappings (done in s3Dgraphy)", "RDF/TTL export (planned)", "Neo4j export (planned)"],
     impacts: ["s3d"],
-    targetVersion: "TBD", incorporated: null,
-    notes: "Merged from former DP-17 and DP-22. CIDOC-CRM mappings already in s3Dgraphy.", thesis: true, stratigraph: true, keyStudy: "Basilica",
+    targetVersion: "1.7", incorporated: null,
+    notes: "Merged from former DP-17 and DP-22. CIDOC-CRM mappings already in s3Dgraphy. Targeted to EM 1.7.", thesis: true, stratigraph: true, keyStudy: "Basilica",
     embargoNotes: "Core infrastructure for KG vision. CIDOC-CRM mappings done. RDF/TTL and Neo4j exports planned in s3Dgraphy roadmap."
   },
   {
@@ -538,8 +538,8 @@ const projects = [
     full: "Core language proposal: new Special Find (SF) node with red border for spolia \u2014 reused architectural/decorative elements. Part of Nicola Delbarba\u2019s Ph.D. thesis.",
     components: ["SF node with red border (yEd)", "s3Dgraphy rules", "EMtools support"],
     impacts: ["yed", "s3d", "config", "emtools"],
-    targetVersion: "1.6", incorporated: null,
-    notes: "Lead: Nicola Delbarba (Ph.D. thesis). Moved to EM 1.6.", thesis: true, stratigraph: false, keyStudy: "In progress (Nicola)"
+    targetVersion: "1.5", incorporated: null,
+    notes: "Lead: Nicola Delbarba (Ph.D. thesis). Targeted to EM 1.5.", thesis: true, stratigraph: false, keyStudy: "In progress (Nicola)"
   },
   {
     id: "DP-27", title: "Building Archaeology", cat: "core", embargo: false,
@@ -703,22 +703,22 @@ const projects = [
   },
   {
     id: "DP-45", title: "XLSX Auxiliary Data & US Image Resources", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "XLSX files as auxiliary data sources and images linked to Stratigraphic Units as resources.",
     full: "Support for reading XLSX spreadsheets as auxiliary data files within the EM workflow, and linking images to Stratigraphic Units (US) as documentary resources. EMtools v1.4+ implements XLSX import for stratigraphic data. EMtools v1.5 adds XLSX merge wizard with conflict resolution, epoch compatibility validation, and merge UI. s3Dgraphy supports Excel import/export and Graph Merger with conflict resolution (v0.1.33). Enables richer documentation pipelines where tabular data and photographic evidence complement the stratigraphic graph. Validation pass pending before 1.5 cut: exercise the flow with real pyArchInit and EMdb datasets to flush out schema drift and orphan-matching edge cases. EMtools v1.6 roadmap includes Image Viewing System (JSON-LD, XLSX-based, folder-based).",
     components: ["XLSX import (EMtools, done since v1.4)", "XLSX merge wizard with conflict resolution (EMtools v1.5, done)", "s3Dgraphy Graph Merger with conflict resolution (done, v0.1.33)", "s3Dgraphy Excel import/export (done)", "Validation pass on pyArchInit + EMdb real data (pending, blocking 1.5 cut)", "US image resource linker", "Image Viewing System (EMtools v1.6, planned)"],
     impacts: ["emtools", "s3d"],
-    targetVersion: "1.5", incorporated: null,
+    targetVersion: "1.5", incorporated: "1.5",
     notes: "XLSX import and merge wizard functional. Graph Merger in s3Dgraphy. Validation pass with real pyArchInit + EMdb data planned before the 1.5 cut; image resources and Image Viewing System deferred to v1.6.", thesis: false, stratigraph: true, keyStudy: "Basilica"
   },
   {
     id: "DP-46", title: "Proxy Box Creator", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Assisted creation and metadata of proxy boxes for planar shapes using a 7-point measurement system, with each point formalized as an ExtractorNode in the graph.",
     full: "Tool for creating proxy geometry for square and planar shapes (walls in photogrammetry, pseudo-stratigraphy forms in geophysics from point clouds or rasters). Uses a 7-point measurement system to generate box meshes with configurable pivot. Each point is formalized as an ExtractorNode — every measurement is a traceable paradata claim about the proxy's geometry. A CombinerNode aggregates the seven extractors into the proxy's final geometry assertion, wired to the active Stratigraphic Unit through a canonical paradata chain (US --has_property--> PropertyNode('Proxy Geometry') --has_data_provenance--> Combiner --combines--> Extractor --extracted_from--> Document). The whole chain is wrapped in a per-US ParadataNodeGroup (<US>_PD) that inherits the US's is_in_activity edge so both sit inside the right Activity yEd group at save time. For every run the Step-1 anchor Document is cloned into a fresh instance (same display name, new UUID, copied three-axis classification) so extractors never attach to a Document already wrapped in another PD group. Two-step UI: Step 1 pick/establish the anchor Document (from selected mesh or via search/create), Step 2 record the 7 points (Propagate toggle auto-fills document + extractor id on Record, gap-aware). A chain summary box narrates the paradata chain before Create. The panel reuses the shared Add-US dialog for all US creation (see DP-55). Constraint: because the tool writes to the GraphML file on disk, the .graphml must NOT be held open by yEd — the tool runs a write-lock pre-flight before any mutation. Save-after-create is on by default, so the chain lands on disk as soon as Create finishes.",
     components: ["Proxy geometry engine (done)", "7-point measurement system (done)", "Document anchor picker \u2014 pick from selected / search / create-new (done)", "Propagate anchor to all 7 points on Record (done)", "ExtractorNode per point with extracted_from Document (done, canonical direction, dashed)", "CombinerNode aggregating the seven extractors with combines edges (done, canonical direction, dashed)", "PropertyNode 'Proxy Geometry' with canonical qualia (done, em_qualia_types_additions.json)", "Per-US ParadataNodeGroup wrapping the chain (done, <US>_PD)", "is_in_activity mirrored on PD nodegroup (done)", "Per-run Document instance cloning (done)", "GraphML write-lock guard (done)", "Save-after-create toggle \u2014 'virtuous save' (done, default ON)", "Extractor/Combiner NodeLabel Corner-NorthWest in the GraphMLPatcher (done)", "Chain summary narrative in the panel (done)", "Unified Add-US dialog launch (done, see DP-55)", "Drop experimental_features gate after validation pass (planned, field-test)"],
     impacts: ["emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
+    targetVersion: "1.5", incorporated: "1.5",
     notes: "Related to DP-33 (Stratigraphy Manager+), DP-50 (Surface Areale \u2014 sibling RM\u2192proxy pipeline), DP-55 (US Creation Workflow Unification \u2014 powers the + Add US button in this panel), DP-07 (Document Node three-axis \u2014 the anchor carries role/content_nature/geometry). Remaining 1.5 work: field-test pass, then drop the experimental_features gate.", thesis: false, stratigraph: true, keyStudy: "Needed"
   },
   {
@@ -782,7 +782,7 @@ const projects = [
     notes: "Split out from DP-48 when its core (exporter + patcher) shipped in 1.5. Related to DP-06 (Data Transformation Chunk) and DP-45 (XLSX Auxiliary Data).", thesis: false, stratigraph: true, keyStudy: "Needed"
   },
   {
-    id: "DP-54", title: "Surface Areale — Boolean + LOD Strategy", cat: "tool", embargo: false,
+    id: "DP-54", title: "Surface Area", cat: "tool", embargo: false,
     status: "partial", statusLabel: "Partially implemented",
     desc: "Boolean + LOD surface generation strategy for Surface Areale. Split out from DP-50 because it is more invasive on source geometry and needs longer API stabilization.",
     full: "Follow-up to DP-50 (Surface Areale System). DP-50 shipped the projective and shrinkwrap generation strategies in 1.5 with the full paradata chain, complexity classifier, and Working Unit (UL) node type. This DP covers the third generation strategy — Boolean + LOD — which is more invasive on the source Representation Model geometry (boolean operations, multi-resolution output) and needs a longer API stabilization window. Already implemented at code level; shipping behind scene.em_tools.experimental_features in 1.6 with explicit field-test sign-off before promotion.",
@@ -793,12 +793,12 @@ const projects = [
   },
   {
     id: "DP-55", title: "Stratigraphic Unit Creation Workflow Unification", cat: "tool", embargo: false,
-    status: "near", statusLabel: "Near completion",
+    status: "done", statusLabel: "Incorporated",
     desc: "Single shared 'Add Stratigraphic Unit' dialog used by the Stratigraphy Manager, Proxy Box Creator and Surface Areas; JSON-driven US type registry; activity filter by epoch; gap-aware + shared-pool numbering; canonical USN (Negative US) class.",
     full: "Cross-tool refactor that consolidates every 'new US' flow in EMtools behind one floating dialog (strat.add_us) and one factory function (us_helpers.create_us_node). Before: the Proxy Box Creator and Surface Areas each had their own inline 'Create new US' branch (with its own type / name / epoch / activity / stratigraphic-link fields) duplicating the Stratigraphy Manager's logic, and a + next-number button in the Stratigraphy dialog that broke because it couldn't peek at the dialog's transient props (operator stack empty until FINISHED). After: a single dialog form with Type, Name + gap-aware suggest-next, Description, Shared-numbering toggle (default ON, trailing-digits across every US type so SU001 \u2261 US.1 in the pool), Epoch (mandatory, drives the Activity filter), Activity picker (filtered by epoch via scene.activity_manager.filtered_activities + ACTIVITY_OT_filter_by_epoch), optional stratigraphic link, persist_after_create toggle that saves the graphml to disk on OK. The + suggest-next button writes to a scene-level sentinel (scene.em_tools.stratigraphy.pending_us_name) so the dialog and the button share state without cross-operator lookups. The factory writes the node, has_first_epoch, optional is_in_activity (mirrored onto the per-US PD nodegroup when DP-46 creates one), optional is_after / is_before, and populates the Stratigraphy Manager list. US type registry (us_types.py) is JSON-driven: every picker reads from s3Dgraphy's node datamodel patch v1.5.2 (additive metadata \u2014 family + is_series per subtype; EM formalism stays at 1.5). USN (Negative Stratigraphic Unit) lands as a proper s3dgraphy class replacing the ad-hoc US_NEG placeholder. Legacy PREFIX_ALIASES (US \u2194 SU, USN \u2194 USNEG / US_NEG) prevent numbering collisions across conventions.",
     components: ["us_helpers.create_us_node factory (done)", "us_types.py facade reading s3Dgraphy classification API (done)", "Shared Add-US floating dialog strat.add_us (done)", "+ Add US toolbar button under the Stratigraphy Manager list with custom proxies_rows_add icon (done)", "Proxy Box Creator Active-US picker + launches the dialog (done)", "Surface Areas Existing-US picker + launches the dialog (done)", "Activity filter by epoch (done, direct populator call from update callback \u2014 no silent bpy.ops failures)", "Gap-aware next-number from 1 (done, both per-type and shared-pool modes)", "Shared-numbering default ON (done)", "PREFIX_ALIASES for legacy SU \u2194 US, USN \u2194 USNEG / US_NEG (done)", "persist_after_create default ON (done)", "Scene-level pending_us_name sentinel (done, cross-operator state sharing)", "NegativeStratigraphicUnit class with USN node_type and dashed-border yEd variant (done, s3Dgraphy side)", "Centralised hardcoded US-type lists across 10 files / 15 occurrences (done, fixed three incomplete ones incidentally)", "Field-test validation pass (planned)"],
     impacts: ["emtools", "s3d", "config"],
-    targetVersion: "1.5", incorporated: null,
+    targetVersion: "1.5", incorporated: "1.5",
     notes: "Unifies the US creation form across Stratigraphy Manager / Proxy Box Creator (DP-46) / Surface Areas (DP-50). Depends on the s3Dgraphy node datamodel patch to v1.5.2 (additive family + is_series metadata per stratigraphic subtype \u2014 EM formalism stays at 1.5, no breaking changes). USN is a real class on the s3Dgraphy side, not a UI-only workaround. Remaining work: field-test with real graphml to catch edge cases on SU / US numbering pools that span thousands of legacy entries.", thesis: false, stratigraph: true, keyStudy: "TempluMare"
   },
   {
