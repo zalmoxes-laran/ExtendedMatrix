@@ -1,0 +1,81 @@
+Ver. 1:
+Guida Avanzata alla Creazione di JSON per la Rappresentazione di Unità Stratigrafiche
+
+Elementi Base:
+
+ 1. Nodi (Nodes): Ogni nodo rappresenta un’entità come una unità stratigrafica, un documento, un estrattore, o un combiner.
+ • Unità Stratigrafica (US): Rappresenta un oggetto fisico o ipotetico, come una colonna o una fondazione.
+ • Documento (Document): Fonte da cui proviene l’informazione.
+ • Estrattore (Extractor): Nodo che interpreta o estrae dati dai documenti.
+ • Combiner (Combiner): Nodo che sintetizza informazioni da più fonti/estrattori per formare una nuova conclusione o insight.
+ 2. Connettività (Edges):
+ • Linee (line): Collegano le unità stratigrafiche per mostrare una relazione fisica diretta.
+ • Linee tratteggiate (dashed): Usate per collegare le unità stratigrafiche ai nodi che giustificano o spiegano le loro caratteristiche (es. documenti, proprietà).
+
+Strutturazione Avanzata:
+
+ • Utilizzare i combiner per integrare e sintetizzare informazioni provenienti da diversi estrattori, che a loro volta hanno estratto dati da vari documenti.
+ • I combiner possono essere usati per validare ipotesi complesse su base archeologica, combinando dati storici, descrittivi e fisici.
+
+Esempio di Costruzione di un JSON:
+
+{
+  "nodes": {
+    "USM100": {
+      "type": "US",
+      "name": "USM100",
+      "data": {
+        "description": "Fondazione di epoca romana",
+        "epochs": ["Epoca Romana"],
+        "url": "Empty",
+        "time": 0
+      }
+    },
+    "USW102": {
+      "type": "USVn",
+      "name": "USW102",
+      "data": {
+        "description": "Serie di colonne, intercolumnio aerostilo",
+        "epochs": ["Epoca Romana"],
+        "url": "Empty",
+        "time": 0
+      }
+    },
+    "D.02": {
+      "type": "document",
+      "name": "D.02",
+      "data": {
+        "description": "Regola generale architettura romana",
+        "icon": false,
+        "url": "D.02 general rules.jpg"
+      }
+    },
+    "C.01": {
+      "type": "combiner",
+      "name": "C.01",
+      "data": {
+        "description": "Sintesi delle informazioni su intercolumnio e tipo di edificio",
+        "icon": false,
+        "url": ""
+      }
+    }
+  },
+  "edges": {
+    "line": [
+      {
+        "from": "USW102",
+        "to": "USM100"
+      }
+    ],
+    "dashed": [
+      {
+        "from": "USW102",
+        "to": "C.01"
+      },
+      {
+        "from": "C.01",
+        "to": "D.02"
+      }
+    ]
+  }
+}
