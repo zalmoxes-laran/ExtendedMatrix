@@ -1,0 +1,24 @@
+{
+    "title": "Extended Matrix",
+    "upload_type": "software",
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "language": "eng",
+    "description": "The Extended Matrix (EM) is a scientific method and formal language for the Cultural Heritage domain. It is based on knowledge graph networks and grounded on FAIR and Open Science principles. EM formalises complex interpretative philological phenomena such as virtual reconstructive hypotheses in a transparent and robust manner; EM enables verifiability of results, reusability of data and collaborative interpretation.",
+    "creators": [
+        {
+            "name": "Demetrescu, Emanuel",
+            "orcid": "0000-0002-5065-7970",
+            "affiliation": "CNR - Consiglio Nazionale delle Ricerche"
+        }
+    ],
+    "keywords": [
+        "Extended Matrix",
+        "virtual reconstruction",
+        "archaeology",
+        "cultural heritage",
+        "stratigraphy",
+        "knowledge graph",
+        "paradata"
+    ]
+}
