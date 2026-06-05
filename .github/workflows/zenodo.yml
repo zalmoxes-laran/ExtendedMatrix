@@ -1,0 +1,44 @@
+name: Archive stable release to Zenodo
+
+# Quando pubblichi una Release STABILE (non prerelease), archivia il sorgente del
+# tag come NUOVA VERSIONE su Zenodo, via API deposizioni. Sostituisce il webhook
+# GitHub->Zenodo (disattivato perche' dopo la migrazione a InvenioRDM falliva con
+# errore vuoto {"errors": ""}). Idempotente e non bloccante.
+#
+# Richiede il secret di repo ZENODO_TOKEN (scope deposit:write + deposit:actions).
+# Se il secret manca, lo script salta senza errore.
+#
+# Gira dal branch di DEFAULT (main) per l'evento `release`, qualunque sia il
+# branch da cui e' stato tagliato il tag.
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  zenodo:
+    # solo release stabili (le prerelease non vanno archiviate)
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build source archive of the released tag
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          # usa il .zenodo.json del tag se presente (metadati di quella versione);
+          # altrimenti resta quello del branch di default come fallback.
+          git show "refs/tags/${TAG}:.zenodo.json" > .zenodo.json 2>/dev/null || true
+          git archive --format=zip --prefix="ExtendedMatrix-${TAG}/" "refs/tags/${TAG}" \
+            -o "ExtendedMatrix-${TAG}.zip"
+          ls -la "ExtendedMatrix-${TAG}.zip" .zenodo.json
+
+      - name: Publish source to Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_CONCEPT: "5957132"
+          TAG: ${{ github.event.release.tag_name }}
+          SRC_ZIP: "ExtendedMatrix-${{ github.event.release.tag_name }}.zip"
+        run: python3 scripts/zenodo_publish.py
