@@ -1,44 +1,49 @@
-name: Archive stable release to Zenodo
+name: Archive release to Zenodo
 
-# Quando pubblichi una Release STABILE (non prerelease), archivia il sorgente del
-# tag come NUOVA VERSIONE su Zenodo, via API deposizioni. Sostituisce il webhook
-# GitHub->Zenodo (disattivato perche' dopo la migrazione a InvenioRDM falliva con
-# errore vuoto {"errors": ""}). Idempotente e non bloccante.
+# Archivia il SORGENTE di un tag come nuova versione su Zenodo (concept 5957132)
+# via API deposizioni. Due modi:
+#   - MANUALE: Actions > "Archive release to Zenodo" > Run workflow > indica il tag
+#   - automatico: alla pubblicazione di una Release stabile (non prerelease)
+# Idempotente e non bloccante. Richiede il secret ZENODO_TOKEN (scope
+# deposit:write + deposit:actions); se manca, lo script salta senza errore.
 #
-# Richiede il secret di repo ZENODO_TOKEN (scope deposit:write + deposit:actions).
-# Se il secret manca, lo script salta senza errore.
-#
-# Gira dal branch di DEFAULT (main) per l'evento `release`, qualunque sia il
-# branch da cui e' stato tagliato il tag.
+# Gira dal branch di DEFAULT (main). Il sorgente viene preso dal tag indicato;
+# .zenodo.json e lo script vengono presi da main (canonici), cosi' funziona
+# anche se quel tag non li contiene.
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Git tag da archiviare su Zenodo (es. v.1.5.2)'
+        required: true
+        type: string
   release:
     types: [published]
 
 jobs:
   zenodo:
-    # solo release stabili (le prerelease non vanno archiviate)
-    if: ${{ !github.event.release.prerelease }}
+    # manuale: sempre; da release: solo stabili (non prerelease)
+    if: ${{ github.event_name == 'workflow_dispatch' || !github.event.release.prerelease }}
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
           fetch-depth: 0
 
-      - name: Build source archive of the released tag
+      - name: Prepare source archive + canonical metadata/script
         run: |
-          TAG="${{ github.event.release.tag_name }}"
-          # usa il .zenodo.json del tag se presente (metadati di quella versione);
-          # altrimenti resta quello del branch di default come fallback.
-          git show "refs/tags/${TAG}:.zenodo.json" > .zenodo.json 2>/dev/null || true
-          git archive --format=zip --prefix="ExtendedMatrix-${TAG}/" "refs/tags/${TAG}" \
-            -o "ExtendedMatrix-${TAG}.zip"
-          ls -la "ExtendedMatrix-${TAG}.zip" .zenodo.json
+          git archive --format=zip --prefix="ExtendedMatrix-${TAG}/" HEAD -o "ExtendedMatrix-${TAG}.zip"
+          git fetch origin main --depth=1 -q
+          git checkout origin/main -- .zenodo.json scripts/zenodo_publish.py
+          ls -la "ExtendedMatrix-${TAG}.zip" .zenodo.json scripts/zenodo_publish.py
 
       - name: Publish source to Zenodo
         env:
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
           ZENODO_CONCEPT: "5957132"
-          TAG: ${{ github.event.release.tag_name }}
-          SRC_ZIP: "ExtendedMatrix-${{ github.event.release.tag_name }}.zip"
+          SRC_ZIP: "ExtendedMatrix-${{ env.TAG }}.zip"
         run: python3 scripts/zenodo_publish.py
