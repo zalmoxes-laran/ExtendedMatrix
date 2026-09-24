@@ -24,7 +24,7 @@ EM 1.5.0 was released on **2026-05-15** and is the recommended starting point fo
 
 ## Documentation
 
-The stable Extended Matrix manual (1.5) is published at [docs.extendedmatrix.org/en/1.5.0/](https://docs.extendedmatrix.org/en/1.5.0/). The same documentation site hosts the companion tools' manuals — see [EM Tools docs](https://docs.extendedmatrix.org/projects/EM-tools/en/latest/) and the [s3Dgraphy docs](https://docs.extendedmatrix.org/projects/s3dgraphy/) for the Blender add-on and the Python library respectively.
+The stable Extended Matrix manual (1.5) is published at [docs.extendedmatrix.org/en/1.5.0/](https://docs.extendedmatrix.org/en/1.5.0/). The same documentation site hosts the companion tools' manuals — see [EM Tools docs](https://docs.extendedmatrix.org/projects/EM-tools/en/latest/) and the [s3Dgraphy docs](https://docs.extendedmatrix.org/projects/s3dgraphy/en/v1.6/) for the Blender add-on and the Python library respectively.
 
 The 1.6 development manual is being drafted at [docs.extendedmatrix.org/en/1.6/](https://docs.extendedmatrix.org/en/1.6/) and may contain incomplete or experimental content; for any production work, refer to the 1.5 manual linked above.
 
